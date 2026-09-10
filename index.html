@@ -2,137 +2,274 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#4b2e83">
-<title>Lahiri Kundali V1.0</title>
 
-<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#6d28d9">
+
+<title>KundaliVeda V1.1</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f1f8;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f3ff;
   color:#222;
 }
+
 header{
-  background:linear-gradient(135deg,#4b2e83,#7b3fb2);
-  color:#fff;
-  padding:20px 15px;
+  background:linear-gradient(135deg,#4c1d95,#7c3aed);
+  color:white;
+  padding:22px 15px;
   text-align:center;
 }
-header h1{margin:0;font-size:25px}
-header p{margin:7px 0 0;font-size:13px}
+
+header h1{
+  margin:0;
+  font-size:30px;
+}
+
+header p{
+  margin:7px 0 0;
+  opacity:.9;
+}
+
 .container{
-  max-width:900px;
+  max-width:1100px;
   margin:auto;
   padding:15px;
 }
+
 .card{
-  background:#fff;
-  border-radius:14px;
+  background:white;
+  border-radius:16px;
   padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 3px 12px rgba(0,0,0,.09);
+  margin-bottom:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
-h2{
-  color:#4b2e83;
+
+.card h2{
   margin-top:0;
+  color:#5b21b6;
 }
-label{
-  display:block;
-  font-weight:bold;
-  margin:12px 0 5px;
-}
-input,button,select{
-  width:100%;
-  padding:12px;
-  border-radius:9px;
-  border:1px solid #bbb;
-  font-size:16px;
-}
-button{
-  background:#4b2e83;
-  color:white;
-  border:0;
-  font-weight:bold;
-  margin-top:15px;
-}
-button:active{transform:scale(.98)}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
-.status{
-  padding:12px;
-  border-radius:8px;
-  background:#eee;
-  margin-top:12px;
+
+.field{
+  display:flex;
+  flex-direction:column;
+}
+
+.field label{
+  font-weight:bold;
+  margin-bottom:5px;
   font-size:14px;
 }
-.success{background:#e7f6ea;color:#176b2b}
-.error{background:#ffe8e8;color:#9b2226}
+
+input,select{
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+  background:white;
+}
+
+button{
+  border:0;
+  padding:12px 18px;
+  border-radius:10px;
+  background:#6d28d9;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#5b21b6;
+}
+
+button:disabled{
+  background:#aaa;
+  cursor:not-allowed;
+}
+
+.btn-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.status{
+  padding:12px;
+  border-radius:10px;
+  background:#ede9fe;
+  color:#4c1d95;
+  margin-bottom:15px;
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.loading{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.summary-box{
+  background:#f5f3ff;
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+}
+
+.summary-box .value{
+  font-size:22px;
+  font-weight:bold;
+  color:#5b21b6;
+}
+
+.summary-box .label{
+  font-size:12px;
+  margin-top:4px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:10px;
 }
+
 th,td{
-  border:1px solid #ddd;
-  padding:9px 6px;
-  text-align:center;
-  font-size:13px;
+  padding:9px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  white-space:nowrap;
 }
+
 th{
-  background:#eee7f7;
-  color:#4b2e83;
+  background:#ede9fe;
+  color:#4c1d95;
 }
-.chart{
-  width:100%;
-  max-width:520px;
-  margin:15px auto;
-  display:block;
-}
-.chart rect{
-  fill:#fff;
-  stroke:#4b2e83;
-  stroke-width:2;
-}
-.chart line{
-  stroke:#4b2e83;
-  stroke-width:1.5;
-}
-.chart text{
-  fill:#222;
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  background:#ede9fe;
+  color:#5b21b6;
   font-size:12px;
   font-weight:bold;
 }
-.badge{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:6px;
-  background:#eee7f7;
-  margin:2px;
+
+.chart{
+  width:100%;
+  max-width:650px;
+  margin:auto;
 }
-.small{font-size:12px;color:#666}
-.hidden{display:none}
-.spinner{
-  display:inline-block;
-  width:15px;
-  height:15px;
-  border:2px solid #ccc;
-  border-top-color:#4b2e83;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
+
+.chart-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border:2px solid #4c1d95;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
-footer{
-  text-align:center;
-  padding:20px;
-  color:#777;
+
+.chart-cell{
+  min-height:120px;
+  border:1px solid #c4b5fd;
+  padding:8px;
+  position:relative;
+  background:#fafafa;
+}
+
+.chart-cell .house{
   font-size:12px;
+  color:#777;
+}
+
+.chart-cell .sign{
+  font-weight:bold;
+  color:#5b21b6;
+}
+
+.planet{
+  display:block;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.navamsa-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:2px solid #047857;
+}
+
+.nav-cell{
+  min-height:100px;
+  border:1px solid #a7f3d0;
+  padding:8px;
+  background:#f0fdf4;
+}
+
+.small{
+  font-size:12px;
+  color:#666;
+}
+
+.note{
+  background:#fefce8;
+  border-left:4px solid #eab308;
+  padding:12px;
+  border-radius:8px;
+  font-size:13px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .chart-cell{
+    min-height:95px;
+  }
+
+  header h1{
+    font-size:25px;
+  }
 }
 </style>
 </head>
@@ -140,1270 +277,1930 @@ footer{
 <body>
 
 <header>
-  <h1>🕉️ Lahiri Kundali</h1>
-  <p>Vedic Birth Chart • Lahiri / Chitrapaksha • Astronomical Calculation Engine</p>
+  <h1>🔱 KundaliVeda</h1>
+  <p>Vedic Birth Chart • Lahiri Sidereal • Swiss Ephemeris</p>
 </header>
 
 <div class="container">
 
-<div class="card">
-<h2>Birth Details</h2>
-
-<label>Date of Birth</label>
-<input id="dob" type="date">
-
-<label>Time of Birth</label>
-<input id="tob" type="time" step="1">
-
-<label>Birth Place</label>
-<input id="place" type="text" placeholder="Example: Kolkata, West Bengal, India">
-
-<div class="grid">
-  <div>
-    <label>Latitude</label>
-    <input id="lat" type="number" step="0.000001" placeholder="Auto">
+  <div id="engineStatus"
+       class="status loading">
+    ⏳ Loading Swiss Ephemeris...
   </div>
-  <div>
-    <label>Longitude</label>
-    <input id="lon" type="number" step="0.000001" placeholder="Auto">
+
+  <div class="card">
+
+    <h2>Birth Details</h2>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="date"
+               id="birthDate"
+               value="1982-06-30">
+      </div>
+
+      <div class="field">
+        <label>Birth Time</label>
+        <input type="time"
+               id="birthTime"
+               value="19:30">
+      </div>
+
+      <div class="field">
+        <label>Place</label>
+        <input type="text"
+               id="place"
+               value="Purulia, West Bengal, India">
+      </div>
+
+      <div class="field">
+        <label>Latitude</label>
+        <input type="number"
+               id="latitude"
+               step="0.000001"
+               value="23.3322">
+      </div>
+
+      <div class="field">
+        <label>Longitude</label>
+        <input type="number"
+               id="longitude"
+               step="0.000001"
+               value="86.3652">
+      </div>
+
+      <div class="field">
+        <label>UTC Offset</label>
+        <input type="number"
+               id="utcOffset"
+               step="0.5"
+               value="5.5">
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button id="calculateBtn" disabled>
+        Calculate Kundali
+      </button>
+
+      <button id="sampleBtn"
+              type="button">
+        Load Validation Birth
+      </button>
+    </div>
+
   </div>
+
+
+  <div id="resultArea"
+       class="hidden">
+
+    <div class="card">
+
+      <h2>Chart Summary</h2>
+
+      <div class="summary">
+
+        <div class="summary-box">
+          <div class="value" id="ascendantValue">—</div>
+          <div class="label">Lagna</div>
+        </div>
+
+        <div class="summary-box">
+          <div class="value" id="moonValue">—</div>
+          <div class="label">Moon Rashi</div>
+        </div>
+
+        <div class="summary-box">
+          <div class="value" id="moonNakValue">—</div>
+          <div class="label">Moon Nakshatra</div>
+        </div>
+
+        <div class="summary-box">
+          <div class="value" id="ayanamsaValue">—</div>
+          <div class="label">Lahiri Ayanamsa</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Calculation Information</h2>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <tbody>
+
+            <tr>
+              <th>System</th>
+              <td id="systemInfo">
+                Lahiri / Chitrapaksha
+              </td>
+            </tr>
+
+            <tr>
+              <th>Ephemeris</th>
+              <td id="ephemerisInfo">
+                —
+              </td>
+            </tr>
+
+            <tr>
+              <th>Birth Local Time</th>
+              <td id="localInfo">
+                —
+              </td>
+            </tr>
+
+            <tr>
+              <th>Birth UTC</th>
+              <td id="utcInfo">
+                —
+              </td>
+            </tr>
+
+            <tr>
+              <th>Julian Day</th>
+              <td id="jdInfo">
+                —
+              </td>
+            </tr>
+
+            <tr>
+              <th>Latitude</th>
+              <td id="latInfo">
+                —
+              </td>
+            </tr>
+
+            <tr>
+              <th>Longitude</th>
+              <td id="lngInfo">
+                —
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Planetary Positions — D1 / Rashi</h2>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Planet</th>
+              <th>Longitude</th>
+              <th>Rashi</th>
+              <th>Degree</th>
+              <th>Nakshatra</th>
+              <th>Pada</th>
+              <th>House</th>
+              <th>Motion</th>
+            </tr>
+          </thead>
+
+          <tbody id="planetTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Rashi Chart — D1</h2>
+
+      <div class="chart">
+        <div id="rashiChart"
+             class="chart-grid">
+        </div>
+      </div>
+
+      <p class="small">
+        Whole-sign house placement is shown for the Vedic D1
+        presentation. The Ascendant itself is calculated by Swiss
+        Ephemeris.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Navamsa — D9</h2>
+
+      <div id="navamsaChart"
+           class="navamsa-grid">
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Vimshottari Dasha</h2>
+
+      <div id="dashaSummary"
+           class="note">
+      </div>
+
+      <div class="table-wrap"
+           style="margin-top:15px">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Mahadasha</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Years</th>
+            </tr>
+          </thead>
+
+          <tbody id="dashaTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Technical Validation</h2>
+
+      <div class="note">
+
+        <b>Calculation engine:</b>
+        Swiss Ephemeris WebAssembly
+
+        <br><br>
+
+        <b>Sidereal mode:</b>
+        SE_SIDM_LAHIRI
+
+        <br><br>
+
+        <b>Planetary calculation:</b>
+        Swiss Ephemeris sidereal calculation
+
+        <br><br>
+
+        <b>Node:</b>
+        Mean Rahu / Ketu
+
+        <br><br>
+
+        <b>House presentation:</b>
+        Whole-sign Vedic house mapping from the calculated Lagna
+
+        <br><br>
+
+        This version intentionally avoids the old manually
+        approximated Lahiri ayanamsa formula.
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<label>UTC Offset</label>
-<select id="offset">
-  <option value="auto">Automatic from birth place</option>
-  <option value="5.5">India UTC+05:30</option>
-  <option value="5.75">Nepal UTC+05:45</option>
-  <option value="6">Bangladesh UTC+06:00</option>
-  <option value="0">UTC+00:00</option>
-  <option value="-5">UTC-05:00</option>
-  <option value="-4">UTC-04:00</option>
-  <option value="1">UTC+01:00</option>
-  <option value="2">UTC+02:00</option>
-  <option value="3">UTC+03:00</option>
-  <option value="8">UTC+08:00</option>
-  <option value="9">UTC+09:00</option>
-</select>
 
-<button onclick="calculateKundali()">🔮 Calculate Kundali</button>
+<script type="module">
 
-<div id="status" class="status">
-Enter date, time and birth place.
-</div>
-</div>
+/*
+==========================================================
+ KUNDALIVEDA V1.1
+ Swiss Ephemeris WebAssembly
+ Lahiri / Chitrapaksha
+==========================================================
 
-<div id="result" class="hidden">
+ IMPORTANT:
+ This application uses an open-source Swiss Ephemeris
+ WebAssembly wrapper.
 
-<div class="card">
-<h2>Birth Information</h2>
-<table>
-<tbody id="birthTable"></tbody>
-</table>
-</div>
+ Review the applicable Swiss Ephemeris / wrapper license
+ before commercial deployment.
+==========================================================
+*/
 
-<div class="card">
-<h2>Calculation Information</h2>
-<table>
-<tbody id="calcTable"></tbody>
-</table>
-</div>
+import SwissEph from
+'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
 
-<div class="card">
-<h2>🪷 Lagna</h2>
-<table>
-<tbody id="lagnaTable"></tbody>
-</table>
-</div>
 
-<div class="card">
-<h2>🌙 Janma Nakshatra</h2>
-<table>
-<tbody id="nakshatraTable"></tbody>
-</table>
-</div>
+let swe = null;
+let initialized = false;
 
-<div class="card">
-<h2>🪐 Planetary Positions</h2>
-<div style="overflow-x:auto">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>Longitude</th>
-<th>Rashi</th>
-<th>Degree</th>
-<th>Nakshatra</th>
-<th>Pada</th>
-<th>Motion</th>
-<th>House</th>
-</tr>
-</thead>
-<tbody id="planetTable"></tbody>
-</table>
-</div>
-</div>
 
-<div class="card">
-<h2>🔯 Rashi Chart</h2>
-<div id="rashiChart"></div>
-</div>
+/* ======================================================
+   BASIC CONSTANTS
+====================================================== */
 
-<div class="card">
-<h2>🏠 House Summary</h2>
-<div style="overflow-x:auto">
-<table>
-<thead>
-<tr>
-<th>House</th>
-<th>Rashi</th>
-<th>Lord</th>
-<th>Planets</th>
-</tr>
-</thead>
-<tbody id="houseTable"></tbody>
-</table>
-</div>
-</div>
-
-<div class="card">
-<h2>🪷 Navamsa</h2>
-<div style="overflow-x:auto">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>Rashi</th>
-<th>Navamsa Rashi</th>
-</tr>
-</thead>
-<tbody id="navamsaTable"></tbody>
-</table>
-</div>
-</div>
-
-<div class="card">
-<h2>⏳ Vimshottari Dasha</h2>
-<div style="overflow-x:auto">
-<table>
-<thead>
-<tr>
-<th>Mahadasha</th>
-<th>Start</th>
-<th>End</th>
-</tr>
-</thead>
-<tbody id="dashaTable"></tbody>
-</table>
-</div>
-</div>
-
-<div class="card">
-<h2>📋 Planetary Summary</h2>
-<div id="summary"></div>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-Lahiri / Chitrapaksha sidereal zodiac • Whole-sign houses
-</footer>
-
-<script>
-
-const RASHIS = [
-"Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-"Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+const SIGNS = [
+  "Mesha",
+  "Vrishabha",
+  "Mithuna",
+  "Karka",
+  "Simha",
+  "Kanya",
+  "Tula",
+  "Vrischika",
+  "Dhanu",
+  "Makara",
+  "Kumbha",
+  "Meena"
 ];
 
-const RASHI_BN = [
-"মেষ","বৃষ","মিথুন","কর্কট","সিংহ","কন্যা",
-"তুলা","বৃশ্চিক","ধনু","মকর","কুম্ভ","মীন"
-];
-
-const LORDS = [
-"Mars","Venus","Mercury","Moon","Sun","Mercury",
-"Venus","Mars","Jupiter","Saturn","Saturn","Jupiter"
+const SIGN_SYMBOLS = [
+  "♈",
+  "♉",
+  "♊",
+  "♋",
+  "♌",
+  "♍",
+  "♎",
+  "♏",
+  "♐",
+  "♑",
+  "♒",
+  "♓"
 ];
 
 const NAKSHATRAS = [
-"Ashwini","Bharani","Krittika","Rohini","Mrigashira",
-"Ardra","Punarvasu","Pushya","Ashlesha","Magha",
-"Purva Phalguni","Uttara Phalguni","Hasta","Chitra",
-"Swati","Vishakha","Anuradha","Jyeshtha","Mula",
-"Purva Ashadha","Uttara Ashadha","Shravana","Dhanishtha",
-"Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"
+  "Ashwini",
+  "Bharani",
+  "Krittika",
+  "Rohini",
+  "Mrigashira",
+  "Ardra",
+  "Punarvasu",
+  "Pushya",
+  "Ashlesha",
+  "Magha",
+  "Purva Phalguni",
+  "Uttara Phalguni",
+  "Hasta",
+  "Chitra",
+  "Swati",
+  "Vishakha",
+  "Anuradha",
+  "Jyeshtha",
+  "Mula",
+  "Purva Ashadha",
+  "Uttara Ashadha",
+  "Shravana",
+  "Dhanishtha",
+  "Shatabhisha",
+  "Purva Bhadrapada",
+  "Uttara Bhadrapada",
+  "Revati"
 ];
 
-const NAK_LORDS = [
-"Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury",
-"Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury",
-"Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury"
+const DASHA_LORDS = [
+  "Ketu",
+  "Venus",
+  "Sun",
+  "Moon",
+  "Mars",
+  "Rahu",
+  "Jupiter",
+  "Saturn",
+  "Mercury"
 ];
-
-const NAK_SPAN = 360 / 27;
 
 const DASHA_YEARS = {
-"Ketu":7,
-"Venus":20,
-"Sun":6,
-"Moon":10,
-"Mars":7,
-"Rahu":18,
-"Jupiter":16,
-"Saturn":19,
-"Mercury":17
+  Ketu: 7,
+  Venus: 20,
+  Sun: 6,
+  Moon: 10,
+  Mars: 7,
+  Rahu: 18,
+  Jupiter: 16,
+  Saturn: 19,
+  Mercury: 17
 };
 
-const DASHA_ORDER = [
-"Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury"
-];
-
 const PLANETS = [
-  {name:"Sun",body:Astronomy.Body.Sun},
-  {name:"Moon",body:Astronomy.Body.Moon},
-  {name:"Mars",body:Astronomy.Body.Mars},
-  {name:"Mercury",body:Astronomy.Body.Mercury},
-  {name:"Jupiter",body:Astronomy.Body.Jupiter},
-  {name:"Venus",body:Astronomy.Body.Venus},
-  {name:"Saturn",body:Astronomy.Body.Saturn}
+  {
+    id: "Sun",
+    code: () => swe.SE_SUN,
+    symbol: "☉"
+  },
+  {
+    id: "Moon",
+    code: () => swe.SE_MOON,
+    symbol: "☽"
+  },
+  {
+    id: "Mars",
+    code: () => swe.SE_MARS,
+    symbol: "♂"
+  },
+  {
+    id: "Mercury",
+    code: () => swe.SE_MERCURY,
+    symbol: "☿"
+  },
+  {
+    id: "Jupiter",
+    code: () => swe.SE_JUPITER,
+    symbol: "♃"
+  },
+  {
+    id: "Venus",
+    code: () => swe.SE_VENUS,
+    symbol: "♀"
+  },
+  {
+    id: "Saturn",
+    code: () => swe.SE_SATURN,
+    symbol: "♄"
+  },
+  {
+    id: "Rahu",
+    code: () => swe.SE_MEAN_NODE,
+    symbol: "☊"
+  }
 ];
 
-let currentData=null;
 
-function norm(x){
-  x%=360;
-  if(x<0)x+=360;
-  return x;
-}
+/* ======================================================
+   ELEMENTS
+====================================================== */
 
-function pad(n){
-  return String(n).padStart(2,"0");
-}
+const statusEl =
+  document.getElementById("engineStatus");
 
-function degToDMS(deg){
-  deg=norm(deg);
-  let d=Math.floor(deg);
-  let m=Math.floor((deg-d)*60);
-  let s=Math.round((((deg-d)*60)-m)*60);
+const calculateBtn =
+  document.getElementById("calculateBtn");
 
-  if(s===60){s=0;m++}
-  if(m===60){m=0;d++}
+const resultArea =
+  document.getElementById("resultArea");
 
-  return `${pad(d)}° ${pad(m)}′ ${pad(s)}″`;
-}
+const sampleBtn =
+  document.getElementById("sampleBtn");
 
-function signDegree(longitude){
-  longitude=norm(longitude);
-  const sign=Math.floor(longitude/30);
-  const degree=longitude-sign*30;
-  return {
-    sign,
-    degree,
-    degreeText:degToDMS(degree)
-  };
-}
 
-function nakshatraInfo(longitude){
-  longitude=norm(longitude);
+/* ======================================================
+   INITIALIZE SWISS EPHEMERIS
+====================================================== */
 
-  let index=Math.floor(longitude/NAK_SPAN);
-
-  if(index>26)index=26;
-
-  let within=longitude-index*NAK_SPAN;
-  let pada=Math.floor(within/(NAK_SPAN/4))+1;
-
-  if(pada>4)pada=4;
-
-  return {
-    index,
-    name:NAKSHATRAS[index],
-    lord:NAK_LORDS[index],
-    pada,
-    longitude:within
-  };
-}
-
-function julianDay(date){
-  return 2440587.5 + date.getTime()/86400000;
-}
-
-function lahiriAyanamsa(jd){
-
-  /*
-   Lahiri / Chitrapaksha approximation.
-
-   Reference epoch:
-   1900-01-01 ≈ 22°27′40″
-
-   Mean annual motion:
-   approximately 50.29 arcsec/year.
-
-   This is used only for the sidereal conversion.
-  */
-
-  const epoch=2415020.5;
-  const base=22 + 27/60 + 40/3600;
-
-  const years=(jd-epoch)/365.2425;
-
-  return base + years*(50.290966/3600);
-}
-
-function eclipticLongitude(body,date){
-
-  try{
-    if(typeof Astronomy.EclipticLongitude==="function"){
-      return Astronomy.EclipticLongitude(body,date);
-    }
-
-    const geo=Astronomy.GeoVector(body,date,true);
-    const ecl=Astronomy.Ecliptic(geo);
-
-    return norm(ecl.elon);
-
-  }catch(e){
-
-    const geo=Astronomy.GeoVector(body,date,true);
-    const ecl=Astronomy.Ecliptic(geo);
-    return norm(ecl.elon);
-  }
-}
-
-function siderealLongitude(body,date,ayanamsa){
-
-  const tropical=eclipticLongitude(body,date);
-  return norm(tropical-ayanamsa);
-}
-
-function getRetrograde(body,date){
+async function initializeSwissEph(){
 
   try{
 
-    const d1=new Date(date.getTime()-86400000);
-    const d2=new Date(date.getTime()+86400000);
+    statusEl.className =
+      "status loading";
 
-    const a=eclipticLongitude(body,d1);
-    const b=eclipticLongitude(body,d2);
+    statusEl.textContent =
+      "⏳ Initializing Swiss Ephemeris...";
 
-    let diff=norm(b-a);
+    swe = new SwissEph();
 
-    if(diff>180)diff-=360;
-
-    return diff<0;
-
-  }catch(e){
-    return false;
-  }
-}
-
-function gmst(date){
-
-  const jd=julianDay(date);
-  const T=(jd-2451545.0)/36525;
-
-  let theta=
-    280.46061837+
-    360.98564736629*(jd-2451545.0)+
-    0.000387933*T*T-
-    T*T*T/38710000;
-
-  return norm(theta);
-}
-
-function ascendant(date,lat,lon){
-
-  const jd=julianDay(date);
-
-  const T=(jd-2451545.0)/36525;
-
-  const eps=
-    23.439291-
-    0.0130042*T;
-
-  const lst=norm(gmst(date)+lon);
-
-  const phi=lat*Math.PI/180;
-  const e=eps*Math.PI/180;
-  const th=lst*Math.PI/180;
-
-  let asc=Math.atan2(
-    -Math.cos(th),
-    Math.sin(th)*Math.cos(e)+Math.tan(phi)*Math.sin(e)
-  )*180/Math.PI;
-
-  asc=norm(asc+180);
-
-  return asc;
-}
-
-function wholeSignHouse(planetLon,lagnaLon){
-
-  const p=Math.floor(norm(planetLon)/30);
-  const l=Math.floor(norm(lagnaLon)/30);
-
-  return ((p-l+12)%12)+1;
-}
-
-function navamsaSign(longitude){
-
-  longitude=norm(longitude);
-
-  const rashi=Math.floor(longitude/30);
-  const deg=longitude%30;
-
-  const part=Math.floor(deg/(30/9));
-
-  let start;
-
-  if([0,3,6,9].includes(rashi)){
-    start=rashi;
-  }else if([1,4,7,10].includes(rashi)){
-    start=(rashi+8)%12;
-  }else{
-    start=(rashi+4)%12;
-  }
-
-  return (start+part)%12;
-}
-
-function formatDate(date){
-
-  return date.toLocaleDateString(
-    "en-IN",
-    {
-      day:"2-digit",
-      month:"long",
-      year:"numeric"
-    }
-  );
-}
-
-function formatDateTime(date){
-
-  return date.toLocaleString(
-    "en-IN",
-    {
-      dateStyle:"medium",
-      timeStyle:"medium"
-    }
-  );
-}
-
-async function geocodePlace(place){
-
-  const url=
-    "https://nominatim.openstreetmap.org/search"+
-    "?format=jsonv2&limit=1&q="+
-    encodeURIComponent(place);
-
-  const response=await fetch(url,{
-    headers:{
-      "Accept":"application/json"
-    }
-  });
-
-  if(!response.ok){
-    throw new Error("Place search failed.");
-  }
-
-  const data=await response.json();
-
-  if(!data.length){
-    throw new Error("Birth place not found.");
-  }
-
-  return {
-    lat:parseFloat(data[0].lat),
-    lon:parseFloat(data[0].lon),
-    display:data[0].display_name
-  };
-}
-
-async function getTimezone(lat,lon){
-
-  try{
-
-    const url=
-      "https://timeapi.io/api/timezone/coordinate"+
-      "?latitude="+encodeURIComponent(lat)+
-      "&longitude="+encodeURIComponent(lon);
-
-    const response=await fetch(url);
-
-    if(response.ok){
-
-      const data=await response.json();
-
-      if(data.currentUtcOffset){
-
-        const seconds=data.currentUtcOffset.seconds;
-
-        return seconds/3600;
-      }
-
-      if(data.currentUtcOffset){
-
-        const text=data.currentUtcOffset;
-
-        const m=String(text).match(/([+-])(\d{2}):?(\d{2})/);
-
-        if(m){
-
-          let value=parseInt(m[2])+parseInt(m[3])/60;
-
-          if(m[1]==="-")value=-value;
-
-          return value;
-        }
-      }
-    }
-
-  }catch(e){}
-
-  /*
-   India fallback.
-  */
-
-  if(lon>=68 && lon<=98 && lat>=6 && lat<=37){
-    return 5.5;
-  }
-
-  return 0;
-}
-
-function localDateToUTC(dateString,timeString,offset){
-
-  const [y,m,d]=dateString.split("-").map(Number);
-  const [hh,mm,ssRaw]=timeString.split(":");
-  const hhN=Number(hh);
-  const mmN=Number(mm);
-  const ssN=Number(ssRaw||0);
-
-  const utcMs=
-    Date.UTC(y,m-1,d,hhN,mmN,ssN)-
-    offset*3600000;
-
-  return new Date(utcMs);
-}
-
-function tableRow(a,b){
-
-  return `<tr><td>${a}</td><td>${b}</td></tr>`;
-}
-
-function calculateDasha(moonLongitude,birthDate){
-
-  const nak=nakshatraInfo(moonLongitude);
-  const firstLord=nak.lord;
-
-  const nakFraction=nak.longitude/NAK_SPAN;
-
-  const elapsedFraction=nakFraction;
-
-  const remainingFraction=1-elapsedFraction;
-
-  const firstYears=
-    DASHA_YEARS[firstLord]*remainingFraction;
-
-  const firstIndex=DASHA_ORDER.indexOf(firstLord);
-
-  const result=[];
-
-  let current=new Date(birthDate.getTime());
-
-  function addYears(date,years){
-
-    const d=new Date(date.getTime());
-
-    d.setTime(
-      d.getTime()+
-      years*365.2425*86400000
-    );
-
-    return d;
-  }
-
-  let firstEnd=addYears(current,firstYears);
-
-  result.push({
-    lord:firstLord,
-    start:new Date(current),
-    end:firstEnd
-  });
-
-  current=firstEnd;
-
-  for(let i=1;i<9;i++){
-
-    const lord=
-      DASHA_ORDER[(firstIndex+i)%9];
-
-    const end=
-      addYears(
-        current,
-        DASHA_YEARS[lord]
-      );
-
-    result.push({
-      lord,
-      start:new Date(current),
-      end
-    });
-
-    current=end;
-  }
-
-  return result;
-}
-
-function makeRashiChart(data){
-
-  const size=500;
-  const c=50;
-  const mid=250;
-
-  let svg=
-  `<svg class="chart" viewBox="0 0 500 500"
-        xmlns="http://www.w3.org/2000/svg">`;
-
-  svg+=`
-  <rect x="50" y="50" width="400" height="400"/>
-  `;
-
-  svg+=`
-  <line x1="50" y1="50" x2="450" y2="450"/>
-  <line x1="450" y1="50" x2="50" y2="450"/>
-  <line x1="250" y1="50" x2="450" y2="250"/>
-  <line x1="450" y1="250" x2="250" y2="450"/>
-  <line x1="250" y1="450" x2="50" y2="250"/>
-  <line x1="50" y1="250" x2="250" y2="50"/>
-  `;
-
-  /*
-   North Indian chart layout.
-   House positions:
-   1 top
-   2 upper-right
-   3 right-upper
-   4 right
-   5 right-lower
-   6 bottom-right
-   7 bottom
-   8 bottom-left
-   9 left-lower
-   10 left
-   11 left-upper
-   12 upper-left
-  */
-
-  const positions={
-    1:[250,145],
-    2:[350,105],
-    3:[395,175],
-    4:[350,250],
-    5:[395,325],
-    6:[350,395],
-    7:[250,355],
-    8:[150,395],
-    9:[105,325],
-    10:[150,250],
-    11:[105,175],
-    12:[150,105]
-  };
-
-  for(let h=1;h<=12;h++){
-
-    const p=positions[h];
-
-    const sign=
-      (data.lagnaSign+h-1)%12;
-
-    svg+=`
-      <text x="${p[0]}" y="${p[1]-15}"
-            text-anchor="middle"
-            font-size="11">
-        ${h}. ${RASHIS[sign]}
-      </text>
-    `;
-
-    const planets=
-      data.planets.filter(
-        x=>x.house===h
-      );
-
-    planets.forEach((pl,i)=>{
-
-      svg+=`
-      <text x="${p[0]}"
-            y="${p[1]+i*15}"
-            text-anchor="middle"
-            font-size="12">
-        ${planetShort(pl.name)}
-      </text>
-      `;
-
-    });
-
-  }
-
-  svg+=`</svg>`;
-
-  return svg;
-}
-
-function planetShort(name){
-
-  const x={
-    Sun:"Su",
-    Moon:"Mo",
-    Mars:"Ma",
-    Mercury:"Me",
-    Jupiter:"Ju",
-    Venus:"Ve",
-    Saturn:"Sa",
-    Rahu:"Ra",
-    Ketu:"Ke"
-  };
-
-  return x[name]||name;
-}
-
-async function calculateKundali(){
-
-  const status=document.getElementById("status");
-
-  try{
-
-    status.className="status";
-    status.innerHTML=
-      `<span class="spinner"></span> Calculating...`;
-
-    const dob=
-      document.getElementById("dob").value;
-
-    const tob=
-      document.getElementById("tob").value;
-
-    const place=
-      document.getElementById("place").value.trim();
-
-    if(!dob){
-      throw new Error("Please enter date of birth.");
-    }
-
-    if(!tob){
-      throw new Error("Please enter time of birth.");
-    }
-
-    if(!place){
-      throw new Error("Please enter birth place.");
-    }
-
-    let lat=parseFloat(
-      document.getElementById("lat").value
-    );
-
-    let lon=parseFloat(
-      document.getElementById("lon").value
-    );
-
-    let placeName=place;
-
-    if(
-      !Number.isFinite(lat) ||
-      !Number.isFinite(lon)
-    ){
-
-      const geo=
-        await geocodePlace(place);
-
-      lat=geo.lat;
-      lon=geo.lon;
-      placeName=geo.display;
-
-      document.getElementById("lat").value=lat.toFixed(6);
-      document.getElementById("lon").value=lon.toFixed(6);
-    }
-
-    let offset=
-      document.getElementById("offset").value;
-
-    if(offset==="auto"){
-
-      offset=
-        await getTimezone(lat,lon);
-
-    }else{
-      offset=parseFloat(offset);
-    }
-
-    const utc=
-      localDateToUTC(
-        dob,
-        tob,
-        offset
-      );
-
-    const jd=julianDay(utc);
-
-    const ayanamsa=
-      lahiriAyanamsa(jd);
-
-    const lagnaTropical=
-      ascendant(
-        utc,
-        lat,
-        lon
-      );
-
-    const lagna=
-      norm(
-        lagnaTropical-
-        ayanamsa
-      );
-
-    const lagnaInfo=
-      signDegree(lagna);
-
-    const planetData=[];
-
-    for(const p of PLANETS){
-
-      const longitude=
-        siderealLongitude(
-          p.body,
-          utc,
-          ayanamsa
-        );
-
-      const sd=
-        signDegree(longitude);
-
-      const nak=
-        nakshatraInfo(longitude);
-
-      const retro=
-        getRetrograde(
-          p.body,
-          utc
-        );
-
-      const house=
-        wholeSignHouse(
-          longitude,
-          lagna
-        );
-
-      planetData.push({
-        name:p.name,
-        longitude,
-        sign:sd.sign,
-        degree:sd.degree,
-        degreeText:sd.degreeText,
-        nakshatra:nak.name,
-        nakIndex:nak.index,
-        nakLord:nak.lord,
-        pada:nak.pada,
-        retro,
-        house
-      });
-    }
-
-    const sun=
-      planetData.find(x=>x.name==="Sun");
-
-    const moon=
-      planetData.find(x=>x.name==="Moon");
-
-    const rahuLongitude=
-      norm(
-        eclipticLongitude(
-          Astronomy.Body.Moon,
-          utc
-        )-
-        ayanamsa+
-        0
-      );
+    await swe.initSwissEph();
 
     /*
-     Mean lunar node approximation.
-
-     The Moon's ascending node is computed
-     from standard astronomical polynomial.
+      Standard Lahiri / Chitrapaksha.
+      The ayanamsa is calculated by Swiss Ephemeris,
+      not by a manually approximated formula.
     */
+    swe.set_sid_mode(
+      swe.SE_SIDM_LAHIRI,
+      0,
+      0
+    );
 
-    const node=
-      meanLunarNode(jd);
+    initialized = true;
 
-    const rahu=
-      norm(node-ayanamsa);
+    calculateBtn.disabled = false;
 
-    const ketu=
-      norm(rahu+180);
+    statusEl.className =
+      "status success";
 
-    const rahuSD=
-      signDegree(rahu);
-
-    const ketuSD=
-      signDegree(ketu);
-
-    const rahuNak=
-      nakshatraInfo(rahu);
-
-    const ketuNak=
-      nakshatraInfo(ketu);
-
-    planetData.push({
-      name:"Rahu",
-      longitude:rahu,
-      sign:rahuSD.sign,
-      degree:rahuSD.degree,
-      degreeText:rahuSD.degreeText,
-      nakshatra:rahuNak.name,
-      nakIndex:rahuNak.index,
-      nakLord:rahuNak.lord,
-      pada:rahuNak.pada,
-      retro:true,
-      house:wholeSignHouse(
-        rahu,
-        lagna
-      )
-    });
-
-    planetData.push({
-      name:"Ketu",
-      longitude:ketu,
-      sign:ketuSD.sign,
-      degree:ketuSD.degree,
-      degreeText:ketuSD.degreeText,
-      nakshatra:ketuNak.name,
-      nakIndex:ketuNak.index,
-      nakLord:ketuNak.lord,
-      pada:ketuNak.pada,
-      retro:true,
-      house:wholeSignHouse(
-        ketu,
-        lagna
-      )
-    });
-
-    currentData={
-      dob,
-      tob,
-      place:placeName,
-      lat,
-      lon,
-      offset,
-      utc,
-      jd,
-      ayanamsa,
-      lagna,
-      lagnaSign:lagnaInfo.sign,
-      lagnaDegree:lagnaInfo.degree,
-      planets:planetData
-    };
-
-    renderResult();
-
-    status.className="status success";
-    status.innerHTML=
-      "✓ Kundali calculated successfully.";
+    statusEl.textContent =
+      "✅ Swiss Ephemeris ready — Lahiri mode active.";
 
   }catch(error){
 
     console.error(error);
 
-    status.className="status error";
+    statusEl.className =
+      "status error";
 
-    status.innerHTML=
-      "❌ "+error.message;
-  }
-}
+    statusEl.textContent =
+      "❌ Swiss Ephemeris failed to initialize: " +
+      error.message;
 
-function meanLunarNode(jd){
-
-  const T=(jd-2451545.0)/36525;
-
-  let omega=
-    125.04452-
-    1934.136261*T+
-    0.0020708*T*T+
-    T*T*T/450000;
-
-  return norm(omega);
-}
-
-function renderResult(){
-
-  const d=currentData;
-
-  document.getElementById("result")
-    .classList.remove("hidden");
-
-  document.getElementById("birthTable")
-    .innerHTML=
-      tableRow("Date of Birth",formatDate(
-        new Date(
-          d.dob+"T00:00:00"
-        )
-      ))+
-      tableRow("Birth Time",d.tob)+
-      tableRow("Birth Place",d.place)+
-      tableRow("Latitude",d.lat.toFixed(6)+"°")+
-      tableRow("Longitude",d.lon.toFixed(6)+"°")+
-      tableRow(
-        "UTC Offset",
-        (d.offset>=0?"+":"")+d.offset
-      )+
-      tableRow(
-        "UTC Birth Time",
-        formatDateTime(d.utc)
-      );
-
-  document.getElementById("calcTable")
-    .innerHTML=
-      tableRow(
-        "Zodiac",
-        "Sidereal"
-      )+
-      tableRow(
-        "Ayanamsa",
-        "Lahiri / Chitrapaksha"
-      )+
-      tableRow(
-        "Lahiri Ayanamsa",
-        degToDMS(d.ayanamsa)
-      )+
-      tableRow(
-        "House System",
-        "Whole Sign"
-      )+
-      tableRow(
-        "Julian Day",
-        d.jd.toFixed(6)
-      );
-
-  document.getElementById("lagnaTable")
-    .innerHTML=
-      tableRow(
-        "Lagna",
-        RASHIS[d.lagnaSign]
-      )+
-      tableRow(
-        "Lagna Degree",
-        degToDMS(d.lagnaDegree)
-      )+
-      tableRow(
-        "Lagna Longitude",
-        d.lagna.toFixed(6)+"°"
-      )+
-      tableRow(
-        "Lagna Lord",
-        LORDS[d.lagnaSign]
-      )+
-      tableRow(
-        "Lagna Nakshatra",
-        nakshatraInfo(d.lagna).name
-      )+
-      tableRow(
-        "Nakshatra Pada",
-        nakshatraInfo(d.lagna).pada
-      );
-
-  const moon=
-    d.planets.find(
-      x=>x.name==="Moon"
-    );
-
-  document.getElementById("nakshatraTable")
-    .innerHTML=
-      tableRow(
-        "Moon Rashi",
-        RASHIS[moon.sign]+
-        " ("+RASHI_BN[moon.sign]+")"
-      )+
-      tableRow(
-        "Moon Longitude",
-        moon.longitude.toFixed(6)+"°"
-      )+
-      tableRow(
-        "Janma Nakshatra",
-        moon.nakshatra
-      )+
-      tableRow(
-        "Nakshatra Lord",
-        moon.nakLord
-      )+
-      tableRow(
-        "Pada",
-        moon.pada
-      )+
-      tableRow(
-        "Nakshatra Position",
-        moon.degreeText
-      );
-
-  let html="";
-
-  d.planets.forEach(p=>{
-
-    html+=`
-    <tr>
-      <td><b>${p.name}</b></td>
-      <td>${p.longitude.toFixed(6)}°</td>
-      <td>${RASHIS[p.sign]}</td>
-      <td>${p.degreeText}</td>
-      <td>${p.nakshatra}</td>
-      <td>${p.pada}</td>
-      <td>${p.retro?"Retrograde":"Direct"}</td>
-      <td>${p.house}</td>
-    </tr>
-    `;
-
-  });
-
-  document.getElementById("planetTable")
-    .innerHTML=html;
-
-  let houseHTML="";
-
-  for(let h=1;h<=12;h++){
-
-    const sign=
-      (d.lagnaSign+h-1)%12;
-
-    const planets=
-      d.planets
-      .filter(x=>x.house===h)
-      .map(x=>x.name)
-      .join(", ")||"—";
-
-    houseHTML+=`
-    <tr>
-      <td>${h}</td>
-      <td>${RASHIS[sign]}</td>
-      <td>${LORDS[sign]}</td>
-      <td>${planets}</td>
-    </tr>
-    `;
   }
 
-  document.getElementById("houseTable")
-    .innerHTML=houseHTML;
+}
 
-  let navHTML="";
+initializeSwissEph();
 
-  d.planets.forEach(p=>{
 
-    navHTML+=`
-    <tr>
-      <td>${p.name}</td>
-      <td>${RASHIS[p.sign]}</td>
-      <td>${RASHIS[
-        navamsaSign(p.longitude)
-      ]}</td>
-    </tr>
-    `;
+/* ======================================================
+   SAMPLE / VALIDATION DATA
+====================================================== */
 
-  });
+sampleBtn.addEventListener("click", () => {
 
-  document.getElementById("navamsaTable")
-    .innerHTML=navHTML;
+  document.getElementById("birthDate").value =
+    "1982-06-30";
 
-  const dashas=
-    calculateDasha(
-      moon.longitude,
-      d.utc
+  document.getElementById("birthTime").value =
+    "19:30";
+
+  document.getElementById("place").value =
+    "Purulia, West Bengal, India";
+
+  document.getElementById("latitude").value =
+    "23.3322";
+
+  document.getElementById("longitude").value =
+    "86.3652";
+
+  document.getElementById("utcOffset").value =
+    "5.5";
+
+});
+
+
+/* ======================================================
+   DATE / TIME HELPERS
+====================================================== */
+
+function getBirthInput(){
+
+  const date =
+    document.getElementById("birthDate").value;
+
+  const time =
+    document.getElementById("birthTime").value;
+
+  const place =
+    document.getElementById("place").value.trim();
+
+  const lat =
+    Number(document.getElementById("latitude").value);
+
+  const lon =
+    Number(document.getElementById("longitude").value);
+
+  const offset =
+    Number(document.getElementById("utcOffset").value);
+
+  if(!date || !time){
+
+    throw new Error(
+      "Please enter birth date and birth time."
     );
 
-  let dashaHTML="";
+  }
 
-  dashas.forEach(x=>{
+  if(!Number.isFinite(lat) ||
+     lat < -90 ||
+     lat > 90){
 
-    dashaHTML+=`
-    <tr>
-      <td><b>${x.lord}</b></td>
-      <td>${formatDate(x.start)}</td>
-      <td>${formatDate(x.end)}</td>
-    </tr>
-    `;
+    throw new Error(
+      "Invalid latitude."
+    );
 
-  });
+  }
 
-  document.getElementById("dashaTable")
-    .innerHTML=dashaHTML;
+  if(!Number.isFinite(lon) ||
+     lon < -180 ||
+     lon > 180){
 
-  document.getElementById("rashiChart")
-    .innerHTML=
-      makeRashiChart(d);
+    throw new Error(
+      "Invalid longitude."
+    );
 
-  const sun=d.planets.find(x=>x.name==="Sun");
-  const moonP=d.planets.find(x=>x.name==="Moon");
+  }
 
-  document.getElementById("summary")
-    .innerHTML=`
+  if(!Number.isFinite(offset) ||
+     offset < -14 ||
+     offset > 14){
 
-    <p>
-      <span class="badge">
-      Lagna: ${RASHIS[d.lagnaSign]}
-      </span>
+    throw new Error(
+      "Invalid UTC offset."
+    );
 
-      <span class="badge">
-      Moon: ${RASHIS[moonP.sign]}
-      </span>
+  }
 
-      <span class="badge">
-      Nakshatra: ${moonP.nakshatra}
-      </span>
+  const partsDate =
+    date.split("-").map(Number);
 
-      <span class="badge">
-      Pada: ${moonP.pada}
-      </span>
-    </p>
+  const partsTime =
+    time.split(":").map(Number);
 
-    <p>
-      <b>Sun:</b>
-      ${RASHIS[sun.sign]}
-      ${sun.degreeText}
-    </p>
+  const year =
+    partsDate[0];
 
-    <p>
-      <b>Moon:</b>
-      ${RASHIS[moonP.sign]}
-      ${moonP.degreeText}
-    </p>
+  const month =
+    partsDate[1];
 
-    <p>
-      <b>Janma Nakshatra:</b>
-      ${moonP.nakshatra}
-      Pada ${moonP.pada}
-    </p>
+  const day =
+    partsDate[2];
 
-    <p>
-      <b>Calculation:</b>
-      Sidereal zodiac using Lahiri /
-      Chitrapaksha ayanamsa.
-    </p>
+  const hour =
+    partsTime[0];
 
-    <p class="small">
-      Planetary positions are calculated from an
-      astronomical ephemeris and then converted
-      to the sidereal zodiac.
-    </p>
-    `;
+  const minute =
+    partsTime[1] || 0;
 
-  window.scrollTo({
-    top:document.getElementById("result")
-      .offsetTop-10,
-    behavior:"smooth"
-  });
+  /*
+    Local civil time -> UTC.
+
+    Swiss Ephemeris julday receives UT.
+  */
+
+  const localDecimal =
+    hour +
+    minute / 60;
+
+  const utcDecimal =
+    localDecimal -
+    offset;
+
+  /*
+    Convert using Date.UTC so midnight
+    rollover is handled correctly.
+  */
+
+  const localDate =
+    new Date(
+      Date.UTC(
+        year,
+        month - 1,
+        day,
+        0,
+        0,
+        0
+      )
+    );
+
+  const utcMillis =
+    localDate.getTime() +
+    utcDecimal * 3600000;
+
+  const utcDate =
+    new Date(utcMillis);
+
+  const utcYear =
+    utcDate.getUTCFullYear();
+
+  const utcMonth =
+    utcDate.getUTCMonth() + 1;
+
+  const utcDay =
+    utcDate.getUTCDate();
+
+  const utcHour =
+    utcDate.getUTCHours() +
+    utcDate.getUTCMinutes() / 60 +
+    utcDate.getUTCSeconds() / 3600;
+
+  return {
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    place,
+    lat,
+    lon,
+    offset,
+    utcDate,
+    utcYear,
+    utcMonth,
+    utcDay,
+    utcHour
+  };
+
 }
+
+
+/* ======================================================
+   ANGLE NORMALIZATION
+====================================================== */
+
+function norm360(x){
+
+  x = x % 360;
+
+  if(x < 0){
+    x += 360;
+  }
+
+  return x;
+
+}
+
+
+/* ======================================================
+   DEGREE FORMAT
+====================================================== */
+
+function dms(value){
+
+  value =
+    norm360(value);
+
+  let deg =
+    Math.floor(value);
+
+  let minutesFloat =
+    (value - deg) * 60;
+
+  let min =
+    Math.floor(minutesFloat);
+
+  let sec =
+    Math.round(
+      (minutesFloat - min) * 60
+    );
+
+  if(sec >= 60){
+
+    sec = 0;
+    min++;
+
+  }
+
+  if(min >= 60){
+
+    min = 0;
+    deg++;
+
+  }
+
+  return {
+    deg,
+    min,
+    sec
+  };
+
+}
+
+function formatDMS(value){
+
+  const x =
+    dms(value);
+
+  return (
+    String(x.deg).padStart(2,"0") +
+    "° " +
+    String(x.min).padStart(2,"0") +
+    "' " +
+    String(x.sec).padStart(2,"0") +
+    '"'
+  );
+
+}
+
+
+/* ======================================================
+   SIGN
+====================================================== */
+
+function signIndex(longitude){
+
+  return Math.floor(
+    norm360(longitude) / 30
+  );
+
+}
+
+function degreeInSign(longitude){
+
+  return norm360(longitude) % 30;
+
+}
+
+
+/* ======================================================
+   NAKSHATRA
+====================================================== */
+
+function getNakshatra(longitude){
+
+  const lon =
+    norm360(longitude);
+
+  const span =
+    360 / 27;
+
+  const index =
+    Math.floor(lon / span);
+
+  const within =
+    lon - index * span;
+
+  const pada =
+    Math.floor(
+      within / (span / 4)
+    ) + 1;
+
+  return {
+    index,
+    name: NAKSHATRAS[index],
+    pada,
+    fraction:
+      within / span
+  };
+
+}
+
+
+/* ======================================================
+   HOUSE FROM LAGNA
+====================================================== */
+
+function getHouseFromLagna(
+  planetSign,
+  lagnaSign
+){
+
+  return (
+    (planetSign - lagnaSign + 12) %
+    12
+  ) + 1;
+
+}
+
+
+/* ======================================================
+   NAVAMSA
+====================================================== */
+
+function navamsaSign(
+  longitude
+){
+
+  const sign =
+    signIndex(longitude);
+
+  const deg =
+    degreeInSign(longitude);
+
+  const navamsaNumber =
+    Math.floor(
+      deg / (30 / 9)
+    );
+
+  /*
+    D9 formula:
+    (RashiIndex × 9 + NavamsaNumber) mod 12
+  */
+
+  return (
+    sign * 9 +
+    navamsaNumber
+  ) % 12;
+
+}
+
+
+/* ======================================================
+   JULIAN DAY
+====================================================== */
+
+function calculateJulianDay(input){
+
+  return swe.julday(
+    input.utcYear,
+    input.utcMonth,
+    input.utcDay,
+    input.utcHour
+  );
+
+}
+
+
+/* ======================================================
+   PLANET CALCULATION
+====================================================== */
+
+function calculatePlanets(jd){
+
+  /*
+    SWIEPH:
+      Swiss Ephemeris
+
+    SIDEREAL:
+      Use Swiss Ephemeris sidereal calculation
+
+    SPEED:
+      Include velocity information
+  */
+
+  const flags =
+    swe.SEFLG_SWIEPH |
+    swe.SEFLG_SIDEREAL |
+    swe.SEFLG_SPEED;
+
+  const result = [];
+
+  for(const p of PLANETS){
+
+    const values =
+      swe.calc_ut(
+        jd,
+        p.code(),
+        flags
+      );
+
+    const longitude =
+      norm360(values[0]);
+
+    const speed =
+      values[3];
+
+    const sign =
+      signIndex(longitude);
+
+    const degree =
+      degreeInSign(longitude);
+
+    const nak =
+      getNakshatra(longitude);
+
+    result.push({
+
+      name:p.id,
+
+      symbol:p.symbol,
+
+      longitude,
+
+      latitude:values[1],
+
+      distance:values[2],
+
+      speed,
+
+      retrograde:
+        speed < 0,
+
+      sign,
+
+      degree,
+
+      nakshatra:nak
+
+    });
+
+  }
+
+
+  /*
+    Ketu is exactly opposite the
+    calculated mean Rahu.
+  */
+
+  const rahu =
+    result.find(
+      p => p.name === "Rahu"
+    );
+
+  const ketuLongitude =
+    norm360(
+      rahu.longitude + 180
+    );
+
+  const ketuSign =
+    signIndex(ketuLongitude);
+
+  const ketuDegree =
+    degreeInSign(ketuLongitude);
+
+  const ketuNak =
+    getNakshatra(
+      ketuLongitude
+    );
+
+  result.push({
+
+    name:"Ketu",
+
+    symbol:"☋",
+
+    longitude:ketuLongitude,
+
+    latitude:
+      -rahu.latitude,
+
+    distance:
+      rahu.distance,
+
+    speed:
+      rahu.speed,
+
+    retrograde:
+      rahu.retrograde,
+
+    sign:
+      ketuSign,
+
+    degree:
+      ketuDegree,
+
+    nakshatra:
+      ketuNak
+
+  });
+
+
+  return result;
+
+}
+
+
+/* ======================================================
+   ASCENDANT
+====================================================== */
+
+function calculateAscendant(
+  jd,
+  lat,
+  lon
+){
+
+  /*
+    houses_ex() is called with the
+    SIDEREAL flag.
+
+    House system 'W' = Whole Sign
+    is not used for calculating the
+    Ascendant.
+
+    The Ascendant returned by Swiss
+    Ephemeris is used as the exact
+    astronomical Lagna.
+  */
+
+  const flags =
+    swe.SEFLG_SIDEREAL;
+
+  const houses =
+    swe.houses_ex(
+      jd,
+      flags,
+      lat,
+      lon,
+      "P"
+    );
+
+  /*
+    ascmc[0] = Ascendant
+    ascmc[1] = MC
+  */
+
+  const asc =
+    norm360(
+      houses.ascmc[0]
+    );
+
+  const mc =
+    norm360(
+      houses.ascmc[1]
+    );
+
+  return {
+
+    longitude:asc,
+
+    sign:signIndex(asc),
+
+    degree:degreeInSign(asc),
+
+    mc,
+
+    mcSign:signIndex(mc),
+
+    cusps:houses.cusps,
+
+    ascmc:houses.ascmc
+
+  };
+
+}
+
+
+/* ======================================================
+   DASHAS
+====================================================== */
+
+function addYears(date, years){
+
+  const result =
+    new Date(date.getTime());
+
+  result.setUTCDate(
+    result.getUTCDate()
+  );
+
+  result.setUTCFullYear(
+    result.getUTCFullYear() +
+    Math.floor(years)
+  );
+
+  const fractional =
+    years -
+    Math.floor(years);
+
+  result.setUTCDate(
+    result.getUTCDate() +
+    fractional * 365.2425
+  );
+
+  return result;
+
+}
+
+
+function formatDate(date){
+
+  return date.toISOString()
+    .slice(0,10);
+
+}
+
+
+function calculateVimshottari(
+  moonLongitude,
+  birthDate
+){
+
+  const nak =
+    getNakshatra(
+      moonLongitude
+    );
+
+  const startLordIndex =
+    nak.index % 9;
+
+  const startLord =
+    DASHA_LORDS[
+      startLordIndex
+    ];
+
+  const fullYears =
+    DASHA_YEARS[
+      startLord
+    ];
+
+  /*
+    Fraction of nakshatra already
+    traversed by Moon.
+  */
+
+  const elapsedFraction =
+    nak.fraction;
+
+  const remainingYears =
+    fullYears *
+    (1 - elapsedFraction);
+
+  const dashas = [];
+
+  let currentDate =
+    new Date(
+      birthDate.getTime()
+    );
+
+  /*
+    First Mahadasha = balance at birth.
+  */
+
+  let lordIndex =
+    startLordIndex;
+
+  let first = true;
+
+  while(
+    dashas.length < 12
+  ){
+
+    const lord =
+      DASHA_LORDS[
+        lordIndex % 9
+      ];
+
+    const years =
+      first
+      ? remainingYears
+      : DASHA_YEARS[lord];
+
+    const start =
+      new Date(
+        currentDate.getTime()
+      );
+
+    const end =
+      addYears(
+        currentDate,
+        years
+      );
+
+    dashas.push({
+
+      lord,
+
+      start,
+
+      end,
+
+      years
+
+    });
+
+    currentDate =
+      end;
+
+    lordIndex++;
+
+    first = false;
+
+  }
+
+  return {
+
+    startLord,
+
+    remainingYears,
+
+    dashas
+
+  };
+
+}
+
+
+/* ======================================================
+   RASHI CHART
+====================================================== */
+
+function buildRashiChart(
+  planets,
+  lagna
+){
+
+  const houses =
+    Array.from(
+      {length:12},
+      () => []
+    );
+
+  /*
+    Lagna itself occupies house 1.
+  */
+
+  houses[0].push(
+    "Lagna " +
+    SIGN_SYMBOLS[lagna.sign]
+  );
+
+  for(const p of planets){
+
+    const house =
+      getHouseFromLagna(
+        p.sign,
+        lagna.sign
+      );
+
+    houses[
+      house - 1
+    ].push(
+      p.symbol +
+      " " +
+      p.name
+    );
+
+  }
+
+
+  const chart =
+    document.getElementById(
+      "rashiChart"
+    );
+
+  chart.innerHTML = "";
+
+
+  /*
+    Simple Vedic 12-house grid.
+
+    House 1 is placed first.
+    The chart is intentionally calculation-focused.
+  */
+
+  for(let i=0;i<12;i++){
+
+    const cell =
+      document.createElement("div");
+
+    cell.className =
+      "chart-cell";
+
+    const house =
+      i + 1;
+
+    const sign =
+      (lagna.sign + i) % 12;
+
+    cell.innerHTML =
+
+      `<div class="house">
+        House ${house}
+      </div>
+
+      <div class="sign">
+        ${SIGN_SYMBOLS[sign]}
+        ${SIGNS[sign]}
+      </div>
+
+      <div style="margin-top:7px">
+        ${houses[i]
+          .map(
+            x =>
+            `<span class="planet">${x}</span>`
+          )
+          .join("")}
+      </div>`;
+
+    chart.appendChild(
+      cell
+    );
+
+  }
+
+}
+
+
+/* ======================================================
+   NAVAMSA CHART
+====================================================== */
+
+function buildNavamsaChart(
+  planets
+){
+
+  const cells =
+    Array.from(
+      {length:12},
+      () => []
+    );
+
+  for(const p of planets){
+
+    const d9 =
+      navamsaSign(
+        p.longitude
+      );
+
+    cells[d9].push(
+      p.symbol +
+      " " +
+      p.name
+    );
+
+  }
+
+  const chart =
+    document.getElementById(
+      "navamsaChart"
+    );
+
+  chart.innerHTML = "";
+
+
+  for(let i=0;i<12;i++){
+
+    const cell =
+      document.createElement("div");
+
+    cell.className =
+      "nav-cell";
+
+    cell.innerHTML =
+
+      `<div class="house">
+        D9 Sign
+      </div>
+
+      <div class="sign">
+        ${SIGN_SYMBOLS[i]}
+        ${SIGNS[i]}
+      </div>
+
+      <div style="margin-top:7px">
+        ${cells[i]
+          .map(
+            x =>
+            `<span class="planet">${x}</span>`
+          )
+          .join("")}
+      </div>`;
+
+    chart.appendChild(
+      cell
+    );
+
+  }
+
+}
+
+
+/* ======================================================
+   PLANET TABLE
+====================================================== */
+
+function buildPlanetTable(
+  planets,
+  lagna
+){
+
+  const tbody =
+    document.getElementById(
+      "planetTable"
+    );
+
+  tbody.innerHTML = "";
+
+  for(const p of planets){
+
+    const house =
+      getHouseFromLagna(
+        p.sign,
+        lagna.sign
+      );
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        ${p.symbol} ${p.name}
+      </td>
+
+      <td>
+        ${p.longitude.toFixed(6)}°
+      </td>
+
+      <td>
+        ${SIGN_SYMBOLS[p.sign]}
+        ${SIGNS[p.sign]}
+      </td>
+
+      <td>
+        ${formatDMS(p.degree)}
+      </td>
+
+      <td>
+        ${p.nakshatra.name}
+      </td>
+
+      <td>
+        ${p.nakshatra.pada}
+      </td>
+
+      <td>
+        ${house}
+      </td>
+
+      <td>
+        ${
+          p.retrograde
+          ? '<span class="badge">Retrograde</span>'
+          : '<span class="badge">Direct</span>'
+        }
+      </td>
+
+    `;
+
+    tbody.appendChild(
+      tr
+    );
+
+  }
+
+}
+
+
+/* ======================================================
+   DASHAS UI
+====================================================== */
+
+function buildDashaTable(
+  dasha
+){
+
+  const tbody =
+    document.getElementById(
+      "dashaTable"
+    );
+
+  tbody.innerHTML = "";
+
+  for(const d of dasha.dashas){
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <b>${d.lord}</b>
+      </td>
+
+      <td>
+        ${formatDate(d.start)}
+      </td>
+
+      <td>
+        ${formatDate(d.end)}
+      </td>
+
+      <td>
+        ${d.years.toFixed(3)}
+      </td>
+
+    `;
+
+    tbody.appendChild(
+      tr
+    );
+
+  }
+
+
+  document.getElementById(
+    "dashaSummary"
+  ).innerHTML =
+
+    `At birth, Vimshottari Mahadasha begins with
+     <b>${dasha.startLord}</b>.
+     Approximate remaining balance:
+     <b>${dasha.remainingYears.toFixed(3)} years</b>.`;
+
+}
+
+
+/* ======================================================
+   MAIN CALCULATION
+====================================================== */
+
+async function calculateKundali(){
+
+  if(!initialized){
+
+    alert(
+      "Swiss Ephemeris is still loading. Please wait."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    calculateBtn.disabled = true;
+
+    calculateBtn.textContent =
+      "Calculating...";
+
+
+    const input =
+      getBirthInput();
+
+
+    /*
+      Local time -> UTC -> Julian Day
+    */
+
+    const jd =
+      calculateJulianDay(
+        input
+      );
+
+
+    /*
+      Make absolutely sure Lahiri
+      mode is active before calculation.
+    */
+
+    swe.set_sid_mode(
+      swe.SE_SIDM_LAHIRI,
+      0,
+      0
+    );
+
+
+    /*
+      Swiss Ephemeris Lahiri ayanamsa.
+    */
+
+    const ayanamsa =
+      swe.get_ayanamsa_ut(
+        jd
+      );
+
+
+    /*
+      Planet positions.
+    */
+
+    const planets =
+      calculatePlanets(
+        jd
+      );
+
+
+    /*
+      Ascendant.
+    */
+
+    const lagna =
+      calculateAscendant(
+        jd,
+        input.lat,
+        input.lon
+      );
+
+
+    /*
+      Whole-sign house number.
+    */
+
+    for(const p of planets){
+
+      p.house =
+        getHouseFromLagna(
+          p.sign,
+          lagna.sign
+        );
+
+    }
+
+
+    /*
+      Moon.
+    */
+
+    const moon =
+      planets.find(
+        p => p.name === "Moon"
+      );
+
+
+    /*
+      Vimshottari.
+    */
+
+    const birthDate =
+      new Date(
+        input.utcDate.getTime()
+      );
+
+    const dasha =
+      calculateVimshottari(
+        moon.longitude,
+        birthDate
+      );
+
+
+    /* ==================================================
+       SUMMARY
+    ================================================== */
+
+    document.getElementById(
+      "ascendantValue"
+    ).textContent =
+
+      SIGN_SYMBOLS[lagna.sign] +
+      " " +
+      SIGNS[lagna.sign];
+
+
+    document.getElementById(
+      "moonValue"
+    ).textContent =
+
+      SIGN_SYMBOLS[moon.sign] +
+      " " +
+      SIGNS[moon.sign];
+
+
+    document.getElementById(
+      "moonNakValue"
+    ).textContent =
+
+      moon.nakshatra.name +
+      " P" +
+      moon.nakshatra.pada;
+
+
+    document.getElementById(
+      "ayanamsaValue"
+    ).textContent =
+
+      ayanamsa.toFixed(6) +
+      "°";
+
+
+    /* ==================================================
+       TECHNICAL INFO
+    ================================================== */
+
+    document.getElementById(
+      "ephemerisInfo"
+    ).textContent =
+
+      "Swiss Ephemeris / SWIEPH + Lahiri";
+
+
+    document.getElementById(
+      "localInfo"
+    ).textContent =
+
+      `${input.year}-${String(input.month).padStart(2,"0")}-${String(input.day).padStart(2,"0")} ` +
+      `${String(input.hour).padStart(2,"0")}:${String(input.minute).padStart(2,"0")} ` +
+      `(UTC${input.offset >= 0 ? "+" : ""}${input.offset})`;
+
+
+    document.getElementById(
+      "utcInfo"
+    ).textContent =
+
+      input.utcDate
+        .toISOString()
+        .replace("T"," ")
+        .replace(".000Z"," UTC");
+
+
+    document.getElementById(
+      "jdInfo"
+    ).textContent =
+      jd.toFixed(8);
+
+
+    document.getElementById(
+      "latInfo"
+    ).textContent =
+      input.lat.toFixed(6);
+
+
+    document.getElementById(
+      "lngInfo"
+    ).textContent =
+      input.lon.toFixed(6);
+
+
+    /* ==================================================
+       TABLES / CHARTS
+    ================================================== */
+
+    buildPlanetTable(
+      planets,
+      lagna
+    );
+
+    buildRashiChart(
+      planets,
+      lagna
+    );
+
+    buildNavamsaChart(
+      planets
+    );
+
+    buildDashaTable(
+      dasha
+    );
+
+
+    resultArea.classList.remove(
+      "hidden"
+    );
+
+
+    statusEl.className =
+      "status success";
+
+    statusEl.innerHTML =
+      "✅ Kundali calculated using Swiss Ephemeris + Lahiri sidereal mode.";
+
+
+    /*
+      Useful diagnostic output
+      for future validation.
+    */
+
+    console.log(
+      "KundaliVeda V1.1",
+      {
+        jd,
+        ayanamsa,
+        lagna,
+        planets,
+        dasha
+      }
+    );
+
+
+    window.scrollTo({
+      top:
+        resultArea.offsetTop - 10,
+      behavior:"smooth"
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    statusEl.className =
+      "status error";
+
+    statusEl.textContent =
+      "❌ Calculation error: " +
+      error.message;
+
+    alert(
+      "Calculation error:\n\n" +
+      error.message
+    );
+
+  }finally{
+
+    calculateBtn.disabled =
+      false;
+
+    calculateBtn.textContent =
+      "Calculate Kundali";
+
+  }
+
+}
+
+
+/* ======================================================
+   BUTTON
+====================================================== */
+
+calculateBtn.addEventListener(
+  "click",
+  calculateKundali
+);
+
+
+/* ======================================================
+   CLEANUP
+====================================================== */
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+
+    try{
+
+      if(swe){
+        swe.close();
+      }
+
+    }catch(e){}
+
+  }
+);
 
 </script>
 
 </body>
-</html>
-```0
+  </html>
