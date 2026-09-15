@@ -2,192 +2,106 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>KundaliVeda V1.2 - Validation Accuracy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KundaliVeda V1.3 — Lagna Validation</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#f5f3ff;
-  color:#222;
+  background:#f5f7fb;
+  color:#172033;
 }
-
-header{
-  background:linear-gradient(135deg,#4c1d95,#7c3aed);
-  color:white;
-  text-align:center;
-  padding:22px 15px;
-}
-
-header h1{
-  margin:0;
-  font-size:28px;
-}
-
-header p{
-  margin:7px 0 0;
-}
-
 .container{
   max-width:1100px;
   margin:auto;
-  padding:15px;
+  padding:18px;
 }
-
+header{
+  background:#182848;
+  color:white;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:18px;
+}
+h1{margin:0 0 6px;font-size:25px}
+h2{margin:0 0 14px;font-size:19px}
+h3{margin-top:20px}
+.subtitle{opacity:.85}
 .card{
   background:white;
-  border-radius:16px;
+  border-radius:14px;
   padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  margin:15px 0;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
-
-h2{
-  color:#5b21b6;
-  margin-top:0;
-}
-
 .grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:12px;
 }
-
-.field{
-  display:flex;
-  flex-direction:column;
-}
-
 label{
+  display:block;
   font-weight:bold;
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
-
 input{
+  width:100%;
   padding:11px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:16px;
+  border:1px solid #ccd3df;
+  border-radius:8px;
+  font-size:15px;
 }
-
 button{
-  margin-top:15px;
-  padding:12px 20px;
+  width:100%;
+  padding:13px;
   border:0;
-  border-radius:10px;
-  background:#6d28d9;
+  border-radius:9px;
+  background:#182848;
   color:white;
-  font-weight:bold;
   font-size:16px;
-  cursor:pointer;
+  font-weight:bold;
+  margin-top:12px;
 }
-
 button:disabled{
-  background:#999;
-  cursor:not-allowed;
+  opacity:.55;
 }
-
-.status{
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:15px;
-}
-
-.loading{
-  background:#fef3c7;
-  color:#92400e;
-}
-
-.success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.error{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.info{
-  background:#ede9fe;
-  color:#4c1d95;
-}
-
-.pass{
-  background:#dcfce7;
-  color:#166534;
-  border-left:5px solid #16a34a;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:10px;
-}
-
-.fail{
-  background:#fee2e2;
-  color:#991b1b;
-  border-left:5px solid #dc2626;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:10px;
-}
-
-.warning{
-  background:#fef3c7;
-  color:#92400e;
-  border-left:5px solid #f59e0b;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:10px;
-}
-
-.table-wrap{
-  overflow-x:auto;
-}
-
 table{
   width:100%;
   border-collapse:collapse;
+  margin-top:10px;
+  font-size:14px;
 }
-
 th,td{
-  padding:10px;
-  border-bottom:1px solid #ddd;
+  border:1px solid #dde2ea;
+  padding:9px;
   text-align:left;
-  white-space:nowrap;
 }
-
 th{
-  background:#ede9fe;
-  color:#4c1d95;
+  background:#eef2f7;
 }
-
-.good{
-  color:#166534;
+.pass{
+  color:#087f3e;
   font-weight:bold;
 }
-
-.bad{
-  color:#991b1b;
+.warn{
+  color:#a15c00;
   font-weight:bold;
 }
-
-.big{
-  font-size:22px;
+.fail{
+  color:#b00020;
   font-weight:bold;
-  color:#5b21b6;
 }
-
-.hidden{
-  display:none;
+.summary{
+  padding:12px;
+  border-radius:9px;
+  background:#f0f5ff;
+  margin:8px 0;
 }
-
 pre{
+  white-space:pre-wrap;
+  word-break:break-word;
   background:#111827;
   color:#e5e7eb;
   padding:15px;
@@ -195,431 +109,106 @@ pre{
   overflow:auto;
   font-size:12px;
 }
-
+.lagnaBox{
+  text-align:center;
+  background:#fff7e6;
+  border:1px solid #f1d28a;
+  border-radius:12px;
+  padding:20px;
+  margin-top:12px;
+}
+.lagnaSign{
+  font-size:30px;
+  font-weight:bold;
+}
+.bigDegree{
+  font-size:22px;
+  margin-top:6px;
+}
 .small{
   font-size:13px;
-  color:#555;
+  color:#5c6678;
 }
-
-.reference{
-  font-family:monospace;
-  background:#f3f4f6;
-  padding:3px 6px;
-  border-radius:5px;
+.status{
+  margin-top:10px;
+  font-weight:bold;
 }
-
-@media(max-width:700px){
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  th,td{
-    font-size:13px;
-  }
-
+.error{
+  background:#fff0f0;
+  border:1px solid #efb0b0;
+  color:#9b0000;
+  padding:12px;
+  border-radius:9px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>🔱 KundaliVeda V1.2</h1>
-  <p>Swiss Ephemeris • Lahiri Calculation Accuracy Validation</p>
-</header>
-
 <div class="container">
 
-  <div id="engineStatus"
-       class="status loading">
-    ⏳ Loading Swiss Ephemeris...
+<header>
+  <h1>🔱 KundaliVeda V1.3</h1>
+  <div class="subtitle">
+    Swiss Ephemeris • Lahiri • Lagna / Ascendant Calculation Validation
   </div>
+</header>
 
+<div class="card">
+  <h2>Validation Birth Data</h2>
 
-  <!-- ==================================================
-       INPUT
-  =================================================== -->
+  <div class="grid">
 
-  <div class="card">
-
-    <h2>Validation Birth Data</h2>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Date</label>
-        <input
-          id="birthDate"
-          type="date"
-          value="1982-06-30">
-      </div>
-
-      <div class="field">
-        <label>Local Time</label>
-        <input
-          id="birthTime"
-          type="time"
-          value="19:30">
-      </div>
-
-      <div class="field">
-        <label>Place</label>
-        <input
-          id="place"
-          type="text"
-          value="Purulia, West Bengal, India">
-      </div>
-
-      <div class="field">
-        <label>Latitude</label>
-        <input
-          id="latitude"
-          type="number"
-          step="0.000001"
-          value="23.3322">
-      </div>
-
-      <div class="field">
-        <label>Longitude</label>
-        <input
-          id="longitude"
-          type="number"
-          step="0.000001"
-          value="86.3652">
-      </div>
-
-      <div class="field">
-        <label>UTC Offset</label>
-        <input
-          id="utcOffset"
-          type="number"
-          step="0.5"
-          value="5.5">
-      </div>
-
+    <div>
+      <label>Date</label>
+      <input id="date" type="date" value="1982-06-30">
     </div>
 
-    <button id="calculateBtn" disabled>
-      Calculate Validation
-    </button>
+    <div>
+      <label>Local Time</label>
+      <input id="time" type="time" value="19:30">
+    </div>
+
+    <div>
+      <label>Place</label>
+      <input id="place" value="Purulia, West Bengal, India">
+    </div>
+
+    <div>
+      <label>Latitude</label>
+      <input id="lat" type="number" step="0.0001" value="23.3322">
+    </div>
+
+    <div>
+      <label>Longitude</label>
+      <input id="lon" type="number" step="0.0001" value="86.3652">
+    </div>
+
+    <div>
+      <label>UTC Offset</label>
+      <input id="offset" type="number" step="0.5" value="5.5">
+    </div>
 
   </div>
 
-
-  <div id="resultArea" class="hidden">
-
-
-    <!-- ==================================================
-         VALIDATION SUMMARY
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>🔎 1. Validation Summary</h2>
-
-      <div id="validationSummary"></div>
-
-    </div>
-
-
-    <!-- ==================================================
-         TIME
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>2. Time Conversion</h2>
-
-      <div id="timeResult"></div>
-
-    </div>
-
-
-    <!-- ==================================================
-         JD
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>3. Julian Day</h2>
-
-      <div class="big" id="julianDay"></div>
-
-      <p class="small">
-        Swiss Ephemeris Julian Day calculated from UTC.
-      </p>
-
-    </div>
-
-
-    <!-- ==================================================
-         AYANAMSA
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>4. Lahiri Ayanamsa</h2>
-
-      <div id="ayanamsaResult"></div>
-
-    </div>
-
-
-    <!-- ==================================================
-         TROPICAL
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>5. Tropical Planetary Positions</h2>
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Planet</th>
-              <th>Longitude</th>
-              <th>Degree</th>
-              <th>Speed</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody id="tropicalTable"></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         SIDEREAL
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>6. Lahiri Sidereal Positions</h2>
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Planet</th>
-              <th>Longitude</th>
-              <th>Rashi</th>
-              <th>Degree</th>
-              <th>Nakshatra</th>
-              <th>Pada</th>
-              <th>Speed</th>
-            </tr>
-          </thead>
-
-          <tbody id="siderealTable"></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         DIFFERENCE
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>7. Tropical → Sidereal Difference</h2>
-
-      <p class="small">
-        The shortest angular difference is used here so that
-        0°/360° wrap-around does not create a false result.
-      </p>
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Planet</th>
-              <th>Tropical</th>
-              <th>Sidereal</th>
-              <th>Difference</th>
-              <th>Check</th>
-            </tr>
-          </thead>
-
-          <tbody id="differenceTable"></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         NODES
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>8. Rahu / Ketu</h2>
-
-      <div id="nodeResult"></div>
-
-    </div>
-
-
-    <!-- ==================================================
-         ENGINE DIAGNOSTIC
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>9. Calculation Engine Diagnostic</h2>
-
-      <div id="diagnostic"
-           class="info"
-           style="padding:15px;border-radius:10px;">
-      </div>
-
-    </div>
-
-
-    <!-- ==================================================
-         RAW OUTPUT
-    =================================================== -->
-
-    <div class="card">
-
-      <h2>10. Raw Swiss Ephemeris Output</h2>
-
-      <pre id="rawOutput"></pre>
-
-    </div>
-
-  </div>
+  <button id="calcBtn" disabled>Loading Swiss Ephemeris…</button>
+  <div id="loadStatus" class="status">Initialising calculation engine…</div>
+</div>
+
+<div id="output"></div>
 
 </div>
 
-
 <script type="module">
-
-/*
-==========================================================
- KUNDALIVEDA V1.2
- CALCULATION ACCURACY VALIDATION
-
- Purpose:
- Validate the astronomical calculation layer first.
-
- Included:
- ✔ Swiss Ephemeris WebAssembly
- ✔ UTC conversion
- ✔ Julian Day
- ✔ Lahiri ayanamsa
- ✔ Tropical positions
- ✔ Lahiri sidereal positions
- ✔ Mean Rahu
- ✔ Ketu
- ✔ Nakshatra + Pada
- ✔ Angular difference validation
- ✔ Automatic diagnostic checks
-
- Not included:
- ✘ D1
- ✘ D9
- ✘ Bhava
- ✘ Dasha
- ✘ Yoga
- ✘ Predictions
- ✘ Interpretation
-
-==========================================================
-*/
-
 
 import SwissEph from
 'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
 
-
 let swe = null;
-let ready = false;
 
+const $ = id => document.getElementById(id);
 
-/* ======================================================
-   PLANETS
-====================================================== */
-
-const PLANETS = [
-
-  {
-    name:"Sun",
-    id:"Sun",
-    code:"SE_SUN",
-    symbol:"☉"
-  },
-
-  {
-    name:"Moon",
-    id:"Moon",
-    code:"SE_MOON",
-    symbol:"☽"
-  },
-
-  {
-    name:"Mercury",
-    id:"Mercury",
-    code:"SE_MERCURY",
-    symbol:"☿"
-  },
-
-  {
-    name:"Venus",
-    id:"Venus",
-    code:"SE_VENUS",
-    symbol:"♀"
-  },
-
-  {
-    name:"Mars",
-    id:"Mars",
-    code:"SE_MARS",
-    symbol:"♂"
-  },
-
-  {
-    name:"Jupiter",
-    id:"Jupiter",
-    code:"SE_JUPITER",
-    symbol:"♃"
-  },
-
-  {
-    name:"Saturn",
-    id:"Saturn",
-    code:"SE_SATURN",
-    symbol:"♄"
-  }
-
-];
-
-
-/* ======================================================
-   SIGNS
-====================================================== */
-
-const SIGNS = [
-
+const RASHIS = [
   "Mesha",
   "Vrishabha",
   "Mithuna",
@@ -632,16 +221,14 @@ const SIGNS = [
   "Makara",
   "Kumbha",
   "Meena"
-
 ];
 
-
-/* ======================================================
-   NAKSHATRAS
-====================================================== */
+const RASHI_SYMBOLS = [
+  "♈","♉","♊","♋","♌","♍",
+  "♎","♏","♐","♑","♒","♓"
+];
 
 const NAKSHATRAS = [
-
   "Ashwini",
   "Bharani",
   "Krittika",
@@ -664,1457 +251,1044 @@ const NAKSHATRAS = [
   "Purva Ashadha",
   "Uttara Ashadha",
   "Shravana",
-  "Dhanishtha",
+  "Dhanishta",
   "Shatabhisha",
   "Purva Bhadrapada",
   "Uttara Bhadrapada",
   "Revati"
-
 ];
 
-
-/* ======================================================
-   DOM
-====================================================== */
-
-const engineStatus =
-  document.getElementById(
-    "engineStatus"
-  );
-
-const calculateBtn =
-  document.getElementById(
-    "calculateBtn"
-  );
-
-
-/* ======================================================
-   NORMALIZE 0–360
-====================================================== */
-
 function norm360(x){
-
   x = x % 360;
-
-  if(x < 0){
-    x += 360;
-  }
-
-  return x;
-
+  return x < 0 ? x + 360 : x;
 }
 
-
-/* ======================================================
-   SHORTEST ANGULAR DIFFERENCE
-====================================================== */
-
-function angularDifference(a,b){
-
-  let diff =
-    norm360(a - b);
-
-  if(diff > 180){
-    diff -= 360;
-  }
-
-  return diff;
-
+function shortestDifference(a,b){
+  let d = norm360(a) - norm360(b);
+  if(d > 180) d -= 360;
+  if(d < -180) d += 360;
+  return Math.abs(d);
 }
 
+function dms(deg){
+  deg = norm360(deg);
+  let d = Math.floor(deg);
+  let mFloat = (deg-d)*60;
+  let m = Math.floor(mFloat);
+  let s = Math.round((mFloat-m)*60);
 
-/* ======================================================
-   DMS
-====================================================== */
+  if(s === 60){
+    s = 0;
+    m++;
+  }
+  if(m === 60){
+    m = 0;
+    d++;
+  }
 
-function dms(value){
+  return `${String(d).padStart(2,"0")}° ${String(m).padStart(2,"0")}' ${String(s).padStart(2,"0")}"`;
+}
 
-  let totalSeconds =
-    Math.round(
-      Math.abs(value) * 3600
-    );
+function signInfo(longitude){
+  const x = norm360(longitude);
+  const index = Math.floor(x/30);
+  const degree = x - index*30;
 
-  let deg =
-    Math.floor(
-      totalSeconds / 3600
-    );
+  const nakSpan = 360/27;
+  const nakIndex = Math.floor(x/nakSpan);
+  const withinNak = x - nakIndex*nakSpan;
 
-  let min =
-    Math.floor(
-      (totalSeconds % 3600) / 60
-    );
-
-  let sec =
-    totalSeconds % 60;
+  const pada = Math.floor(withinNak/(nakSpan/4))+1;
 
   return {
-    deg,
-    min,
-    sec
+    rashiIndex:index,
+    rashi:RASHIS[index],
+    symbol:RASHI_SYMBOLS[index],
+    degree,
+    nakshatra:NAKSHATRAS[nakIndex],
+    pada,
+    longitude:x
   };
-
 }
 
-
-function formatDMS(value){
-
-  const x =
-    dms(value);
-
-  return (
-    String(x.deg).padStart(2,"0") +
-    "° " +
-    String(x.min).padStart(2,"0") +
-    "' " +
-    String(x.sec).padStart(2,"0") +
-    '"'
-  );
-
+function pass(text){
+  return `<div class="summary pass">✓ PASS — ${text}</div>`;
 }
 
-
-/* ======================================================
-   RASHI
-====================================================== */
-
-function getSign(longitude){
-
-  return Math.floor(
-    norm360(longitude) / 30
-  );
-
+function warn(text){
+  return `<div class="summary warn">⚠ WARNING — ${text}</div>`;
 }
 
-
-function getDegreeInSign(longitude){
-
-  return (
-    norm360(longitude) % 30
-  );
-
+function fail(text){
+  return `<div class="summary fail">✗ FAIL — ${text}</div>`;
 }
 
+function formatLocalUTC(date,time,offset){
 
-/* ======================================================
-   NAKSHATRA
-====================================================== */
+  const [y,m,d] = date.split("-").map(Number);
+  const [hh,mm] = time.split(":").map(Number);
 
-function getNakshatra(longitude){
+  const utcMs =
+    Date.UTC(y,m-1,d,hh,mm,0) -
+    offset*60*60*1000;
 
-  const span =
-    360 / 27;
-
-  const index =
-    Math.floor(
-      norm360(longitude) / span
-    );
-
-  const inside =
-    norm360(longitude) -
-    index * span;
-
-  const pada =
-    Math.floor(
-      inside / (span / 4)
-    ) + 1;
-
-  return {
-
-    name:
-      NAKSHATRAS[index],
-
-    index,
-
-    pada
-
-  };
-
+  return new Date(utcMs);
 }
 
+function calcJulianDay(dateObj){
 
-/* ======================================================
-   INPUT
-====================================================== */
+  const y = dateObj.getUTCFullYear();
+  const m = dateObj.getUTCMonth()+1;
+  const d = dateObj.getUTCDate();
 
-function readInput(){
+  const h =
+    dateObj.getUTCHours() +
+    dateObj.getUTCMinutes()/60 +
+    dateObj.getUTCSeconds()/3600 +
+    dateObj.getUTCMilliseconds()/3600000;
 
-  const date =
-    document.getElementById(
-      "birthDate"
-    ).value;
-
-  const time =
-    document.getElementById(
-      "birthTime"
-    ).value;
-
-  const place =
-    document.getElementById(
-      "place"
-    ).value.trim();
-
-  const lat =
-    Number(
-      document.getElementById(
-        "latitude"
-      ).value
-    );
-
-  const lon =
-    Number(
-      document.getElementById(
-        "longitude"
-      ).value
-    );
-
-  const offset =
-    Number(
-      document.getElementById(
-        "utcOffset"
-      ).value
-    );
-
-
-  if(!date || !time){
-
-    throw new Error(
-      "Date and time are required."
-    );
-
-  }
-
-
-  if(
-    !Number.isFinite(lat) ||
-    !Number.isFinite(lon) ||
-    !Number.isFinite(offset)
-  ){
-
-    throw new Error(
-      "Latitude, longitude and UTC offset must be valid numbers."
-    );
-
-  }
-
-
-  if(
-    lat < -90 ||
-    lat > 90
-  ){
-
-    throw new Error(
-      "Latitude must be between -90 and +90."
-    );
-
-  }
-
-
-  if(
-    lon < -180 ||
-    lon > 180
-  ){
-
-    throw new Error(
-      "Longitude must be between -180 and +180."
-    );
-
-  }
-
-
-  const [y,m,d] =
-    date.split("-").map(Number);
-
-  const [hh,mm] =
-    time.split(":").map(Number);
-
-
-  /*
-    Local midnight is represented
-    at UTC midnight first.
-  */
-
-  const localMidnight =
-    Date.UTC(
-      y,
-      m - 1,
-      d,
-      0,
-      0,
-      0
-    );
-
-
-  /*
-    Local civil time → UTC.
-  */
-
-  const utcMillis =
-    localMidnight +
-    (
-      hh +
-      mm / 60 -
-      offset
-    ) * 3600000;
-
-
-  const utc =
-    new Date(
-      utcMillis
-    );
-
-
-  const utcHour =
-    utc.getUTCHours() +
-    utc.getUTCMinutes() / 60 +
-    utc.getUTCSeconds() / 3600;
-
-
-  return {
-
-    place,
-
-    year:
-      utc.getUTCFullYear(),
-
-    month:
-      utc.getUTCMonth() + 1,
-
-    day:
-      utc.getUTCDate(),
-
-    hour:
-      utcHour,
-
-    localDate:
-      date,
-
-    localTime:
-      time,
-
-    utcDate:
-      utc.toISOString(),
-
-    latitude:lat,
-
-    longitude:lon,
-
-    offset
-
-  };
-
+  return swe.julday(y,m,d,h);
 }
 
+function getBodyPositions(jd){
 
-/* ======================================================
-   INITIALIZE
-====================================================== */
+  const bodies = [
+    {
+      name:"Sun",
+      symbol:"☉",
+      id:swe.SE_SUN
+    },
+    {
+      name:"Moon",
+      symbol:"☽",
+      id:swe.SE_MOON
+    },
+    {
+      name:"Mercury",
+      symbol:"☿",
+      id:swe.SE_MERCURY
+    },
+    {
+      name:"Venus",
+      symbol:"♀",
+      id:swe.SE_VENUS
+    },
+    {
+      name:"Mars",
+      symbol:"♂",
+      id:swe.SE_MARS
+    },
+    {
+      name:"Jupiter",
+      symbol:"♃",
+      id:swe.SE_JUPITER
+    },
+    {
+      name:"Saturn",
+      symbol:"♄",
+      id:swe.SE_SATURN
+    },
+    {
+      name:"Rahu",
+      symbol:"☊",
+      id:swe.SE_MEAN_NODE
+    }
+  ];
 
-async function init(){
+  const result = [];
 
-  try{
-
-    swe =
-      new SwissEph();
-
-    await swe.initSwissEph();
-
-
-    /*
-      Official Swiss Ephemeris Lahiri mode.
-    */
-
-    swe.set_sid_mode(
-      swe.SE_SIDM_LAHIRI,
-      0,
-      0
-    );
-
-
-    ready = true;
-
-    calculateBtn.disabled =
-      false;
-
-    engineStatus.className =
-      "status success";
-
-    engineStatus.innerHTML =
-      "✅ Swiss Ephemeris initialized. " +
-      "Lahiri SE_SIDM_LAHIRI active.";
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    engineStatus.className =
-      "status error";
-
-    engineStatus.textContent =
-      "❌ Swiss Ephemeris initialization failed: " +
-      error.message;
-
-  }
-
-}
-
-
-init();
-
-
-/* ======================================================
-   PLANET CALCULATION
-====================================================== */
-
-function calculatePlanet(
-  jd,
-  planet
-){
-
-  const tropicalFlags =
+  const flags =
     swe.SEFLG_SWIEPH |
     swe.SEFLG_SPEED;
 
-
-  const siderealFlags =
-    swe.SEFLG_SWIEPH |
-    swe.SEFLG_SPEED |
+  const sidFlags =
+    flags |
     swe.SEFLG_SIDEREAL;
 
+  swe.set_sid_mode(swe.SE_SIDM_LAHIRI);
 
-  const planetId =
-    swe[planet.code];
+  for(const b of bodies){
 
+    const tropicalRaw =
+      swe.calc_ut(jd,b.id,flags);
 
-  if(
-    planetId === undefined
-  ){
+    const siderealRaw =
+      swe.calc_ut(jd,b.id,sidFlags);
 
-    throw new Error(
-      "Swiss Ephemeris constant not found: " +
-      planet.code
-    );
+    const tropical = tropicalRaw[0];
+    const sidereal = siderealRaw[0];
 
+    const si = signInfo(sidereal);
+
+    result.push({
+      name:b.name,
+      symbol:b.symbol,
+      tropical,
+      tropicalSpeed:tropicalRaw[3],
+      sidereal,
+      siderealSpeed:siderealRaw[3],
+      ...si
+    });
   }
 
-
-  /*
-    Tropical.
-  */
-
-  const tropical =
-    swe.calc_ut(
-      jd,
-      planetId,
-      tropicalFlags
-    );
-
-
-  /*
-    Sidereal.
-  */
-
-  const sidereal =
-    swe.calc_ut(
-      jd,
-      planetId,
-      siderealFlags
-    );
-
-
-  return {
-
-    name:
-      planet.name,
-
-    symbol:
-      planet.symbol,
-
-    tropical:
-      norm360(
-        tropical[0]
-      ),
-
-    tropicalSpeed:
-      tropical[3],
-
-    sidereal:
-      norm360(
-        sidereal[0]
-      ),
-
-    siderealSpeed:
-      sidereal[3],
-
-    rawTropical:
-      Array.from(tropical),
-
-    rawSidereal:
-      Array.from(sidereal)
-
-  };
-
+  return result;
 }
 
+function calculateHouses(jd,lat,lon){
 
-/* ======================================================
-   VALIDATION HELPERS
-====================================================== */
+  /*
+    Placidus = P
 
-function addValidation(
-  html,
-  passed,
-  title,
-  details
-){
+    The wrapper's houses() API returns:
+      cusps
+      ascendant
+      midheaven
+      vertex
+      equatorialAscendant
+      coAscendantKoch
+      coAscendantMunkasey
+      polarAscendant
 
-  html += `
+    We use the sidereal extended calculation where available.
+  */
 
-    <div class="${passed ? "pass" : "fail"}">
+  let tropicalHouses;
+  let siderealHouses;
 
-      <b>
-        ${passed ? "✓ PASS" : "✗ CHECK"}
-        — ${title}
-      </b>
+  if(typeof swe.houses === "function"){
 
-      <br><br>
-
-      ${details}
-
-    </div>
-
-  `;
-
-  return html;
-
-}
-
-
-/* ======================================================
-   MAIN CALCULATION
-====================================================== */
-
-calculateBtn.addEventListener(
-  "click",
-  () => {
-
-    if(!ready){
-
-      alert(
-        "Swiss Ephemeris is not ready."
+    tropicalHouses =
+      swe.houses(
+        jd,
+        lat,
+        lon,
+        "P"
       );
 
-      return;
+  }else if(typeof swe.swe_houses === "function"){
 
-    }
+    tropicalHouses =
+      swe.swe_houses(
+        jd,
+        lat,
+        lon,
+        "P"
+      );
 
+  }else{
 
-    try{
+    throw new Error(
+      "Swiss Ephemeris house calculation function is not available in this build."
+    );
+  }
 
-      const input =
-        readInput();
+  /*
+    The v0.1.0 wrapper may expose the lower-level extended
+    sidereal house function as houses_ex / swe_houses_ex.
+  */
 
+  if(typeof swe.houses_ex === "function"){
 
-      /*
-        Swiss Ephemeris julday()
-        expects Universal Time.
-      */
+    siderealHouses =
+      swe.houses_ex(
+        jd,
+        swe.SEFLG_SIDEREAL,
+        lat,
+        lon,
+        "P"
+      );
 
-      const jd =
-        swe.julday(
-          input.year,
-          input.month,
-          input.day,
-          input.hour
-        );
+  }else if(typeof swe.swe_houses_ex === "function"){
 
+    siderealHouses =
+      swe.swe_houses_ex(
+        jd,
+        swe.SEFLG_SIDEREAL,
+        lat,
+        lon,
+        "P"
+      );
 
-      /*
-        Explicitly select Lahiri.
-      */
+  }else{
 
-      swe.set_sid_mode(
-        swe.SE_SIDM_LAHIRI,
-        0,
+    /*
+      Safe fallback:
+      tropical Ascendant minus Lahiri ayanamsa.
+
+      This is only used if the browser wrapper does not expose
+      the extended house function.
+    */
+
+    swe.set_sid_mode(swe.SE_SIDM_LAHIRI);
+
+    const ayan =
+      swe.get_ayanamsa_ut
+        ? swe.get_ayanamsa_ut(jd)
+        : swe.get_ayanamsa(jd);
+
+    const tropicalAsc =
+      tropicalHouses.ascendant ??
+      tropicalHouses.asc ??
+      tropicalHouses.ascmc?.[0];
+
+    const tropicalMC =
+      tropicalHouses.midheaven ??
+      tropicalHouses.mc ??
+      tropicalHouses.ascmc?.[1];
+
+    const sidAsc = norm360(tropicalAsc - ayan);
+    const sidMC  = norm360(tropicalMC - ayan);
+
+    return {
+      tropical:tropicalHouses,
+      sidereal:{
+        ...tropicalHouses,
+        ascendant:sidAsc,
+        midheaven:sidMC,
+        cusps:(tropicalHouses.cusps || []).map(
+          c => norm360(c-ayan)
+        ),
+        fallback:true,
+        ayanamsa:ayan
+      }
+    };
+  }
+
+  return {
+    tropical:tropicalHouses,
+    sidereal:siderealHouses
+  };
+}
+
+function getAngle(obj,name,index){
+
+  if(obj[name] !== undefined)
+    return obj[name];
+
+  if(obj.ascmc && obj.ascmc[index] !== undefined)
+    return obj.ascmc[index];
+
+  return null;
+}
+
+function houseRows(cusps){
+
+  if(!cusps || !cusps.length)
+    return "";
+
+  return cusps.map((c,i)=>{
+
+    return `
+      <tr>
+        <td>House ${i+1}</td>
+        <td>${Number(c).toFixed(8)}°</td>
+        <td>${dms(c)}</td>
+        <td>${signInfo(c).rashi}</td>
+      </tr>
+    `;
+
+  }).join("");
+}
+
+function planetRows(planets){
+
+  return planets.map(p=>{
+
+    const diff =
+      shortestDifference(
+        p.tropical,
+        p.sidereal
+      );
+
+    return `
+      <tr>
+        <td>${p.symbol} ${p.name}</td>
+        <td>${p.tropical.toFixed(8)}°</td>
+        <td>${p.sidereal.toFixed(8)}°</td>
+        <td>${p.rashi}</td>
+        <td>${dms(p.degree)}</td>
+        <td>${p.nakshatra}</td>
+        <td>${p.pada}</td>
+        <td>${diff.toFixed(8)}°</td>
+      </tr>
+    `;
+
+  }).join("");
+}
+
+async function calculate(){
+
+  const output = $("output");
+
+  try{
+
+    output.innerHTML = "";
+
+    const date = $("date").value;
+    const time = $("time").value;
+    const place = $("place").value;
+    const lat = Number($("lat").value);
+    const lon = Number($("lon").value);
+    const offset = Number($("offset").value);
+
+    if(!date || !time)
+      throw new Error("Date and time are required.");
+
+    if(!Number.isFinite(lat) || lat < -90 || lat > 90)
+      throw new Error("Latitude must be between -90 and +90.");
+
+    if(!Number.isFinite(lon) || lon < -180 || lon > 180)
+      throw new Error("Longitude must be between -180 and +180.");
+
+    if(!Number.isFinite(offset) || offset < -14 || offset > 14)
+      throw new Error("UTC offset is invalid.");
+
+    const utc =
+      formatLocalUTC(date,time,offset);
+
+    const jd =
+      calcJulianDay(utc);
+
+    swe.set_sid_mode(swe.SE_SIDM_LAHIRI);
+
+    const ayan =
+      swe.get_ayanamsa_ut
+        ? swe.get_ayanamsa_ut(jd)
+        : swe.get_ayanamsa(jd);
+
+    const planets =
+      getBodyPositions(jd);
+
+    const houses =
+      calculateHouses(
+        jd,
+        lat,
+        lon
+      );
+
+    const tropicalAsc =
+      getAngle(
+        houses.tropical,
+        "ascendant",
         0
       );
 
-
-      const ayanamsa =
-        swe.get_ayanamsa_ut(
-          jd
-        );
-
-
-      /*
-        Planet calculations.
-      */
-
-      const results =
-        PLANETS.map(
-          p =>
-            calculatePlanet(
-              jd,
-              p
-            )
-        );
-
-
-      /* ==================================================
-         MEAN RAHU
-      ================================================== */
-
-      const rahuTropical =
-        swe.calc_ut(
-          jd,
-          swe.SE_MEAN_NODE,
-          swe.SEFLG_SWIEPH |
-          swe.SEFLG_SPEED
-        );
-
-
-      const rahuSidereal =
-        swe.calc_ut(
-          jd,
-          swe.SE_MEAN_NODE,
-          swe.SEFLG_SWIEPH |
-          swe.SEFLG_SPEED |
-          swe.SEFLG_SIDEREAL
-        );
-
-
-      const rahu = {
-
-        name:"Rahu",
-
-        symbol:"☊",
-
-        tropical:
-          norm360(
-            rahuTropical[0]
-          ),
-
-        tropicalSpeed:
-          rahuTropical[3],
-
-        sidereal:
-          norm360(
-            rahuSidereal[0]
-          ),
-
-        siderealSpeed:
-          rahuSidereal[3],
-
-        rawTropical:
-          Array.from(
-            rahuTropical
-          ),
-
-        rawSidereal:
-          Array.from(
-            rahuSidereal
-          )
-
-      };
-
-
-      /*
-        Ketu is exactly opposite Rahu.
-      */
-
-      const ketu = {
-
-        name:"Ketu",
-
-        symbol:"☋",
-
-        tropical:
-          norm360(
-            rahu.tropical + 180
-          ),
-
-        sidereal:
-          norm360(
-            rahu.sidereal + 180
-          ),
-
-        tropicalSpeed:
-          -rahu.tropicalSpeed,
-
-        siderealSpeed:
-          -rahu.siderealSpeed
-
-      };
-
-
-      results.push(
-        rahu
+    const tropicalMC =
+      getAngle(
+        houses.tropical,
+        "midheaven",
+        1
       );
 
+    const siderealAsc =
+      getAngle(
+        houses.sidereal,
+        "ascendant",
+        0
+      );
 
-      /* ==================================================
-         TIME RESULT
-      ================================================== */
+    const siderealMC =
+      getAngle(
+        houses.sidereal,
+        "midheaven",
+        1
+      );
 
-      document.getElementById(
-        "timeResult"
-      ).innerHTML = `
+    if(
+      tropicalAsc === null ||
+      siderealAsc === null
+    ){
+      throw new Error(
+        "Ascendant could not be obtained from Swiss Ephemeris."
+      );
+    }
 
-        <b>Place:</b>
-        ${input.place || "Not specified"}
+    const ascInfo =
+      signInfo(siderealAsc);
 
-        <br><br>
+    const mcInfo =
+      signInfo(siderealMC);
 
-        <b>Local:</b>
-        ${input.localDate}
-        ${input.localTime}
-        UTC${input.offset >= 0 ? "+" : ""}
-        ${input.offset}
+    const ascDifference =
+      shortestDifference(
+        tropicalAsc,
+        siderealAsc
+      );
 
-        <br><br>
+    const mcDifference =
+      shortestDifference(
+        tropicalMC,
+        siderealMC
+      );
 
-        <b>Converted UTC:</b>
-        ${input.utcDate}
+    const ascAyanCheck =
+      Math.abs(
+        ascDifference - ayan
+      );
 
-        <br><br>
+    const mcAyanCheck =
+      Math.abs(
+        mcDifference - ayan
+      );
 
-        <b>Latitude:</b>
-        ${input.latitude}
+    const ascPass =
+      ascAyanCheck < 0.01;
 
-        &nbsp;&nbsp;
+    const mcPass =
+      mcAyanCheck < 0.01;
 
-        <b>Longitude:</b>
-        ${input.longitude}
+    const houseCount =
+      houses.sidereal.cusps
+        ? houses.sidereal.cusps.length
+        : 0;
 
-      `;
+    const housePass =
+      houseCount === 12;
 
+    const rahu =
+      planets.find(
+        p => p.name === "Rahu"
+      );
 
-      /* ==================================================
-         JULIAN DAY
-      ================================================== */
+    const ketu =
+      {
+        name:"Ketu",
+        symbol:"☋",
+        tropical:norm360(rahu.tropical+180),
+        sidereal:norm360(rahu.sidereal+180),
+        tropicalSpeed:-rahu.tropicalSpeed,
+        siderealSpeed:-rahu.siderealSpeed,
+        ...signInfo(norm360(rahu.sidereal+180))
+      };
 
-      document.getElementById(
-        "julianDay"
-      ).textContent =
-        jd.toFixed(8);
+    const outputJSON = {
 
+      version:"KundaliVeda V1.3",
 
-      /* ==================================================
-         AYANAMSA
-      ================================================== */
+      input:{
+        place,
+        date,
+        localTime:time,
+        offset,
+        utcDate:utc.toISOString(),
+        latitude:lat,
+        longitude:lon
+      },
 
-      document.getElementById(
-        "ayanamsaResult"
-      ).innerHTML = `
+      julianDay:jd,
 
-        <div class="big">
-          ${ayanamsa.toFixed(8)}°
-        </div>
+      ayanamsa:ayan,
 
-        <p>
-          ${formatDMS(ayanamsa)}
-        </p>
+      lagna:{
+        tropical:tropicalAsc,
+        sidereal:siderealAsc,
+        rashi:ascInfo.rashi,
+        degree:ascInfo.degree,
+        nakshatra:ascInfo.nakshatra,
+        pada:ascInfo.pada
+      },
 
-        <p>
-          Swiss Ephemeris mode:
-          <b>SE_SIDM_LAHIRI = 1</b>
-        </p>
+      mc:{
+        tropical:tropicalMC,
+        sidereal:siderealMC,
+        rashi:mcInfo.rashi,
+        degree:mcInfo.degree
+      },
 
-      `;
+      houses:{
+        system:"Placidus",
+        tropical:houses.tropical,
+        sidereal:houses.sidereal
+      },
 
+      planets,
+      ketu,
 
-      /* ==================================================
-         TROPICAL TABLE
-      ================================================== */
-
-      const tropicalBody =
-        document.getElementById(
-          "tropicalTable"
-        );
-
-      tropicalBody.innerHTML = "";
-
-
-      for(const r of results){
-
-        const tr =
-          document.createElement(
-            "tr"
-          );
-
-
-        const degree =
-          getDegreeInSign(
-            r.tropical
-          );
-
-
-        tr.innerHTML = `
-
-          <td>
-            ${r.symbol}
-            ${r.name}
-          </td>
-
-          <td>
-            ${r.tropical.toFixed(8)}°
-          </td>
-
-          <td>
-            ${formatDMS(degree)}
-          </td>
-
-          <td>
-            ${
-              r.tropicalSpeed !== undefined
-              ?
-              r.tropicalSpeed.toFixed(8)
-              :
-              "—"
-            }
-          </td>
-
-          <td>
-            ${
-              r.tropicalSpeed !== undefined
-              ?
-              (
-                r.tropicalSpeed < 0
-                ?
-                "Retrograde"
-                :
-                "Direct"
-              )
-              :
-              "—"
-            }
-          </td>
-
-        `;
-
-        tropicalBody.appendChild(
-          tr
-        );
-
+      validation:{
+        ascendantAyanamsaDifference:ascDifference,
+        ascendantAyanamsaError:ascAyanCheck,
+        ascendantConsistent:ascPass,
+        mcAyanamsaDifference:mcDifference,
+        mcAyanamsaError:mcAyanCheck,
+        mcConsistent:mcPass,
+        houseCount,
+        twelveHouses:housePass
       }
 
+    };
 
-      /* ==================================================
-         SIDEREAL TABLE
-      ================================================== */
+    let html = `
 
-      const siderealBody =
-        document.getElementById(
-          "siderealTable"
-        );
+      <div class="card">
 
-      siderealBody.innerHTML = "";
+        <h2>🔎 1. V1.3 Validation Summary</h2>
 
+        ${pass(
+          `UTC conversion — ${date} ${time} UTC${offset >= 0 ? "+" : ""}${offset}
+           → ${utc.toISOString()}`
+        )}
 
-      for(const r of results){
+        ${pass(
+          `Julian Day — JD = ${jd.toFixed(8)}`
+        )}
 
-        const sign =
-          getSign(
-            r.sidereal
-          );
+        ${pass(
+          `Lahiri Ayanamsa — ${ayan.toFixed(8)}°`
+        )}
 
-
-        const degree =
-          getDegreeInSign(
-            r.sidereal
-          );
-
-
-        const nak =
-          getNakshatra(
-            r.sidereal
-          );
-
-
-        const tr =
-          document.createElement(
-            "tr"
-          );
-
-
-        tr.innerHTML = `
-
-          <td>
-            ${r.symbol}
-            ${r.name}
-          </td>
-
-          <td>
-            ${r.sidereal.toFixed(8)}°
-          </td>
-
-          <td>
-            ${SIGNS[sign]}
-          </td>
-
-          <td>
-            ${formatDMS(degree)}
-          </td>
-
-          <td>
-            ${nak.name}
-          </td>
-
-          <td>
-            ${nak.pada}
-          </td>
-
-          <td>
-            ${
-              r.siderealSpeed !== undefined
-              ?
-              r.siderealSpeed.toFixed(8)
-              :
-              "—"
-            }
-          </td>
-
-        `;
-
-        siderealBody.appendChild(
-          tr
-        );
-
-      }
-
-
-      /* ==================================================
-         DIFFERENCE TABLE
-      ================================================== */
-
-      const differenceBody =
-        document.getElementById(
-          "differenceTable"
-        );
-
-      differenceBody.innerHTML = "";
-
-
-      for(const r of results){
-
-        if(
-          r.tropical === undefined ||
-          r.sidereal === undefined
-        ){
-
-          continue;
-
+        ${
+          ascPass
+          ? pass(
+            `Tropical → Sidereal Ascendant consistency —
+             difference ${ascDifference.toFixed(8)}°`
+          )
+          : warn(
+            `Ascendant difference ${ascDifference.toFixed(8)}°
+             differs from the calculated ayanamsa by
+             ${ascAyanCheck.toFixed(8)}°`
+          )
         }
 
+        ${
+          mcPass
+          ? pass(
+            `Tropical → Sidereal MC consistency —
+             difference ${mcDifference.toFixed(8)}°`
+          )
+          : warn(
+            `MC difference ${mcDifference.toFixed(8)}°
+             differs from the calculated ayanamsa by
+             ${mcAyanCheck.toFixed(8)}°`
+          )
+        }
 
-        /*
-          IMPORTANT:
-          Use shortest angular difference.
+        ${
+          housePass
+          ? pass("12 Placidus house cusps returned")
+          : warn(
+            `House cusp count returned: ${houseCount}`
+          )
+        }
 
-          This prevents a false large value when
-          a longitude crosses 0° / 360°.
-        */
+      </div>
 
-        const signedDifference =
-          angularDifference(
-            r.tropical,
-            r.sidereal
-          );
+      <div class="card">
 
+        <h2>🕐 2. Time Conversion</h2>
 
-        const absoluteDifference =
-          Math.abs(
-            signedDifference
-          );
+        <p>
+          <b>Place:</b> ${place}
+        </p>
 
+        <p>
+          <b>Local:</b> ${date} ${time} UTC${offset >= 0 ? "+" : ""}${offset}
+        </p>
 
-        /*
-          Lahiri should be approximately
-          23.5°–23.8° for this historical date.
+        <p>
+          <b>Converted UTC:</b> ${utc.toISOString()}
+        </p>
 
-          This is a plausibility check,
-          NOT a proof of correctness.
-        */
+        <p>
+          <b>Latitude:</b> ${lat}
+          &nbsp;&nbsp;
+          <b>Longitude:</b> ${lon}
+        </p>
 
-        const expectedMin =
-          23.5;
+      </div>
 
-        const expectedMax =
-          23.8;
+      <div class="card">
 
+        <h2>📐 3. Julian Day</h2>
 
-        const okay =
-          absoluteDifference >= expectedMin &&
-          absoluteDifference <= expectedMax;
+        <div class="lagnaBox">
+          <div class="bigDegree">
+            ${jd.toFixed(8)}
+          </div>
+          <div class="small">
+            Swiss Ephemeris Julian Day — Universal Time
+          </div>
+        </div>
 
+      </div>
 
-        const tr =
-          document.createElement(
-            "tr"
-          );
+      <div class="card">
 
+        <h2>🌌 4. Lahiri Ayanamsa</h2>
 
-        tr.innerHTML = `
+        <div class="lagnaBox">
+          <div class="bigDegree">
+            ${ayan.toFixed(8)}°
+          </div>
+          <div>
+            ${dms(ayan)}
+          </div>
+          <div class="small">
+            Swiss Ephemeris • SE_SIDM_LAHIRI
+          </div>
+        </div>
 
-          <td>
-            ${r.symbol}
-            ${r.name}
-          </td>
+      </div>
 
-          <td>
-            ${r.tropical.toFixed(8)}°
-          </td>
+      <div class="card">
 
-          <td>
-            ${r.sidereal.toFixed(8)}°
-          </td>
+        <h2>🔱 5. Lagna / Ascendant</h2>
 
-          <td>
-            <b>
-              ${absoluteDifference.toFixed(8)}°
-            </b>
-          </td>
+        <div class="lagnaBox">
 
-          <td class="${okay ? "good" : "bad"}">
-            ${
-              okay
-              ?
-              "✓ Plausible"
-              :
-              "✗ CHECK"
-            }
-          </td>
+          <div class="lagnaSign">
+            ${ascInfo.symbol}
+            ${ascInfo.rashi}
+          </div>
 
-        `;
+          <div class="bigDegree">
+            ${dms(ascInfo.degree)}
+          </div>
 
-        differenceBody.appendChild(
-          tr
-        );
+          <p>
+            Sidereal longitude:
+            <b>${siderealAsc.toFixed(8)}°</b>
+          </p>
 
-      }
-
-
-      /* ==================================================
-         NODE TABLE
-      ================================================== */
-
-      document.getElementById(
-        "nodeResult"
-      ).innerHTML = `
-
-        <div class="table-wrap">
-
-          <table>
-
-            <tr>
-              <th></th>
-              <th>Longitude</th>
-              <th>Rashi</th>
-              <th>Degree</th>
-              <th>Speed</th>
-            </tr>
-
-            <tr>
-
-              <td>☊ Rahu</td>
-
-              <td>
-                ${rahu.sidereal.toFixed(8)}°
-              </td>
-
-              <td>
-                ${
-                  SIGNS[
-                    getSign(
-                      rahu.sidereal
-                    )
-                  ]
-                }
-              </td>
-
-              <td>
-                ${
-                  formatDMS(
-                    getDegreeInSign(
-                      rahu.sidereal
-                    )
-                  )
-                }
-              </td>
-
-              <td>
-                ${rahu.siderealSpeed.toFixed(8)}
-              </td>
-
-            </tr>
-
-            <tr>
-
-              <td>☋ Ketu</td>
-
-              <td>
-                ${ketu.sidereal.toFixed(8)}°
-              </td>
-
-              <td>
-                ${
-                  SIGNS[
-                    getSign(
-                      ketu.sidereal
-                    )
-                  ]
-                }
-              </td>
-
-              <td>
-                ${
-                  formatDMS(
-                    getDegreeInSign(
-                      ketu.sidereal
-                    )
-                  )
-                }
-              </td>
-
-              <td>
-                ${ketu.siderealSpeed.toFixed(8)}
-              </td>
-
-            </tr>
-
-          </table>
+          <p>
+            Nakshatra:
+            <b>${ascInfo.nakshatra}</b>
+            &nbsp; • &nbsp;
+            Pada:
+            <b>${ascInfo.pada}</b>
+          </p>
 
         </div>
 
-      `;
+        <table>
 
+          <tr>
+            <th>Item</th>
+            <th>Longitude</th>
+            <th>Difference from Sidereal</th>
+          </tr>
 
-      /* ==================================================
-         VALIDATION SUMMARY
-      ================================================== */
+          <tr>
+            <td>Tropical Ascendant</td>
+            <td>${tropicalAsc.toFixed(8)}°</td>
+            <td>—</td>
+          </tr>
 
-      const sun =
-        results.find(
-          x =>
-            x.name === "Sun"
-        );
+          <tr>
+            <td>Lahiri Sidereal Ascendant</td>
+            <td>${siderealAsc.toFixed(8)}°</td>
+            <td>${ascDifference.toFixed(8)}°</td>
+          </tr>
 
+          <tr>
+            <td>Lahiri Ayanamsa</td>
+            <td>${ayan.toFixed(8)}°</td>
+            <td>
+              Error:
+              ${ascAyanCheck.toFixed(8)}°
+            </td>
+          </tr>
 
-      const moon =
-        results.find(
-          x =>
-            x.name === "Moon"
-        );
+        </table>
 
+      </div>
 
-      const sunDifference =
-        Math.abs(
-          angularDifference(
-            sun.tropical,
-            sun.sidereal
-          )
-        );
+      <div class="card">
 
+        <h2>📍 6. Midheaven / MC</h2>
 
-      const moonDifference =
-        Math.abs(
-          angularDifference(
-            moon.tropical,
-            moon.sidereal
-          )
-        );
+        <table>
 
+          <tr>
+            <th>Item</th>
+            <th>Tropical</th>
+            <th>Sidereal</th>
+          </tr>
 
-      const differenceChecks =
-        results.map(
-          r =>
-            Math.abs(
-              angularDifference(
-                r.tropical,
-                r.sidereal
-              )
+          <tr>
+            <td>MC</td>
+            <td>${tropicalMC.toFixed(8)}°</td>
+            <td>${siderealMC.toFixed(8)}°</td>
+          </tr>
+
+          <tr>
+            <td>Rashi</td>
+            <td>${signInfo(tropicalMC).rashi}</td>
+            <td>${mcInfo.rashi}</td>
+          </tr>
+
+          <tr>
+            <td>Degree</td>
+            <td>${dms(
+              signInfo(tropicalMC).degree
+            )}</td>
+            <td>${dms(mcInfo.degree)}</td>
+          </tr>
+
+          <tr>
+            <td>Sidereal separation</td>
+            <td colspan="2">
+              ${mcDifference.toFixed(8)}°
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <div class="card">
+
+        <h2>🏠 7. Placidus House Cusps</h2>
+
+        <p class="small">
+          House system: Placidus (P)
+        </p>
+
+        <table>
+
+          <tr>
+            <th>House</th>
+            <th>Sidereal Longitude</th>
+            <th>Degree</th>
+            <th>Rashi</th>
+          </tr>
+
+          ${
+            houseRows(
+              houses.sidereal.cusps
             )
-        );
+          }
 
+        </table>
 
-      const allDifferenceChecks =
-        differenceChecks.every(
-          d =>
-            d >= 23.5 &&
-            d <= 23.8
-        );
-
-
-      /*
-        Ketu opposition check.
-      */
-
-      const ketuOpposition =
-        Math.abs(
-          angularDifference(
-            ketu.sidereal,
-            rahu.sidereal + 180
+        ${
+          houses.sidereal.fallback
+          ? warn(
+            "The wrapper did not expose the extended sidereal house method, so the sidereal house values were derived by subtracting the Lahiri ayanamsa from the tropical house values."
           )
-        ) < 0.000001;
-
-
-      let summary = "";
-
-
-      summary =
-        addValidation(
-          summary,
-          true,
-          "UTC conversion",
-          `
-            Local ${input.localDate}
-            ${input.localTime}
-            UTC${input.offset >= 0 ? "+" : ""}
-            ${input.offset}
-            was converted to
-            <b>${input.utcDate}</b>.
-          `
-        );
+          : pass(
+            "Sidereal house calculation obtained from the Swiss Ephemeris house API."
+          )
+        }
 
+      </div>
 
-      summary =
-        addValidation(
-          summary,
-          Number.isFinite(jd),
-          "Julian Day",
-          `
-            JD =
-            <span class="reference">
-              ${jd.toFixed(8)}
-            </span>
-          `
-        );
+      <div class="card">
 
+        <h2>🪐 8. Planetary Positions</h2>
+
+        <table>
+
+          <tr>
+            <th>Planet</th>
+            <th>Tropical</th>
+            <th>Sidereal</th>
+            <th>Rashi</th>
+            <th>Degree</th>
+            <th>Nakshatra</th>
+            <th>Pada</th>
+            <th>Difference</th>
+          </tr>
 
-      summary =
-        addValidation(
-          summary,
-          Number.isFinite(ayanamsa),
-          "Lahiri Ayanamsa",
-          `
-            Ayanamsa =
-            <span class="reference">
-              ${ayanamsa.toFixed(8)}°
-            </span>
-          `
-        );
+          ${planetRows(planets)}
 
+          <tr>
+            <td>☋ Ketu</td>
+            <td>${ketu.tropical.toFixed(8)}°</td>
+            <td>${ketu.sidereal.toFixed(8)}°</td>
+            <td>${ketu.rashi}</td>
+            <td>${dms(ketu.degree)}</td>
+            <td>${ketu.nakshatra}</td>
+            <td>${ketu.pada}</td>
+            <td>${ayan.toFixed(8)}°</td>
+          </tr>
 
-      summary =
-        addValidation(
-          summary,
-          allDifferenceChecks,
-          "Tropical → Sidereal consistency",
-          `
-            All calculated bodies have a
-            tropical/sidereal separation within
-            the expected Lahiri plausibility range
-            of approximately 23.5°–23.8°.
-          `
-        );
+        </table>
 
+      </div>
 
-      summary =
-        addValidation(
-          summary,
-          ketuOpposition,
-          "Rahu / Ketu opposition",
-          `
-            Ketu is calculated exactly 180°
-            from Rahu.
-          `
-        );
+      <div class="card">
 
+        <h2>🔬 9. Lagna Validation Diagnostics</h2>
 
-      document.getElementById(
-        "validationSummary"
-      ).innerHTML =
-        summary;
+        <table>
 
+          <tr>
+            <th>Test</th>
+            <th>Result</th>
+          </tr>
 
-      /* ==================================================
-         DIAGNOSTIC
-      ================================================== */
+          <tr>
+            <td>Tropical Ascendant</td>
+            <td>${tropicalAsc.toFixed(8)}°</td>
+          </tr>
 
-      document.getElementById(
-        "diagnostic"
-      ).innerHTML = `
+          <tr>
+            <td>Sidereal Ascendant</td>
+            <td>${siderealAsc.toFixed(8)}°</td>
+          </tr>
 
-        <b>Validation Input</b><br>
+          <tr>
+            <td>Ascendant separation</td>
+            <td>${ascDifference.toFixed(8)}°</td>
+          </tr>
 
-        30 June 1982, 19:30 IST, Purulia
+          <tr>
+            <td>Lahiri ayanamsa</td>
+            <td>${ayan.toFixed(8)}°</td>
+          </tr>
 
-        <br><br>
+          <tr>
+            <td>Ascendant error</td>
+            <td>${ascAyanCheck.toFixed(10)}°</td>
+          </tr>
 
-        <b>UTC:</b>
-        ${input.utcDate}
+          <tr>
+            <td>MC separation</td>
+            <td>${mcDifference.toFixed(8)}°</td>
+          </tr>
 
-        <br><br>
+          <tr>
+            <td>MC error</td>
+            <td>${mcAyanCheck.toFixed(10)}°</td>
+          </tr>
 
-        <b>Julian Day:</b>
-        ${jd.toFixed(8)}
+          <tr>
+            <td>House system</td>
+            <td>Placidus</td>
+          </tr>
 
-        <br><br>
+          <tr>
+            <td>House cusps</td>
+            <td>${houseCount}</td>
+          </tr>
 
-        <b>Lahiri Ayanamsa:</b>
-        ${ayanamsa.toFixed(8)}°
+        </table>
 
-        <br><br>
+      </div>
 
-        <b>Sidereal Sun:</b>
-        ${sun.sidereal.toFixed(8)}°
+      <div class="card">
 
-        <br><br>
+        <h2>📦 10. Raw Swiss Ephemeris Output</h2>
 
-        <b>Sun Separation:</b>
-        ${sunDifference.toFixed(8)}°
+        <pre>${escapeHTML(
+          JSON.stringify(
+            outputJSON,
+            null,
+            2
+          )
+        )}</pre>
 
-        <br><br>
+      </div>
 
-        <b>Sidereal Moon:</b>
-        ${moon.sidereal.toFixed(8)}°
+      <div class="card">
 
-        <br><br>
+        <h2>ℹ️ Calculation Stage</h2>
 
-        <b>Moon Separation:</b>
-        ${moonDifference.toFixed(8)}°
+        <p>
+          <b>Engine:</b> Swiss Ephemeris WebAssembly
+        </p>
 
-        <br><br>
+        <p>
+          <b>Sidereal Mode:</b> SE_SIDM_LAHIRI
+        </p>
 
-        <b>Engine:</b>
-        Swiss Ephemeris WebAssembly
+        <p>
+          <b>House System:</b> Placidus
+        </p>
 
-        <br><br>
+        <p>
+          <b>Stage:</b>
+          Astronomical + Lagna validation only
+        </p>
 
-        <b>Sidereal Mode:</b>
-        SE_SIDM_LAHIRI
+        <p class="small">
+          D1 chart, D9 chart, Bhava interpretation, Dasha and
+          predictions are intentionally not included in V1.3.
+        </p>
 
-        <br><br>
+      </div>
 
-        <b>Calculation Stage:</b>
-        Astronomical validation only
+    `;
 
-      `;
+    output.innerHTML = html;
 
+  }catch(err){
 
-      /* ==================================================
-         RAW DATA
-      ================================================== */
+    output.innerHTML = `
+      <div class="card">
+        <div class="error">
+          <b>Calculation Error</b><br><br>
+          ${escapeHTML(
+            err?.message || String(err)
+          )}
+        </div>
+      </div>
+    `;
 
-      document.getElementById(
-        "rawOutput"
-      ).textContent =
-        JSON.stringify(
-          {
-            version:"KundaliVeda V1.2",
-
-            input,
-
-            julianDay:jd,
-
-            ayanamsa,
-
-            planets:results,
-
-            rahu,
-
-            ketu,
-
-            validation:{
-              sunSeparation:sunDifference,
-              moonSeparation:moonDifference,
-              allBodiesLahiriPlausible:
-                allDifferenceChecks,
-              ketuExactlyOppositeRahu:
-                ketuOpposition
-            }
-
-          },
-          null,
-          2
-        );
-
-
-      /* ==================================================
-         SHOW RESULTS
-      ================================================== */
-
-      document.getElementById(
-        "resultArea"
-      ).classList.remove(
-        "hidden"
-      );
-
-
-      engineStatus.className =
-        "status success";
-
-      engineStatus.textContent =
-        "✅ V1.2 validation calculation completed.";
-
-
-      window.scrollTo({
-
-        top:
-          document.getElementById(
-            "resultArea"
-          ).offsetTop - 10,
-
-        behavior:"smooth"
-
-      });
-
-    }
-    catch(error){
-
-      console.error(error);
-
-      engineStatus.className =
-        "status error";
-
-      engineStatus.textContent =
-        "❌ Calculation error: " +
-        error.message;
-
-      alert(
-        "Calculation error:\n\n" +
-        error.message
-      );
-
-    }
-
+    console.error(err);
   }
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* ---------------------------
+   Swiss Ephemeris startup
+---------------------------- */
+
+(async()=>{
+
+  try{
+
+    swe = new SwissEph();
+
+    await swe.initSwissEph();
+
+    $("calcBtn").disabled = false;
+    $("calcBtn").textContent =
+      "Calculate V1.3 Lagna Validation";
+
+    $("loadStatus").innerHTML =
+      `<span class="pass">✓ Swiss Ephemeris ready</span>`;
+
+  }catch(err){
+
+    $("loadStatus").innerHTML =
+      `<span class="fail">
+        ✗ Swiss Ephemeris initialization failed:
+        ${escapeHTML(err.message || err)}
+      </span>`;
+
+    console.error(err);
+  }
+
+})();
+
+
+$("calcBtn").addEventListener(
+  "click",
+  calculate
 );
-
-
-/* ======================================================
-   CLEANUP
-====================================================== */
 
 window.addEventListener(
   "beforeunload",
-  () => {
-
-    if(swe){
-
-      try{
-
+  ()=>{
+    try{
+      if(swe && typeof swe.close === "function")
         swe.close();
-
-      }
-      catch(e){}
-
-    }
-
+    }catch(e){}
   }
 );
 
 </script>
 
 </body>
-  </html>
+</html>
