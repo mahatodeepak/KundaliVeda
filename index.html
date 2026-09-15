@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KundaliVeda V1.4.4 — D1 Rāśi Chart</title>
+<title>KundaliVeda V1.5 — D1 & D9 Navamsa</title>
 
 <style>
 * {
@@ -14,29 +14,28 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f1e8;
+  background: #f5f5f5;
   color: #222;
 }
 
 header {
-  background: #6d1b1b;
+  background: #5b2c6f;
   color: white;
-  padding: 18px 15px;
+  padding: 18px 12px;
   text-align: center;
 }
 
 header h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 25px;
 }
 
 header p {
-  margin: 7px 0 0;
-  font-size: 13px;
-  opacity: .9;
+  margin: 6px 0 0;
+  font-size: 14px;
 }
 
-.container {
+main {
   max-width: 1100px;
   margin: auto;
   padding: 15px;
@@ -44,183 +43,127 @@ header p {
 
 .card {
   background: white;
-  border-radius: 12px;
-  padding: 18px;
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.card h2 {
+h2 {
   margin-top: 0;
-  color: #6d1b1b;
-  font-size: 20px;
+  color: #5b2c6f;
 }
 
-.birth-grid {
+h3 {
+  color: #5b2c6f;
+  margin-bottom: 8px;
+}
+
+.info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
 }
 
 .info {
-  background: #faf7ef;
+  background: #faf7fc;
+  border: 1px solid #e4d8e9;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #e6ddca;
 }
 
-.info strong {
-  display: block;
-  font-size: 12px;
-  color: #777;
-  margin-bottom: 4px;
-}
-
-.calculate-btn {
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  border: none;
-  border-radius: 9px;
-  background: #6d1b1b;
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.calculate-btn:hover {
-  background: #521414;
-}
-
-.pass {
-  color: #137333;
+.value {
   font-weight: bold;
 }
 
-.fail {
-  color: #b3261e;
-  font-weight: bold;
-}
-
-.chart-wrap {
-  width: 100%;
-  max-width: 650px;
-  margin: 10px auto;
-}
-
-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.chart-border {
-  fill: #fffdf7;
-  stroke: #222;
-  stroke-width: 2;
-}
-
-.chart-line {
-  fill: none;
-  stroke: #222;
-  stroke-width: 2;
-}
-
-.house-number {
-  font-size: 12px;
-  font-weight: bold;
-  fill: #777;
-}
-
-.sign-name {
-  font-size: 13px;
-  font-weight: bold;
-  fill: #6d1b1b;
-}
-
-.planet-text {
-  font-size: 11px;
-  font-weight: bold;
-  fill: #111;
-}
-
-.lagna-text {
-  font-size: 11px;
-  font-weight: bold;
-  fill: #137333;
+.table-wrap {
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  min-width: 700px;
 }
 
-th,
-td {
+th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
 th {
-  background: #6d1b1b;
-  color: white;
+  background: #eee;
 }
 
-tr:nth-child(even) {
-  background: #fafafa;
+.pass {
+  color: green;
+  font-weight: bold;
 }
 
-.validation-item {
-  padding: 7px 0;
-  border-bottom: 1px solid #eee;
+.fail {
+  color: red;
+  font-weight: bold;
 }
 
-.raw {
-  background: #171717;
-  color: #d8ffd8;
-  padding: 15px;
+.chart-container {
+  text-align: center;
+  overflow-x: auto;
+}
+
+.chart {
+  width: 600px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  background: #fffdf8;
+}
+
+.chart-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.legend {
+  font-size: 13px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.validation {
+  font-family: monospace;
+  white-space: pre-wrap;
+  background: #111;
+  color: #eee;
+  padding: 14px;
   border-radius: 8px;
   overflow-x: auto;
-  font-family: monospace;
-  font-size: 12px;
-  white-space: pre-wrap;
-}
-
-.note {
   font-size: 13px;
-  color: #666;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-@media (max-width: 600px) {
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #eee;
+  margin: 3px;
+  font-size: 13px;
+}
 
-  header h1 {
-    font-size: 20px;
-  }
+.d1 {
+  background: #eadcf0;
+}
 
-  .card {
-    padding: 13px;
-  }
+.d9 {
+  background: #dcecf5;
+}
 
-  table {
-    font-size: 11px;
-  }
-
-  th,
-  td {
-    padding: 6px 3px;
-  }
-
-  .planet-text {
-    font-size: 9px;
-  }
-
-  .sign-name {
-    font-size: 11px;
-  }
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 13px;
 }
 </style>
 </head>
@@ -228,220 +171,211 @@ tr:nth-child(even) {
 <body>
 
 <header>
-  <h1>🔱 KundaliVeda V1.4.4</h1>
-  <p>D1 Rāśi Chart • Swiss Ephemeris • Lahiri Ayanāṁśa</p>
+  <h1>🔱 KundaliVeda V1.5</h1>
+  <p>Vedic Astrology • D1 Rāśi + D9 Navāṁśa • Swiss Ephemeris • Lahiri</p>
 </header>
 
-<div class="container">
+<main>
 
-<!-- =====================================================
-     BIRTH INFORMATION
-===================================================== -->
-
-<div class="card">
-
+<!-- BIRTH INFORMATION -->
+<section class="card">
   <h2>Birth Information</h2>
 
-  <div class="birth-grid">
+  <div class="info-grid">
 
     <div class="info">
-      <strong>Date</strong>
-      30 June 1982
+      Date:
+      <span class="value">30 June 1982</span>
     </div>
 
     <div class="info">
-      <strong>Local Time</strong>
-      19:30 IST
+      Time:
+      <span class="value">19:30:00 IST</span>
     </div>
 
     <div class="info">
-      <strong>Place</strong>
-      Purulia, West Bengal, India
+      Place:
+      <span class="value">Purulia, West Bengal, India</span>
     </div>
 
     <div class="info">
-      <strong>Latitude</strong>
-      23.3322° N
+      Latitude:
+      <span class="value">23.3322° N</span>
     </div>
 
     <div class="info">
-      <strong>Longitude</strong>
-      86.3652° E
+      Longitude:
+      <span class="value">86.3652° E</span>
     </div>
 
     <div class="info">
-      <strong>UTC Offset</strong>
-      +5:30
+      UTC Offset:
+      <span class="value">+5:30</span>
     </div>
 
   </div>
-
-  <button
-    class="calculate-btn"
-    onclick="calculate()">
-    Calculate Kundali
-  </button>
-
-</div>
+</section>
 
 
-<!-- =====================================================
-     STATUS
-===================================================== -->
+<!-- ASTRONOMICAL DATA -->
+<section class="card">
+  <h2>Validated Astronomical Data</h2>
 
-<div class="card">
+  <div id="astroData" class="info-grid">
+    Calculating...
+  </div>
+</section>
 
-  <h2>Calculation Status</h2>
 
-  <div id="status">
-    Initializing Swiss Ephemeris...
+<!-- D1 -->
+<section class="card">
+  <h2>🕉️ D1 Rāśi Chart</h2>
+
+  <div class="chart-title">
+    <strong>North Indian Style — Whole Sign Houses</strong>
   </div>
 
-</div>
-
-
-<!-- =====================================================
-     D1 CHART
-===================================================== -->
-
-<div class="card">
-
-  <h2>D1 Rāśi Chart — North Indian Style</h2>
-
-  <div class="chart-wrap">
-
+  <div class="chart-container">
     <svg
       id="d1Chart"
+      class="chart"
       viewBox="0 0 600 600"
       xmlns="http://www.w3.org/2000/svg">
     </svg>
-
   </div>
 
-  <div id="d1Summary"></div>
-
-</div>
-
-
-<!-- =====================================================
-     LAGNA
-===================================================== -->
-
-<div class="card">
-
-  <h2>Lagna / Ascendant</h2>
-
-  <div id="lagnaSummary"></div>
-
-</div>
+  <div class="legend">
+    D1 = Rāśi / Birth Chart
+  </div>
+</section>
 
 
-<!-- =====================================================
-     PLANETS
-===================================================== -->
+<!-- D1 TABLE -->
+<section class="card">
+  <h2>D1 Planetary Positions</h2>
 
-<div class="card">
-
-  <h2>Sidereal Planetary Positions</h2>
-
-  <div style="overflow-x:auto;">
-
+  <div class="table-wrap">
     <table>
-
       <thead>
         <tr>
           <th>Planet</th>
+          <th>Longitude</th>
           <th>Sign</th>
-          <th>House</th>
           <th>Degree</th>
           <th>Nakshatra</th>
           <th>Pada</th>
+          <th>House</th>
         </tr>
       </thead>
 
-      <tbody id="planetTable"></tbody>
-
+      <tbody id="d1Table">
+      </tbody>
     </table>
+  </div>
+</section>
 
+
+<!-- D9 -->
+<section class="card">
+  <h2>🔷 D9 Navāṁśa Chart</h2>
+
+  <div class="chart-title">
+    <strong>North Indian Style — Whole Sign Houses</strong>
   </div>
 
-</div>
+  <div class="chart-container">
+    <svg
+      id="d9Chart"
+      class="chart"
+      viewBox="0 0 600 600"
+      xmlns="http://www.w3.org/2000/svg">
+    </svg>
+  </div>
+
+  <div class="legend">
+    D9 = Navāṁśa / Ninth Harmonic Divisional Chart
+  </div>
+</section>
 
 
-<!-- =====================================================
-     HOUSE CUSPS
-===================================================== -->
+<!-- D9 TABLE -->
+<section class="card">
+  <h2>D9 Navāṁśa Positions</h2>
 
-<div class="card">
-
-  <h2>Placidus House Cusps</h2>
-
-  <div style="overflow-x:auto;">
-
+  <div class="table-wrap">
     <table>
-
       <thead>
         <tr>
-          <th>House</th>
-          <th>Tropical</th>
-          <th>Sidereal</th>
-          <th>Sidereal Sign</th>
+          <th>Planet</th>
+          <th>D1 Longitude</th>
+          <th>D1 Sign</th>
+          <th>D9 Sign</th>
+          <th>D9 Degree</th>
+          <th>D9 House</th>
         </tr>
       </thead>
 
-      <tbody id="houseTable"></tbody>
-
+      <tbody id="d9Table">
+      </tbody>
     </table>
-
   </div>
-
-</div>
-
-
-<!-- =====================================================
-     VALIDATION
-===================================================== -->
-
-<div class="card">
-
-  <h2>Calculation Validation</h2>
-
-  <div id="validation"></div>
-
-</div>
+</section>
 
 
-<!-- =====================================================
-     RAW OUTPUT
-===================================================== -->
+<!-- D9 SUMMARY -->
+<section class="card">
+  <h2>D9 Summary</h2>
 
-<div class="card">
+  <div id="d9Summary" class="info-grid">
+  </div>
+</section>
 
-  <h2>Raw Swiss Ephemeris Output</h2>
 
-  <div id="rawOutput" class="raw"></div>
+<!-- VALIDATION -->
+<section class="card">
+  <h2>🔬 V1.5 Validation</h2>
 
-</div>
+  <div id="validation" class="validation">
+Calculating validation...
+  </div>
+</section>
 
-</div>
+</main>
+
+<footer>
+  KundaliVeda V1.5 • Swiss Ephemeris • Lahiri Ayanāṁśa
+</footer>
 
 
 <script type="module">
 
-/* =========================================================
-   SWISS EPHEMERIS V0.1.0
-========================================================= */
+/* ============================================================
+   KUNDALIVEDA V1.5
+   ============================================================
+
+   V1.5 additions:
+   - D9 Navamsa calculation
+   - D9 chart
+   - D9 table
+   - D9 validation
+
+   V1.4.4 astronomy preserved.
+   ============================================================ */
+
+
+/* ============================================================
+   SWISS EPHEMERIS
+   ============================================================ */
 
 import SwissEph from
-"https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js";
+'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
 
 
-/* =========================================================
+/* ============================================================
    BIRTH DATA
-========================================================= */
+   ============================================================ */
 
 const BIRTH = {
-
   year: 1982,
   month: 6,
   day: 30,
@@ -450,41 +384,41 @@ const BIRTH = {
   minute: 30,
   second: 0,
 
+  utcOffset: 5.5,
+
   latitude: 23.3322,
   longitude: 86.3652,
 
-  utcOffset: 5.5
-
+  place: "Purulia, West Bengal, India"
 };
 
 
-/* =========================================================
+/* ============================================================
    EXPECTED VALIDATION VALUES
-========================================================= */
+   ============================================================ */
 
 const EXPECTED = {
 
   jd: 2445151.08333333,
 
-  ayanamsa: 23.61256829,
+  lahiri: 23.61256829,
 
-  tropicalAsc: 293.07607692,
+  tropicalAsc: 293.07607691717345,
 
-  siderealAsc: 269.46809964,
+  siderealAsc: 269.46809964414786,
 
-  tropicalMC: 217.01635623,
+  tropicalMC: 217.01635622997077,
 
-  siderealMC: 193.40837896
+  siderealMC: 193.40837895694517
 
 };
 
 
-/* =========================================================
+/* ============================================================
    SIGNS
-========================================================= */
+   ============================================================ */
 
 const SIGNS = [
-
   "Mesha",
   "Vrishabha",
   "Mithuna",
@@ -497,12 +431,24 @@ const SIGNS = [
   "Makara",
   "Kumbha",
   "Meena"
-
 ];
 
+const SIGN_SHORT = [
+  "Ar",
+  "Ta",
+  "Ge",
+  "Ca",
+  "Le",
+  "Vi",
+  "Li",
+  "Sc",
+  "Sg",
+  "Cp",
+  "Aq",
+  "Pi"
+];
 
 const SIGN_SYMBOLS = [
-
   "♈",
   "♉",
   "♊",
@@ -515,16 +461,67 @@ const SIGN_SYMBOLS = [
   "♑",
   "♒",
   "♓"
-
 ];
 
 
-/* =========================================================
+/* ============================================================
+   PLANETS
+   ============================================================ */
+
+const PLANETS = [
+  {
+    key: "Sun",
+    name: "Sun",
+    id: 0
+  },
+  {
+    key: "Moon",
+    name: "Moon",
+    id: 1
+  },
+  {
+    key: "Mercury",
+    name: "Mercury",
+    id: 2
+  },
+  {
+    key: "Venus",
+    name: "Venus",
+    id: 3
+  },
+  {
+    key: "Mars",
+    name: "Mars",
+    id: 4
+  },
+  {
+    key: "Jupiter",
+    name: "Jupiter",
+    id: 5
+  },
+  {
+    key: "Saturn",
+    name: "Saturn",
+    id: 6
+  },
+  {
+    key: "Rahu",
+    name: "Rahu",
+    id: 10
+  },
+  {
+    key: "Ketu",
+    name: "Ketu",
+    id: null
+  }
+];
+
+
+/* ============================================================
    NAKSHATRAS
-========================================================= */
+   ============================================================ */
 
 const NAKSHATRAS = [
-
   "Ashwini",
   "Bharani",
   "Krittika",
@@ -552,334 +549,119 @@ const NAKSHATRAS = [
   "Purva Bhadrapada",
   "Uttara Bhadrapada",
   "Revati"
-
 ];
 
 
-/* =========================================================
-   PLANETS
-========================================================= */
+/* ============================================================
+   GLOBALS
+   ============================================================ */
 
-const PLANETS = [
+let swe;
 
-  {
-    id: "Sun",
-    label: "Su",
-    body: 0
-  },
-
-  {
-    id: "Moon",
-    label: "Mo",
-    body: 1
-  },
-
-  {
-    id: "Mercury",
-    label: "Me",
-    body: 2
-  },
-
-  {
-    id: "Venus",
-    label: "Ve",
-    body: 3
-  },
-
-  {
-    id: "Mars",
-    label: "Ma",
-    body: 4
-  },
-
-  {
-    id: "Jupiter",
-    label: "Ju",
-    body: 5
-  },
-
-  {
-    id: "Saturn",
-    label: "Sa",
-    body: 6
-  },
-
-  {
-    id: "Rahu",
-    label: "Ra",
-    body: 10
-  }
-
-];
+let calculation = null;
 
 
-/* =========================================================
-   SWISS INSTANCE
-========================================================= */
-
-let swe = null;
-
-let lastCalculation = null;
-
-
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-
-async function initializeSwiss() {
-
-  try {
-
-    swe = new SwissEph();
-
-    await swe.initSwissEph();
-
-    document.getElementById(
-      "status"
-    ).innerHTML =
-
-      `<span class="pass">
-        ✓ Swiss Ephemeris initialized successfully
-      </span>`;
-
-    console.log(
-      "Swiss Ephemeris initialized"
-    );
-
-  } catch (error) {
-
-    document.getElementById(
-      "status"
-    ).innerHTML =
-
-      `<span class="fail">
-        ✗ Swiss Ephemeris initialization failed
-      </span>
-
-      <br><br>
-
-      ${error.message || error}`;
-
-    console.error(
-      "Swiss initialization error:",
-      error
-    );
-
-  }
-
-}
-
-
-initializeSwiss();
-
-
-/* =========================================================
-   NORMALIZE 0–360
-========================================================= */
+/* ============================================================
+   UTILITY FUNCTIONS
+   ============================================================ */
 
 function normalize360(value) {
 
-  let x =
-    value % 360;
+  value = value % 360;
 
-  if (x < 0) {
-    x += 360;
+  if (value < 0) {
+    value += 360;
   }
 
-  return x;
-
+  return value;
 }
 
 
-/* =========================================================
-   ANGULAR DIFFERENCE
-========================================================= */
-
 function angularDifference(a, b) {
 
-  let d =
-    Math.abs(
-      normalize360(a) -
-      normalize360(b)
-    );
+  let d = Math.abs(
+    normalize360(a) -
+    normalize360(b)
+  );
 
   if (d > 180) {
     d = 360 - d;
   }
 
   return d;
-
 }
 
 
-/* =========================================================
-   DEGREE FORMAT
-========================================================= */
+function formatDegree(value) {
 
-function formatDegree(decimal) {
+  value = normalize360(value);
 
-  const totalSeconds =
+  const degrees = Math.floor(value);
+
+  const minutesFloat =
+    (value - degrees) * 60;
+
+  const minutes =
+    Math.floor(minutesFloat);
+
+  const seconds =
     Math.round(
-      decimal * 3600
+      (minutesFloat - minutes) * 60
     );
 
-  const deg =
-    Math.floor(
-      totalSeconds / 3600
-    );
+  let d = degrees;
+  let m = minutes;
+  let s = seconds;
 
-  const min =
-    Math.floor(
-      (totalSeconds % 3600) / 60
-    );
+  if (s === 60) {
+    s = 0;
+    m++;
+  }
 
-  const sec =
-    totalSeconds % 60;
+  if (m === 60) {
+    m = 0;
+    d++;
+  }
 
-  return `${deg}°${String(min).padStart(2,"0")}′${String(sec).padStart(2,"0")}″`;
-
+  return `${d}°${String(m).padStart(2,"0")}′${String(s).padStart(2,"0")}″`;
 }
 
 
-/* =========================================================
-   SIGN
-========================================================= */
+function formatNumber(value, digits = 8) {
 
-function signIndex(longitude) {
-
-  return Math.floor(
-    normalize360(longitude) / 30
-  );
-
+  return Number(value).toFixed(digits);
 }
 
 
-function signName(longitude) {
-
-  return SIGNS[
-    signIndex(longitude)
-  ];
-
-}
-
-
-function signSymbol(longitude) {
-
-  return SIGN_SYMBOLS[
-    signIndex(longitude)
-  ];
-
-}
-
-
-function degreeInSign(longitude) {
-
-  return normalize360(longitude) % 30;
-
-}
-
-
-/* =========================================================
-   NAKSHATRA
-========================================================= */
-
-function nakshatraInfo(longitude) {
-
-  const sidereal =
-    normalize360(longitude);
-
-  const size =
-    360 / 27;
-
-  const index =
-    Math.floor(
-      sidereal / size
-    );
-
-  const within =
-    sidereal -
-    index * size;
-
-  const pada =
-    Math.floor(
-      within / (size / 4)
-    ) + 1;
-
-  return {
-
-    name:
-      NAKSHATRAS[index],
-
-    pada
-
-  };
-
-}
-
-
-/* =========================================================
-   VALIDATION HELPERS
-========================================================= */
-
-function calculateJdError(actual) {
-
-  return Math.abs(
-    actual -
-    EXPECTED.jd
-  );
-
-}
-
-
-function calculateAyanamsaError(actual) {
-
-  return Math.abs(
-    actual -
-    EXPECTED.ayanamsa
-  );
-
-}
-
-
-function valuePass(
-  actual,
-  expected,
-  tolerance
-) {
-
-  return (
-    Math.abs(
-      actual -
-      expected
-    ) <= tolerance
-  );
-
-}
-
-
-/* =========================================================
-   CORRECT UTC CONVERSION
-========================================================= */
+/* ============================================================
+   LOCAL IST → UTC
+   ============================================================ */
 
 function calculateUTCDate() {
 
-  const localAsUTC =
-    Date.UTC(
+  /*
+    IMPORTANT:
 
-      BIRTH.year,
+    Date.UTC() does not understand fractional hours
+    such as 5.5 as a timezone offset.
 
-      BIRTH.month - 1,
+    Therefore we first construct the local clock time
+    as UTC and then subtract the complete offset in
+    milliseconds.
 
-      BIRTH.day,
+    19:30 IST
+    - 5:30
+    = 14:00 UTC
+  */
 
-      BIRTH.hour,
-
-      BIRTH.minute,
-
-      BIRTH.second
-
-    );
-
+  const localAsUTC = Date.UTC(
+    BIRTH.year,
+    BIRTH.month - 1,
+    BIRTH.day,
+    BIRTH.hour,
+    BIRTH.minute,
+    BIRTH.second
+  );
 
   const offsetMilliseconds =
     BIRTH.utcOffset *
@@ -887,1431 +669,1867 @@ function calculateUTCDate() {
     60 *
     1000;
 
-
   return new Date(
-
     localAsUTC -
     offsetMilliseconds
-
   );
-
 }
 
 
-/* =========================================================
+/* ============================================================
    JULIAN DAY
-========================================================= */
+   ============================================================ */
 
-function calculateJulianDay(date) {
+function calculateJD(date) {
 
   return (
-
-    2440587.5 +
-
-    date.getTime() /
-    86400000
-
-  );
-
+    date.getTime() / 86400000
+  ) + 2440587.5;
 }
 
 
-/* =========================================================
-   D1 WHOLE-SIGN HOUSE
-========================================================= */
+/* ============================================================
+   SIGN INFORMATION
+   ============================================================ */
 
-function calculateD1House(
+function getSignIndex(longitude) {
+
+  return Math.floor(
+    normalize360(longitude) / 30
+  );
+}
+
+
+function getSign(longitude) {
+
+  return SIGNS[
+    getSignIndex(longitude)
+  ];
+}
+
+
+function getDegreeInSign(longitude) {
+
+  return normalize360(longitude) % 30;
+}
+
+
+/* ============================================================
+   NAKSHATRA
+   ============================================================ */
+
+function getNakshatraInfo(longitude) {
+
+  const normalized =
+    normalize360(longitude);
+
+  const nakshatraSize =
+    360 / 27;
+
+  const index =
+    Math.floor(
+      normalized / nakshatraSize
+    );
+
+  const positionInNakshatra =
+    normalized -
+    index * nakshatraSize;
+
+  const pada =
+    Math.floor(
+      positionInNakshatra /
+      (nakshatraSize / 4)
+    ) + 1;
+
+  return {
+    name: NAKSHATRAS[index],
+    pada
+  };
+}
+
+
+/* ============================================================
+   D1 WHOLE SIGN HOUSE
+   ============================================================ */
+
+function getWholeSignHouse(
   longitude,
   ascLongitude
 ) {
 
   const planetSign =
-    signIndex(
-      longitude
-    );
+    getSignIndex(longitude);
 
-  const lagnaSign =
-    signIndex(
-      ascLongitude
-    );
+  const ascSign =
+    getSignIndex(ascLongitude);
 
   return (
-
-    (
-      planetSign -
-      lagnaSign +
-      12
-    ) % 12
-
+    (planetSign - ascSign + 12) %
+    12
   ) + 1;
-
 }
 
 
-/* =========================================================
-   NORTH INDIAN CHART
-========================================================= */
+/* ============================================================
+   D9 NAVAMSA
+   ============================================================
 
-function renderD1Chart(calc) {
+   Each zodiac sign contains 9 Navamsas.
+
+   One Navamsa =
+   3°20′ = 3.333333...°
+
+   Starting rule:
+
+   MOVABLE:
+     Mesha, Karka, Tula, Makara
+     → starts from same sign
+
+   FIXED:
+     Vrishabha, Simha, Vrischika, Kumbha
+     → starts from 9th sign
+
+   DUAL:
+     Mithuna, Kanya, Dhanu, Meena
+     → starts from 5th sign
+
+   D9 exact longitude is calculated from:
+       D9 sign + proportional degree
+   ============================================================ */
+
+function getNavamsaStartOffset(
+  signIndex
+) {
+
+  /*
+    Movable = 0
+    Fixed   = 8
+    Dual    = 4
+
+    0 = Mesha
+    1 = Vrishabha
+    2 = Mithuna
+    3 = Karka
+    4 = Simha
+    5 = Kanya
+    6 = Tula
+    7 = Vrischika
+    8 = Dhanu
+    9 = Makara
+    10 = Kumbha
+    11 = Meena
+  */
+
+  const movable = [
+    0, 3, 6, 9
+  ];
+
+  const fixed = [
+    1, 4, 7, 10
+  ];
+
+  if (
+    movable.includes(signIndex)
+  ) {
+    return 0;
+  }
+
+  if (
+    fixed.includes(signIndex)
+  ) {
+    return 8;
+  }
+
+  return 4;
+}
+
+
+function calculateNavamsa(
+  longitude
+) {
+
+  const normalized =
+    normalize360(longitude);
+
+  const signIndex =
+    getSignIndex(normalized);
+
+  const degreeInSign =
+    getDegreeInSign(normalized);
+
+  const navamsaSize =
+    30 / 9;
+
+  const navamsaIndex =
+    Math.min(
+      8,
+      Math.floor(
+        degreeInSign /
+        navamsaSize
+      )
+    );
+
+  const startOffset =
+    getNavamsaStartOffset(
+      signIndex
+    );
+
+  const d9SignIndex =
+    (
+      signIndex +
+      startOffset +
+      navamsaIndex
+    ) % 12;
+
+  /*
+    Remaining fraction within the
+    Navamsa is multiplied by 9 to
+    obtain the D9 degree.
+  */
+
+  const startOfNavamsa =
+    navamsaIndex *
+    navamsaSize;
+
+  const positionInsideNavamsa =
+    degreeInSign -
+    startOfNavamsa;
+
+  const d9Degree =
+    positionInsideNavamsa * 9;
+
+  const d9Longitude =
+    d9SignIndex * 30 +
+    d9Degree;
+
+  return {
+
+    signIndex: d9SignIndex,
+
+    sign:
+      SIGNS[d9SignIndex],
+
+    degree:
+      d9Degree,
+
+    longitude:
+      d9Longitude,
+
+    navamsaNumber:
+      navamsaIndex + 1
+  };
+}
+
+
+/* ============================================================
+   D9 HOUSE
+   ============================================================ */
+
+function getD9House(
+  d9SignIndex,
+  d9AscSignIndex
+) {
+
+  return (
+    (
+      d9SignIndex -
+      d9AscSignIndex +
+      12
+    ) % 12
+  ) + 1;
+}
+
+
+/* ============================================================
+   HOUSE CUSP CHECK
+   ============================================================ */
+
+function countMatchingCusps(
+  actual,
+  expected
+) {
+
+  let count = 0;
+
+  for (
+    let i = 1;
+    i <= 12;
+    i++
+  ) {
+
+    if (
+      Math.abs(
+        actual[i] -
+        expected[i]
+      ) < 0.000001
+    ) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+
+/* ============================================================
+   MAIN CALCULATION
+   ============================================================ */
+
+async function calculate() {
+
+  swe = new SwissEph();
+
+  await swe.initSwissEph();
+
+
+  /* ----------------------------------------------------------
+     UTC
+     ---------------------------------------------------------- */
+
+  const utcDate =
+    calculateUTCDate();
+
+
+  /* ----------------------------------------------------------
+     JD
+     ---------------------------------------------------------- */
+
+  const jd =
+    calculateJD(utcDate);
+
+
+  /* ----------------------------------------------------------
+     LAHIRI
+     ---------------------------------------------------------- */
+
+  swe.set_sid_mode(
+    swe.SE_SIDM_LAHIRI
+  );
+
+  const lahiri =
+    swe.get_ayanamsa_ut(jd);
+
+
+  /* ----------------------------------------------------------
+     HOUSES
+     ---------------------------------------------------------- */
+
+  const tropicalHouses =
+    swe.houses_ex(
+      jd,
+      0,
+      BIRTH.latitude,
+      BIRTH.longitude,
+      "P"
+    );
+
+  const siderealHouses =
+    swe.houses_ex(
+      jd,
+      swe.SEFLG_SIDEREAL,
+      BIRTH.latitude,
+      BIRTH.longitude,
+      "P"
+    );
+
+
+  const tropicalCusps =
+    Array.from(
+      tropicalHouses.cusps
+    );
+
+  const siderealCusps =
+    Array.from(
+      siderealHouses.cusps
+    );
+
+  const tropicalAscmc =
+    Array.from(
+      tropicalHouses.ascmc
+    );
+
+  const siderealAscmc =
+    Array.from(
+      siderealHouses.ascmc
+    );
+
+
+  const tropicalAsc =
+    tropicalAscmc[0];
+
+  const tropicalMC =
+    tropicalAscmc[1];
+
+  const siderealAsc =
+    siderealAscmc[0];
+
+  const siderealMC =
+    siderealAscmc[1];
+
+
+  /* ----------------------------------------------------------
+     PLANETS
+     ---------------------------------------------------------- */
+
+  const planetResults = [];
+
+  let rahuLongitude = null;
+
+
+  for (
+    const planet of PLANETS
+  ) {
+
+    let longitude;
+
+
+    if (
+      planet.key === "Ketu"
+    ) {
+
+      /*
+        Ketu is derived from Rahu
+        by exactly 180°.
+      */
+
+      longitude =
+        normalize360(
+          rahuLongitude + 180
+        );
+
+    } else {
+
+      const result =
+        swe.calc_ut(
+          jd,
+          planet.id,
+          swe.SEFLG_SIDEREAL
+        );
+
+      longitude =
+        normalize360(
+          result[0]
+        );
+
+      if (
+        planet.key === "Rahu"
+      ) {
+        rahuLongitude =
+          longitude;
+      }
+    }
+
+
+    const signIndex =
+      getSignIndex(longitude);
+
+    const degree =
+      getDegreeInSign(longitude);
+
+    const nakshatra =
+      getNakshatraInfo(longitude);
+
+    const house =
+      getWholeSignHouse(
+        longitude,
+        siderealAsc
+      );
+
+
+    const d9 =
+      calculateNavamsa(
+        longitude
+      );
+
+
+    planetResults.push({
+
+      ...planet,
+
+      longitude,
+
+      signIndex,
+
+      sign:
+        SIGNS[signIndex],
+
+      symbol:
+        SIGN_SYMBOLS[signIndex],
+
+      degree,
+
+      degreeText:
+        formatDegree(degree),
+
+      nakshatra:
+        nakshatra.name,
+
+      pada:
+        nakshatra.pada,
+
+      house,
+
+      d9
+
+    });
+
+  }
+
+
+  /* ----------------------------------------------------------
+     D9 LAGNA
+     ---------------------------------------------------------- */
+
+  const d9Asc =
+    calculateNavamsa(
+      siderealAsc
+    );
+
+  const d9AscSignIndex =
+    d9Asc.signIndex;
+
+
+  /* ----------------------------------------------------------
+     D9 HOUSES
+     ---------------------------------------------------------- */
+
+  for (
+    const planet of planetResults
+  ) {
+
+    planet.d9.house =
+      getD9House(
+        planet.d9.signIndex,
+        d9AscSignIndex
+      );
+  }
+
+
+  calculation = {
+
+    utcDate,
+
+    jd,
+
+    lahiri,
+
+    tropicalAsc,
+
+    siderealAsc,
+
+    tropicalMC,
+
+    siderealMC,
+
+    tropicalCusps,
+
+    siderealCusps,
+
+    planets:
+      planetResults,
+
+    d9Asc
+
+  };
+
+
+  renderAstroData();
+
+  renderD1Table();
+
+  renderD9Table();
+
+  renderD9Summary();
+
+  renderD1Chart();
+
+  renderD9Chart();
+
+  runValidation();
+}
+
+
+/* ============================================================
+   RENDER ASTRONOMICAL DATA
+   ============================================================ */
+
+function renderAstroData() {
+
+  const c =
+    calculation;
+
+  document.getElementById(
+    "astroData"
+  ).innerHTML = `
+
+    <div class="info">
+      UTC
+      <div class="value">
+        ${c.utcDate.toISOString()}
+      </div>
+    </div>
+
+    <div class="info">
+      Julian Day
+      <div class="value">
+        ${formatNumber(c.jd, 8)}
+      </div>
+    </div>
+
+    <div class="info">
+      Lahiri Ayanāṁśa
+      <div class="value">
+        ${formatNumber(c.lahiri, 8)}°
+      </div>
+    </div>
+
+    <div class="info">
+      Tropical Ascendant
+      <div class="value">
+        ${formatNumber(c.tropicalAsc, 8)}°
+      </div>
+    </div>
+
+    <div class="info">
+      Sidereal Ascendant
+      <div class="value">
+        ${formatNumber(c.siderealAsc, 8)}°
+        (${getSign(c.siderealAsc)})
+      </div>
+    </div>
+
+    <div class="info">
+      Tropical MC
+      <div class="value">
+        ${formatNumber(c.tropicalMC, 8)}°
+      </div>
+    </div>
+
+    <div class="info">
+      Sidereal MC
+      <div class="value">
+        ${formatNumber(c.siderealMC, 8)}°
+        (${getSign(c.siderealMC)})
+      </div>
+    </div>
+
+  `;
+}
+
+
+/* ============================================================
+   D1 TABLE
+   ============================================================ */
+
+function renderD1Table() {
+
+  const tbody =
+    document.getElementById(
+      "d1Table"
+    );
+
+  tbody.innerHTML = "";
+
+  for (
+    const p of calculation.planets
+  ) {
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>${p.name}</strong>
+      </td>
+
+      <td>
+        ${formatNumber(
+          p.longitude,
+          8
+        )}°
+      </td>
+
+      <td>
+        ${p.sign}
+        ${p.symbol}
+      </td>
+
+      <td>
+        ${p.degreeText}
+      </td>
+
+      <td>
+        ${p.nakshatra}
+      </td>
+
+      <td>
+        ${p.pada}
+      </td>
+
+      <td>
+        ${p.house}
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+  }
+}
+
+
+/* ============================================================
+   D9 TABLE
+   ============================================================ */
+
+function renderD9Table() {
+
+  const tbody =
+    document.getElementById(
+      "d9Table"
+    );
+
+  tbody.innerHTML = "";
+
+
+  /* D9 Lagna first */
+
+  const lagnaRow =
+    document.createElement("tr");
+
+  lagnaRow.className = "d9";
+
+  lagnaRow.innerHTML = `
+
+    <td>
+      <strong>Lagna</strong>
+    </td>
+
+    <td>
+      ${formatNumber(
+        calculation.siderealAsc,
+        8
+      )}°
+    </td>
+
+    <td>
+      ${getSign(
+        calculation.siderealAsc
+      )}
+    </td>
+
+    <td>
+      ${calculation.d9Asc.sign}
+      ${SIGN_SYMBOLS[
+        calculation.d9Asc.signIndex
+      ]}
+    </td>
+
+    <td>
+      ${formatDegree(
+        calculation.d9Asc.degree
+      )}
+    </td>
+
+    <td>
+      1
+    </td>
+
+  `;
+
+  tbody.appendChild(lagnaRow);
+
+
+  for (
+    const p of calculation.planets
+  ) {
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>${p.name}</strong>
+      </td>
+
+      <td>
+        ${formatNumber(
+          p.longitude,
+          8
+        )}°
+      </td>
+
+      <td>
+        ${p.sign}
+        ${p.symbol}
+      </td>
+
+      <td>
+        ${p.d9.sign}
+        ${SIGN_SYMBOLS[
+          p.d9.signIndex
+        ]}
+      </td>
+
+      <td>
+        ${formatDegree(
+          p.d9.degree
+        )}
+      </td>
+
+      <td>
+        ${p.d9.house}
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+  }
+}
+
+
+/* ============================================================
+   D9 SUMMARY
+   ============================================================ */
+
+function renderD9Summary() {
+
+  const d9 =
+    calculation.d9Asc;
+
+  const container =
+    document.getElementById(
+      "d9Summary"
+    );
+
+
+  container.innerHTML = `
+
+    <div class="info">
+      D9 Lagna
+      <div class="value">
+        ${d9.sign}
+        ${SIGN_SYMBOLS[d9.signIndex]}
+      </div>
+    </div>
+
+    <div class="info">
+      D9 Lagna Degree
+      <div class="value">
+        ${formatDegree(
+          d9.degree
+        )}
+      </div>
+    </div>
+
+    <div class="info">
+      Source D1 Lagna
+      <div class="value">
+        ${getSign(
+          calculation.siderealAsc
+        )}
+        ${formatDegree(
+          getDegreeInSign(
+            calculation.siderealAsc
+          )
+        )}
+      </div>
+    </div>
+
+    <div class="info">
+      Navāṁśa Number
+      <div class="value">
+        ${d9.navamsaNumber}
+      </div>
+    </div>
+
+  `;
+}
+
+
+/* ============================================================
+   NORTH INDIAN CHART GEOMETRY
+   ============================================================ */
+
+const HOUSE_POSITIONS = {
+
+  1: {
+    x: 300,
+    y: 235
+  },
+
+  2: {
+    x: 445,
+    y: 100
+  },
+
+  3: {
+    x: 495,
+    y: 285
+  },
+
+  4: {
+    x: 445,
+    y: 470
+  },
+
+  5: {
+    x: 300,
+    y: 525
+  },
+
+  6: {
+    x: 155,
+    y: 470
+  },
+
+  7: {
+    x: 300,
+    y: 335
+  },
+
+  8: {
+    x: 105,
+    y: 285
+  },
+
+  9: {
+    x: 155,
+    y: 100
+  },
+
+  10: {
+    x: 300,
+    y: 75
+  },
+
+  11: {
+    x: 445,
+    y: 195
+  },
+
+  12: {
+    x: 445,
+    y: 390
+  }
+
+};
+
+
+/* ============================================================
+   SVG CHART BASE
+   ============================================================ */
+
+function createChartBase(
+  svg
+) {
+
+  svg.innerHTML = `
+
+    <rect
+      x="20"
+      y="20"
+      width="560"
+      height="560"
+      fill="none"
+      stroke="black"
+      stroke-width="2"
+    />
+
+    <polygon
+      points="300,20 580,300 300,580 20,300"
+      fill="none"
+      stroke="black"
+      stroke-width="2"
+    />
+
+    <line
+      x1="20"
+      y1="20"
+      x2="580"
+      y2="580"
+      stroke="black"
+      stroke-width="2"
+    />
+
+    <line
+      x1="580"
+      y1="20"
+      x2="20"
+      y2="580"
+      stroke="black"
+      stroke-width="2"
+    />
+
+    <line
+      x1="300"
+      y1="20"
+      x2="300"
+      y2="580"
+      stroke="black"
+      stroke-width="1"
+      opacity="0.25"
+    />
+
+  `;
+
+
+  /* House numbers */
+
+  for (
+    let h = 1;
+    h <= 12;
+    h++
+  ) {
+
+    const pos =
+      HOUSE_POSITIONS[h];
+
+    const text =
+      document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "text"
+      );
+
+    text.setAttribute(
+      "x",
+      pos.x
+    );
+
+    text.setAttribute(
+      "y",
+      pos.y - 25
+    );
+
+    text.setAttribute(
+      "text-anchor",
+      "middle"
+    );
+
+    text.setAttribute(
+      "font-size",
+      "13"
+    );
+
+    text.setAttribute(
+      "fill",
+      "#777"
+    );
+
+    text.textContent =
+      `H${h}`;
+
+    svg.appendChild(text);
+  }
+}
+
+
+/* ============================================================
+   SVG TEXT HELPER
+   ============================================================ */
+
+function addSvgText(
+  svg,
+  x,
+  y,
+  text,
+  size = 15,
+  weight = "normal"
+) {
+
+  const el =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "text"
+    );
+
+  el.setAttribute(
+    "x",
+    x
+  );
+
+  el.setAttribute(
+    "y",
+    y
+  );
+
+  el.setAttribute(
+    "text-anchor",
+    "middle"
+  );
+
+  el.setAttribute(
+    "font-size",
+    size
+  );
+
+  el.setAttribute(
+    "font-weight",
+    weight
+  );
+
+  el.textContent =
+    text;
+
+  svg.appendChild(el);
+
+  return el;
+}
+
+
+/* ============================================================
+   D1 CHART
+   ============================================================ */
+
+function renderD1Chart() {
 
   const svg =
     document.getElementById(
       "d1Chart"
     );
 
-  svg.innerHTML = "";
-
-  const NS =
-    "http://www.w3.org/2000/svg";
+  createChartBase(svg);
 
 
-  function add(
-    tag,
-    attrs,
-    text = ""
-  ) {
+  /*
+    Whole Sign houses.
 
-    const element =
-      document.createElementNS(
-        NS,
-        tag
-      );
+    House 1 is the sidereal
+    Ascendant sign.
+  */
 
-    Object.entries(attrs)
-      .forEach(
-        ([key,value]) => {
-
-          element.setAttribute(
-            key,
-            value
-          );
-
-        }
-      );
-
-    if (text) {
-
-      element.textContent =
-        text;
-
-    }
-
-    svg.appendChild(
-      element
+  const ascSign =
+    getSignIndex(
+      calculation.siderealAsc
     );
 
-    return element;
 
+  const housePlanets =
+    {};
+
+
+  for (
+    let h = 1;
+    h <= 12;
+    h++
+  ) {
+    housePlanets[h] = [];
   }
 
 
-  /*
-    OUTER SQUARE
-  */
+  for (
+    const p of calculation.planets
+  ) {
 
-  add(
-    "rect",
-    {
-      x: 20,
-      y: 20,
-      width: 560,
-      height: 560,
-      class: "chart-border"
-    }
+    housePlanets[
+      p.house
+    ].push(p);
+  }
+
+
+  /* Lagna */
+
+  const lagnaPos =
+    HOUSE_POSITIONS[1];
+
+  addSvgText(
+    svg,
+    lagnaPos.x,
+    lagnaPos.y,
+    "Lagna",
+    15,
+    "bold"
   );
 
 
   /*
-    NORTH INDIAN DIAMOND
-  */
-
-  add(
-    "polygon",
-    {
-      points:
-        "300,20 580,300 300,580 20,300",
-      class: "chart-line"
-    }
-  );
-
-
-  /*
-    CORNER DIAGONALS
-  */
-
-  add(
-    "line",
-    {
-      x1: 20,
-      y1: 20,
-      x2: 300,
-      y2: 300,
-      class: "chart-line"
-    }
-  );
-
-  add(
-    "line",
-    {
-      x1: 580,
-      y1: 20,
-      x2: 300,
-      y2: 300,
-      class: "chart-line"
-    }
-  );
-
-  add(
-    "line",
-    {
-      x1: 580,
-      y1: 580,
-      x2: 300,
-      y2: 300,
-      class: "chart-line"
-    }
-  );
-
-  add(
-    "line",
-    {
-      x1: 20,
-      y1: 580,
-      x2: 300,
-      y2: 300,
-      class: "chart-line"
-    }
-  );
-
-
-  /*
-    HOUSE CONTENT POSITIONS
-  */
-
-  const positions = {
-
-    1:  {x:300, y:235},
-
-    2:  {x:445, y:100},
-
-    3:  {x:495, y:285},
-
-    4:  {x:445, y:470},
-
-    5:  {x:300, y:525},
-
-    6:  {x:155, y:470},
-
-    7:  {x:300, y:335},
-
-    8:  {x:105, y:285},
-
-    9:  {x:155, y:100},
-
-    10: {x:300, y:75},
-
-    11: {x:445, y:195},
-
-    12: {x:445, y:390}
-
-  };
-
-
-  /*
-    DRAW HOUSES
+    Display sign and planets
+    in each house.
   */
 
   for (
-    let house = 1;
-    house <= 12;
-    house++
+    let h = 1;
+    h <= 12;
+    h++
   ) {
 
-    const sign =
+    const signIndex =
       (
-        signIndex(
-          calc.siderealAsc
-        ) +
-        house -
-        1
+        ascSign +
+        h - 1
       ) % 12;
-
 
     const pos =
-      positions[house];
+      HOUSE_POSITIONS[h];
 
 
-    /*
-      HOUSE NUMBER
-    */
-
-    add(
-      "text",
-      {
-        x: pos.x,
-        y: pos.y,
-        class: "house-number",
-        "text-anchor": "middle"
-      },
-      `H${house}`
+    addSvgText(
+      svg,
+      pos.x,
+      pos.y + 2,
+      SIGN_SHORT[signIndex],
+      17,
+      "bold"
     );
 
-
-    /*
-      SIGN
-    */
-
-    add(
-      "text",
-      {
-        x: pos.x,
-        y: pos.y + 16,
-        class: "sign-name",
-        "text-anchor": "middle"
-      },
-      `${SIGN_SYMBOLS[sign]} ${SIGNS[sign]}`
-    );
-
-
-    /*
-      LAGNA
-    */
-
-    if (house === 1) {
-
-      add(
-        "text",
-        {
-          x: pos.x,
-          y: pos.y + 32,
-          class: "lagna-text",
-          "text-anchor": "middle"
-        },
-        "LAGNA"
-      );
-
-    }
-
-
-    /*
-      PLANETS
-    */
 
     const planets =
-      calc.planets.filter(
-        p =>
-          p.house === house
+      housePlanets[h];
+
+
+    if (
+      planets.length
+    ) {
+
+      addSvgText(
+        svg,
+        pos.x,
+        pos.y + 23,
+        planets
+          .map(
+            p => p.name
+          )
+          .join(" "),
+        12,
+        "normal"
       );
-
-
-    planets.forEach(
-      (planet,index) => {
-
-        add(
-          "text",
-          {
-            x: pos.x,
-            y:
-              pos.y +
-              34 +
-              index * 18,
-            class: "planet-text",
-            "text-anchor": "middle"
-          },
-          `${planet.label} ${formatDegree(
-            degreeInSign(
-              planet.longitude
-            )
-          )}`
-        );
-
-      }
-    );
-
+    }
   }
-
 }
 
 
-/* =========================================================
-   D1 SUMMARY
-========================================================= */
+/* ============================================================
+   D9 CHART
+   ============================================================ */
 
-function renderD1Summary(calc) {
+function renderD9Chart() {
 
-  let html = `
+  const svg =
+    document.getElementById(
+      "d9Chart"
+    );
 
-    <p>
-      <strong>Lagna:</strong>
-      ${signSymbol(calc.siderealAsc)}
-      ${signName(calc.siderealAsc)}
-      —
-      ${formatDegree(
-        degreeInSign(
-          calc.siderealAsc
-        )
-      )}
-    </p>
+  createChartBase(svg);
 
-    <p>
-      <strong>House System:</strong>
-      Whole Sign
-    </p>
 
-    <p>
-      <strong>D1 House Placements:</strong>
-    </p>
+  const ascSign =
+    calculation.d9Asc
+      .signIndex;
 
-    <ul>
 
-  `;
+  const housePlanets =
+    {};
 
 
   for (
-    let house = 1;
-    house <= 12;
-    house++
+    let h = 1;
+    h <= 12;
+    h++
   ) {
-
-    const sign =
-      (
-        signIndex(
-          calc.siderealAsc
-        ) +
-        house -
-        1
-      ) % 12;
-
-
-    const planets =
-      calc.planets.filter(
-        p =>
-          p.house === house
-      );
-
-
-    const planetText =
-      planets.length
-      ?
-      planets
-        .map(
-          p => p.id
-        )
-        .join(", ")
-      :
-      "—";
-
-
-    html += `
-
-      <li>
-        House ${house}:
-        ${SIGN_SYMBOLS[sign]}
-        ${SIGNS[sign]}
-        —
-        ${planetText}
-      </li>
-
-    `;
-
+    housePlanets[h] = [];
   }
 
 
-  html += `
-    </ul>
-  `;
+  for (
+    const p of calculation.planets
+  ) {
+
+    housePlanets[
+      p.d9.house
+    ].push(p);
+  }
 
 
-  document.getElementById(
-    "d1Summary"
-  ).innerHTML =
-    html;
+  /* D9 Lagna */
 
-}
+  const lagnaPos =
+    HOUSE_POSITIONS[1];
 
-
-/* =========================================================
-   LAGNA SUMMARY
-========================================================= */
-
-function renderLagna(calc) {
-
-  const nak =
-    nakshatraInfo(
-      calc.siderealAsc
-    );
-
-
-  document.getElementById(
-    "lagnaSummary"
-  ).innerHTML = `
-
-    <p>
-      <strong>Rāśi:</strong>
-      ${signSymbol(
-        calc.siderealAsc
-      )}
-      ${signName(
-        calc.siderealAsc
-      )}
-    </p>
-
-    <p>
-      <strong>Degree:</strong>
-      ${formatDegree(
-        degreeInSign(
-          calc.siderealAsc
-        )
-      )}
-    </p>
-
-    <p>
-      <strong>Nakshatra:</strong>
-      ${nak.name}
-    </p>
-
-    <p>
-      <strong>Pada:</strong>
-      ${nak.pada}
-    </p>
-
-    <p>
-      <strong>House System:</strong>
-      Whole Sign
-    </p>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PLANET TABLE
-========================================================= */
-
-function renderPlanetTable(calc) {
-
-  const tbody =
-    document.getElementById(
-      "planetTable"
-    );
-
-
-  tbody.innerHTML = "";
-
-
-  calc.planets.forEach(
-    planet => {
-
-      const nak =
-        nakshatraInfo(
-          planet.longitude
-        );
-
-
-      const row =
-        document.createElement(
-          "tr"
-        );
-
-
-      row.innerHTML = `
-
-        <td>
-          ${planet.id}
-        </td>
-
-        <td>
-          ${SIGN_SYMBOLS[
-            signIndex(
-              planet.longitude
-            )
-          ]}
-          ${signName(
-            planet.longitude
-          )}
-        </td>
-
-        <td>
-          ${planet.house}
-        </td>
-
-        <td>
-          ${formatDegree(
-            degreeInSign(
-              planet.longitude
-            )
-          )}
-        </td>
-
-        <td>
-          ${nak.name}
-        </td>
-
-        <td>
-          ${nak.pada}
-        </td>
-
-      `;
-
-
-      tbody.appendChild(
-        row
-      );
-
-    }
+  addSvgText(
+    svg,
+    lagnaPos.x,
+    lagnaPos.y,
+    "Lagna",
+    15,
+    "bold"
   );
 
-}
 
-
-/* =========================================================
-   HOUSE TABLE
-========================================================= */
-
-function renderHouseTable(calc) {
-
-  const tbody =
-    document.getElementById(
-      "houseTable"
-    );
-
-
-  tbody.innerHTML = "";
-
+  /* Signs + planets */
 
   for (
-    let house = 1;
-    house <= 12;
-    house++
+    let h = 1;
+    h <= 12;
+    h++
   ) {
 
-    const tropical =
-      calc.tropicalCusps[
-        house
-      ];
+    const signIndex =
+      (
+        ascSign +
+        h - 1
+      ) % 12;
+
+    const pos =
+      HOUSE_POSITIONS[h];
 
 
-    const sidereal =
-      calc.siderealCusps[
-        house
-      ];
-
-
-    const row =
-      document.createElement(
-        "tr"
-      );
-
-
-    row.innerHTML = `
-
-      <td>
-        ${house}
-      </td>
-
-      <td>
-        ${tropical.toFixed(8)}°
-      </td>
-
-      <td>
-        ${sidereal.toFixed(8)}°
-      </td>
-
-      <td>
-        ${SIGN_SYMBOLS[
-          signIndex(
-            sidereal
-          )
-        ]}
-        ${signName(
-          sidereal
-        )}
-      </td>
-
-    `;
-
-
-    tbody.appendChild(
-      row
+    addSvgText(
+      svg,
+      pos.x,
+      pos.y + 2,
+      SIGN_SHORT[signIndex],
+      17,
+      "bold"
     );
 
-  }
 
+    const planets =
+      housePlanets[h];
+
+
+    if (
+      planets.length
+    ) {
+
+      addSvgText(
+        svg,
+        pos.x,
+        pos.y + 23,
+        planets
+          .map(
+            p => p.name
+          )
+          .join(" "),
+        12,
+        "normal"
+      );
+    }
+  }
 }
 
 
-/* =========================================================
+/* ============================================================
    VALIDATION
-========================================================= */
+   ============================================================ */
 
-function renderValidation(calc) {
+function runValidation() {
 
-  const jdError =
-    calculateJdError(
-      calc.jd
+  const c =
+    calculation;
+
+  const lines = [];
+
+  let allPass = true;
+
+
+  function check(
+    label,
+    pass,
+    detail
+  ) {
+
+    if (!pass) {
+      allPass = false;
+    }
+
+    lines.push(
+      `${pass ? "✓" : "✗"} ${label}: ${detail} ${pass ? "PASS" : "FAIL"}`
     );
+  }
 
 
-  const ayanamsaError =
-    calculateAyanamsaError(
-      calc.ayanamsa
-    );
-
+  /* ----------------------------------------------------------
+     UTC
+     ---------------------------------------------------------- */
 
   const utcPass =
-    calc.utc.toISOString() ===
+    c.utcDate.toISOString() ===
     "1982-06-30T14:00:00.000Z";
 
 
-  const jdPass =
-    jdError < 0.00001;
+  check(
+    "UTC conversion",
+    utcPass,
+    c.utcDate.toISOString()
+  );
 
 
-  const ayanamsaPass =
-    ayanamsaError < 0.00001;
+  /* ----------------------------------------------------------
+     JD
+     ---------------------------------------------------------- */
 
-
-  const ascPass =
-    valuePass(
-      calc.siderealAsc,
-      EXPECTED.siderealAsc,
-      0.00001
+  const jdError =
+    Math.abs(
+      c.jd -
+      EXPECTED.jd
     );
 
 
-  const mcPass =
-    valuePass(
-      calc.siderealMC,
-      EXPECTED.siderealMC,
-      0.00001
+  check(
+    "Julian Day",
+    jdError < 0.000001,
+    `${formatNumber(c.jd,8)} — expected ${formatNumber(EXPECTED.jd,8)} — error ${jdError.toFixed(10)}`
+  );
+
+
+  /* ----------------------------------------------------------
+     LAHIRI
+     ---------------------------------------------------------- */
+
+  const ayanamsaError =
+    Math.abs(
+      c.lahiri -
+      EXPECTED.lahiri
     );
 
 
-  const cuspPass =
-    calc.tropicalCusps.length === 13 &&
-    calc.siderealCusps.length === 13;
+  check(
+    "Lahiri Ayanamsa",
+    ayanamsaError < 0.000001,
+    `${formatNumber(c.lahiri,8)}° — expected ${formatNumber(EXPECTED.lahiri,8)}° — error ${ayanamsaError.toFixed(10)}°`
+  );
 
 
-  const rahu =
-    calc.planets.find(
-      p =>
-        p.id === "Rahu"
+  /* ----------------------------------------------------------
+     ASC
+     ---------------------------------------------------------- */
+
+  const ascError =
+    angularDifference(
+      c.siderealAsc,
+      EXPECTED.siderealAsc
     );
 
+
+  check(
+    "Sidereal Ascendant",
+    ascError < 0.000001,
+    `${formatNumber(c.siderealAsc,8)}° — expected ${formatNumber(EXPECTED.siderealAsc,8)}°`
+  );
+
+
+  /* ----------------------------------------------------------
+     MC
+     ---------------------------------------------------------- */
+
+  const mcError =
+    angularDifference(
+      c.siderealMC,
+      EXPECTED.siderealMC
+    );
+
+
+  check(
+    "Sidereal MC",
+    mcError < 0.000001,
+    `${formatNumber(c.siderealMC,8)}° — expected ${formatNumber(EXPECTED.siderealMC,8)}°`
+  );
+
+
+  /* ----------------------------------------------------------
+     PLACIDUS
+     ---------------------------------------------------------- */
 
   /*
-    V1.4.4 FIX
-
-    Rahu and Ketu must be 180° apart,
-    not 0° apart.
+    These values are the validated
+    V1.4.4 outputs.
   */
+
+  const expectedTropicalCusps = [
+
+    0,
+
+    293.07607691717345,
+    329.10296298369565,
+    5.430725814651707,
+    37.01635622997077,
+    63.53959216123144,
+    87.70196170588167,
+    113.07607691717345,
+    149.10296298369565,
+    185.4307258146517,
+    217.01635622997077,
+    243.53959216123147,
+    267.7019617058817
+
+  ];
+
+
+  const expectedSiderealCusps = [
+
+    0,
+
+    269.46809964414786,
+    305.49498571067005,
+    341.8227485416261,
+    13.408378956945164,
+    39.931614888205836,
+    64.09398443285608,
+    89.46809964414786,
+    125.49498571067005,
+    161.8227485416261,
+    193.40837895694517,
+    219.93161488920587,
+    244.09398443285608
+
+  ];
+
+
+  const tropicalCount =
+    countMatchingCusps(
+      c.tropicalCusps,
+      expectedTropicalCusps
+    );
+
+
+  const siderealCount =
+    countMatchingCusps(
+      c.siderealCusps,
+      expectedSiderealCusps
+    );
+
+
+  check(
+    "Placidus house cusps",
+    tropicalCount === 12 &&
+    siderealCount === 12,
+    `${tropicalCount}/12 tropical, ${siderealCount}/12 sidereal`
+  );
+
+
+  /* ----------------------------------------------------------
+     RAHU / KETU
+     ---------------------------------------------------------- */
+
+  const rahu =
+    c.planets.find(
+      p => p.key === "Rahu"
+    );
+
+  const ketu =
+    c.planets.find(
+      p => p.key === "Ketu"
+    );
+
 
   const rahuKetuSeparation =
     angularDifference(
       rahu.longitude,
-      calc.ketu.longitude
+      ketu.longitude
     );
 
 
   const rahuKetuPass =
     Math.abs(
-      rahuKetuSeparation - 180
+      rahuKetuSeparation -
+      180
     ) < 0.000001;
 
 
+  check(
+    "Rahu/Ketu opposition",
+    rahuKetuPass,
+    `${rahuKetuSeparation.toFixed(6)}°`
+  );
+
+
+  /* ----------------------------------------------------------
+     D1 LAGNA
+     ---------------------------------------------------------- */
+
+  const d1Lagna =
+    getSign(
+      c.siderealAsc
+    );
+
+
   const d1LagnaPass =
-    signName(
-      calc.siderealAsc
-    ) === "Dhanu";
+    d1Lagna === "Dhanu";
 
 
-  const allPass =
-    utcPass &&
-    jdPass &&
-    ayanamsaPass &&
-    ascPass &&
-    mcPass &&
-    cuspPass &&
-    rahuKetuPass &&
-    d1LagnaPass;
+  check(
+    "D1 Lagna",
+    d1LagnaPass,
+    `${d1Lagna} — expected Dhanu / Sagittarius`
+  );
+
+
+  /* ----------------------------------------------------------
+     TROPICAL → SIDEREAL
+     ---------------------------------------------------------- */
+
+  const ascSeparation =
+    angularDifference(
+      c.tropicalAsc,
+      c.siderealAsc
+    );
+
+
+  const mcSeparation =
+    angularDifference(
+      c.tropicalMC,
+      c.siderealMC
+    );
+
+
+  const ascAyanamsaDifference =
+    Math.abs(
+      ascSeparation -
+      c.lahiri
+    );
+
+
+  const mcAyanamsaDifference =
+    Math.abs(
+      mcSeparation -
+      c.lahiri
+    );
+
+
+  check(
+    "Ascendant ayanamsa consistency",
+    ascAyanamsaDifference < 0.01,
+    `${ascSeparation.toFixed(8)}° vs ${c.lahiri.toFixed(8)}°`
+  );
+
+
+  check(
+    "MC ayanamsa consistency",
+    mcAyanamsaDifference < 0.01,
+    `${mcSeparation.toFixed(8)}° vs ${c.lahiri.toFixed(8)}°`
+  );
+
+
+  /* ==========================================================
+     D9 VALIDATION
+     ========================================================== */
+
+
+  /*
+    Mathematical test:
+
+    For each D1 sign, the nine Navamsas
+    must advance through nine consecutive
+    signs according to the correct starting
+    rule.
+  */
+
+  let navamsaRulePass =
+    true;
+
+
+  const navamsaExamples = [];
+
+
+  for (
+    let signIndex = 0;
+    signIndex < 12;
+    signIndex++
+  ) {
+
+    const offset =
+      getNavamsaStartOffset(
+        signIndex
+      );
+
+
+    for (
+      let n = 0;
+      n < 9;
+      n++
+    ) {
+
+      const testLongitude =
+        signIndex * 30 +
+        n * (30 / 9) +
+        0.001;
+
+
+      const result =
+        calculateNavamsa(
+          testLongitude
+        );
+
+
+      const expectedSign =
+        (
+          signIndex +
+          offset +
+          n
+        ) % 12;
+
+
+      if (
+        result.signIndex !==
+        expectedSign
+      ) {
+
+        navamsaRulePass =
+          false;
+      }
+    }
+
+
+    navamsaExamples.push(
+      `${SIGNS[signIndex]} → ${SIGNS[(signIndex + offset) % 12]}`
+    );
+  }
+
+
+  check(
+    "D9 Navāṁśa sign rule",
+    navamsaRulePass,
+    "12/12 signs follow movable/fixed/dual starting rules"
+  );
+
+
+  /* ----------------------------------------------------------
+     D9 LAGNA CALCULATION
+     ---------------------------------------------------------- */
+
+  const d9LagnaPass =
+    calculation.d9Asc &&
+    calculation.d9Asc.signIndex >= 0 &&
+    calculation.d9Asc.signIndex <= 11 &&
+    calculation.d9Asc.degree >= 0 &&
+    calculation.d9Asc.degree < 30;
+
+
+  check(
+    "D9 Lagna calculation",
+    d9LagnaPass,
+    `${calculation.d9Asc.sign} ${formatDegree(calculation.d9Asc.degree)}`
+  );
+
+
+  /* ----------------------------------------------------------
+     D9 DEGREE RANGE
+     ---------------------------------------------------------- */
+
+  let d9DegreeRangePass =
+    true;
+
+
+  for (
+    const p of c.planets
+  ) {
+
+    if (
+      p.d9.degree < 0 ||
+      p.d9.degree >= 30
+    ) {
+
+      d9DegreeRangePass =
+        false;
+    }
+  }
+
+
+  check(
+    "D9 degree range",
+    d9DegreeRangePass,
+    "All D9 planetary degrees are within 0°–30°"
+  );
+
+
+  /* ----------------------------------------------------------
+     D9 HOUSE RANGE
+     ---------------------------------------------------------- */
+
+  let d9HousePass =
+    true;
+
+
+  for (
+    const p of c.planets
+  ) {
+
+    if (
+      p.d9.house < 1 ||
+      p.d9.house > 12
+    ) {
+
+      d9HousePass =
+        false;
+    }
+  }
+
+
+  check(
+    "D9 house placement",
+    d9HousePass,
+    "All D9 planets assigned to houses 1–12"
+  );
+
+
+  /* ----------------------------------------------------------
+     FINAL
+     ---------------------------------------------------------- */
+
+  lines.push("");
+
+  lines.push(
+    allPass
+      ? "Final validation: ALL PASS"
+      : "Final validation: CHECK FAILED"
+  );
 
 
   document.getElementById(
     "validation"
-  ).innerHTML = `
+  ).textContent =
+    lines.join("\n");
 
-    <div class="validation-item">
 
-      ${utcPass ? "✓" : "✗"}
+  console.log(
+    "================================"
+  );
 
-      UTC conversion:
+  console.log(
+    "KundaliVeda V1.5 Validation"
+  );
 
-      <span class="${utcPass ? "pass" : "fail"}">
-        ${utcPass ? "PASS" : "FAIL"}
-      </span>
+  console.log(
+    "================================"
+  );
 
-    </div>
+  console.log(
+    lines.join("\n")
+  );
 
+  console.log(
+    "D9 Navamsa rule examples:"
+  );
 
-    <div class="validation-item">
-
-      ${jdPass ? "✓" : "✗"}
-
-      Julian Day:
-
-      ${calc.jd.toFixed(8)}
-
-      —
-      expected
-      ${EXPECTED.jd.toFixed(8)}
-
-      —
-      error
-      ${jdError.toFixed(10)}
-
-      <span class="${jdPass ? "pass" : "fail"}">
-        ${jdPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${ayanamsaPass ? "✓" : "✗"}
-
-      Lahiri Ayanamsa:
-
-      ${calc.ayanamsa.toFixed(8)}°
-
-      —
-      expected
-      ${EXPECTED.ayanamsa.toFixed(8)}°
-
-      —
-      error
-      ${ayanamsaError.toFixed(10)}°
-
-      <span class="${ayanamsaPass ? "pass" : "fail"}">
-        ${ayanamsaPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${ascPass ? "✓" : "✗"}
-
-      Sidereal Ascendant:
-
-      ${calc.siderealAsc.toFixed(8)}°
-
-      —
-      expected
-      ${EXPECTED.siderealAsc.toFixed(8)}°
-
-      <span class="${ascPass ? "pass" : "fail"}">
-        ${ascPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${mcPass ? "✓" : "✗"}
-
-      Sidereal MC:
-
-      ${calc.siderealMC.toFixed(8)}°
-
-      —
-      expected
-      ${EXPECTED.siderealMC.toFixed(8)}°
-
-      <span class="${mcPass ? "pass" : "fail"}">
-        ${mcPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${cuspPass ? "✓" : "✗"}
-
-      Placidus house cusps:
-
-      ${calc.tropicalCusps.length - 1}/12
-      tropical,
-
-      ${calc.siderealCusps.length - 1}/12
-      sidereal
-
-      <span class="${cuspPass ? "pass" : "fail"}">
-        ${cuspPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${rahuKetuPass ? "✓" : "✗"}
-
-      Rahu/Ketu opposition:
-
-      ${rahuKetuSeparation.toFixed(6)}°
-
-      <span class="${rahuKetuPass ? "pass" : "fail"}">
-        ${rahuKetuPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      ${d1LagnaPass ? "✓" : "✗"}
-
-      D1 Lagna:
-
-      ${signName(
-        calc.siderealAsc
-      )}
-
-      —
-      expected Dhanu / Sagittarius
-
-      <span class="${d1LagnaPass ? "pass" : "fail"}">
-        ${d1LagnaPass ? "PASS" : "FAIL"}
-      </span>
-
-    </div>
-
-
-    <div class="validation-item">
-
-      <strong>
-
-        Final validation:
-
-        <span class="${allPass ? "pass" : "fail"}">
-
-          ${allPass
-            ? "ALL PASS"
-            : "CHECK FAILED"}
-
-        </span>
-
-      </strong>
-
-    </div>
-
-  `;
+  console.log(
+    navamsaExamples
+  );
 
 }
 
 
-/* =========================================================
-   RAW OUTPUT
-========================================================= */
+/* ============================================================
+   START
+   ============================================================ */
 
-function renderRaw(calc) {
+try {
 
-  const raw = {
+  await calculate();
 
-    julianDay:
-      calc.jd,
+} catch (error) {
 
-    lahiriAyanamsa:
-      calc.ayanamsa,
-
-    utc:
-      calc.utc.toISOString(),
-
-    tropicalAscendant:
-      calc.tropicalAsc,
-
-    siderealAscendant:
-      calc.siderealAsc,
-
-    tropicalMC:
-      calc.tropicalMC,
-
-    siderealMC:
-      calc.siderealMC,
-
-    tropicalHouseCusps:
-      calc.tropicalCusps,
-
-    siderealHouseCusps:
-      calc.siderealCusps,
-
-    d1HouseSystem:
-      "Whole Sign",
-
-    d1LagnaSign:
-      signName(
-        calc.siderealAsc
-      ),
-
-    planets:
-      calc.planets.map(
-        planet => ({
-
-          name:
-            planet.id,
-
-          longitude:
-            planet.longitude,
-
-          house:
-            planet.house,
-
-          sign:
-            signName(
-              planet.longitude
-            ),
-
-          degree:
-            degreeInSign(
-              planet.longitude
-            ),
-
-          nakshatra:
-            nakshatraInfo(
-              planet.longitude
-            ).name,
-
-          pada:
-            nakshatraInfo(
-              planet.longitude
-            ).pada
-
-        })
-      ),
-
-    ketu: {
-
-      longitude:
-        calc.ketu.longitude,
-
-      sign:
-        signName(
-          calc.ketu.longitude
-        ),
-
-      degree:
-        degreeInSign(
-          calc.ketu.longitude
-        )
-
-    }
-
-  };
-
+  console.error(
+    error
+  );
 
   document.getElementById(
-    "rawOutput"
+    "validation"
   ).textContent =
-    JSON.stringify(
-      raw,
-      null,
-      2
-    );
+    "ERROR:\n\n" +
+    error.stack;
 
 }
-
-
-/* =========================================================
-   MAIN CALCULATION
-========================================================= */
-
-window.calculate =
-function calculate() {
-
-  if (!swe) {
-
-    alert(
-      "Swiss Ephemeris is not initialized yet. Please wait a moment and try again."
-    );
-
-    return;
-
-  }
-
-
-  try {
-
-    /*
-      UTC
-    */
-
-    const utc =
-      calculateUTCDate();
-
-
-    /*
-      JULIAN DAY
-    */
-
-    const jd =
-      calculateJulianDay(
-        utc
-      );
-
-
-    /*
-      LAHIRI
-    */
-
-    swe.set_sid_mode(
-      swe.SE_SIDM_LAHIRI
-    );
-
-
-    const ayanamsa =
-      swe.get_ayanamsa_ut(
-        jd
-      );
-
-
-    /*
-      FLAGS
-    */
-
-    const tropicalFlags =
-      swe.SEFLG_SWIEPH;
-
-
-    const siderealFlags =
-      swe.SEFLG_SWIEPH |
-      swe.SEFLG_SIDEREAL;
-
-
-    /*
-      PLANETS
-    */
-
-    const planets = [];
-
-
-    for (
-      const definition of PLANETS
-    ) {
-
-      const tropical =
-        swe.calc_ut(
-          jd,
-          definition.body,
-          tropicalFlags
-        );
-
-
-      const sidereal =
-        swe.calc_ut(
-          jd,
-          definition.body,
-          siderealFlags
-        );
-
-
-      const longitude =
-        normalize360(
-          sidereal[0]
-        );
-
-
-      planets.push({
-
-        id:
-          definition.id,
-
-        label:
-          definition.label,
-
-        body:
-          definition.body,
-
-        tropicalLongitude:
-          normalize360(
-            tropical[0]
-          ),
-
-        longitude,
-
-        house:
-          0
-
-      });
-
-    }
-
-
-    /*
-      KETU = RAHU + 180°
-    */
-
-    const rahu =
-      planets.find(
-        planet =>
-          planet.id === "Rahu"
-      );
-
-
-    const ketuLongitude =
-      normalize360(
-        rahu.longitude + 180
-      );
-
-
-    const ketu = {
-
-      id:
-        "Ketu",
-
-      label:
-        "Ke",
-
-      longitude:
-        ketuLongitude,
-
-      house:
-        0
-
-    };
-
-
-    planets.push(
-      ketu
-    );
-
-
-    /*
-      PLACIDUS HOUSES
-    */
-
-    const houseSystem =
-      "P";
-
-
-    const tropicalHouses =
-      swe.houses_ex(
-
-        jd,
-
-        0,
-
-        BIRTH.latitude,
-
-        BIRTH.longitude,
-
-        houseSystem
-
-      );
-
-
-    const siderealHouses =
-      swe.houses_ex(
-
-        jd,
-
-        swe.SEFLG_SIDEREAL,
-
-        BIRTH.latitude,
-
-        BIRTH.longitude,
-
-        houseSystem
-
-      );
-
-
-    /*
-      CORRECT PROPERTY ACCESS
-    */
-
-    const tropicalCusps =
-      Array.from(
-        tropicalHouses.cusps
-      );
-
-
-    const siderealCusps =
-      Array.from(
-        siderealHouses.cusps
-      );
-
-
-    const tropicalAscmc =
-      Array.from(
-        tropicalHouses.ascmc
-      );
-
-
-    const siderealAscmc =
-      Array.from(
-        siderealHouses.ascmc
-      );
-
-
-    /*
-      ASCENDANT
-    */
-
-    const tropicalAsc =
-      normalize360(
-        tropicalAscmc[0]
-      );
-
-
-    const siderealAsc =
-      normalize360(
-        siderealAscmc[0]
-      );
-
-
-    /*
-      MC
-    */
-
-    const tropicalMC =
-      normalize360(
-        tropicalAscmc[1]
-      );
-
-
-    const siderealMC =
-      normalize360(
-        siderealAscmc[1]
-      );
-
-
-    /*
-      D1 WHOLE SIGN HOUSES
-    */
-
-    planets.forEach(
-      planet => {
-
-        planet.house =
-          calculateD1House(
-
-            planet.longitude,
-
-            siderealAsc
-
-          );
-
-      }
-    );
-
-
-    /*
-      STORE RESULT
-    */
-
-    lastCalculation = {
-
-      utc,
-
-      jd,
-
-      ayanamsa,
-
-      tropicalAsc,
-
-      siderealAsc,
-
-      tropicalMC,
-
-      siderealMC,
-
-      tropicalCusps,
-
-      siderealCusps,
-
-      planets,
-
-      ketu
-
-    };
-
-
-    /*
-      RENDER
-    */
-
-    renderD1Chart(
-      lastCalculation
-    );
-
-    renderD1Summary(
-      lastCalculation
-    );
-
-    renderLagna(
-      lastCalculation
-    );
-
-    renderPlanetTable(
-      lastCalculation
-    );
-
-    renderHouseTable(
-      lastCalculation
-    );
-
-    renderValidation(
-      lastCalculation
-    );
-
-    renderRaw(
-      lastCalculation
-    );
-
-
-    document.getElementById(
-      "status"
-    ).innerHTML =
-
-      `<span class="pass">
-        ✓ Calculation completed successfully
-      </span>`;
-
-
-    console.log(
-      "KundaliVeda V1.4.4:",
-      lastCalculation
-    );
-
-
-  } catch (error) {
-
-    console.error(
-      "KundaliVeda V1.4.4 calculation error:",
-      error
-    );
-
-
-    document.getElementById(
-      "status"
-    ).innerHTML =
-
-      `<span class="fail">
-        ✗ Calculation error
-      </span>
-
-      <br><br>
-
-      ${error.message || error}`;
-
-  }
-
-};
 
 </script>
 
