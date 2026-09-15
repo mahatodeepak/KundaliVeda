@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KundaliVeda V1.4.3 — D1 Rāśi Chart</title>
+<title>KundaliVeda V1.4.4 — D1 Rāśi Chart</title>
 
 <style>
 * {
@@ -228,7 +228,7 @@ tr:nth-child(even) {
 <body>
 
 <header>
-  <h1>🔱 KundaliVeda V1.4.3</h1>
+  <h1>🔱 KundaliVeda V1.4.4</h1>
   <p>D1 Rāśi Chart • Swiss Ephemeris • Lahiri Ayanāṁśa</p>
 </header>
 
@@ -858,33 +858,8 @@ function valuePass(
 
 
 /* =========================================================
-   V1.4.3 — CORRECT UTC CONVERSION
+   CORRECT UTC CONVERSION
 ========================================================= */
-
-/*
-  IMPORTANT:
-
-  Do NOT do this:
-
-      Date.UTC(
-        year,
-        month,
-        day,
-        hour - 5.5,
-        minute
-      )
-
-  because the UTC offset contains a fractional hour.
-
-  Instead:
-
-  1. Build the local civil time as if it were UTC.
-  2. Subtract the complete UTC offset in milliseconds.
-
-  19:30 IST
-  - 05:30
-  = 14:00 UTC
-*/
 
 function calculateUTCDate() {
 
@@ -1625,10 +1600,23 @@ function renderValidation(calc) {
     );
 
 
-  const rahuKetuPass =
+  /*
+    V1.4.4 FIX
+
+    Rahu and Ketu must be 180° apart,
+    not 0° apart.
+  */
+
+  const rahuKetuSeparation =
     angularDifference(
       rahu.longitude,
       calc.ketu.longitude
+    );
+
+
+  const rahuKetuPass =
+    Math.abs(
+      rahuKetuSeparation - 180
     ) < 0.000001;
 
 
@@ -1774,6 +1762,8 @@ function renderValidation(calc) {
       ${rahuKetuPass ? "✓" : "✗"}
 
       Rahu/Ketu opposition:
+
+      ${rahuKetuSeparation.toFixed(6)}°
 
       <span class="${rahuKetuPass ? "pass" : "fail"}">
         ${rahuKetuPass ? "PASS" : "FAIL"}
@@ -2102,13 +2092,6 @@ function calculate() {
 
     /*
       PLACIDUS HOUSES
-
-      houses_ex() returns:
-
-      {
-        cusps,
-        ascmc
-      }
     */
 
     const houseSystem =
@@ -2301,7 +2284,7 @@ function calculate() {
 
 
     console.log(
-      "KundaliVeda V1.4.3:",
+      "KundaliVeda V1.4.4:",
       lastCalculation
     );
 
@@ -2309,7 +2292,7 @@ function calculate() {
   } catch (error) {
 
     console.error(
-      "KundaliVeda V1.4.3 calculation error:",
+      "KundaliVeda V1.4.4 calculation error:",
       error
     );
 
