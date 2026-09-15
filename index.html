@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KundaliVeda V1.1.1 - Calculation Validation</title>
+<title>KundaliVeda V1.2 - Validation Accuracy</title>
 
 <style>
 *{
@@ -85,10 +85,12 @@ button{
   color:white;
   font-weight:bold;
   font-size:16px;
+  cursor:pointer;
 }
 
 button:disabled{
   background:#999;
+  cursor:not-allowed;
 }
 
 .status{
@@ -115,6 +117,33 @@ button:disabled{
 .info{
   background:#ede9fe;
   color:#4c1d95;
+}
+
+.pass{
+  background:#dcfce7;
+  color:#166534;
+  border-left:5px solid #16a34a;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.fail{
+  background:#fee2e2;
+  color:#991b1b;
+  border-left:5px solid #dc2626;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.warning{
+  background:#fef3c7;
+  color:#92400e;
+  border-left:5px solid #f59e0b;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
 .table-wrap{
@@ -148,11 +177,6 @@ th{
   font-weight:bold;
 }
 
-.warning{
-  color:#92400e;
-  font-weight:bold;
-}
-
 .big{
   font-size:22px;
   font-weight:bold;
@@ -172,6 +196,18 @@ pre{
   font-size:12px;
 }
 
+.small{
+  font-size:13px;
+  color:#555;
+}
+
+.reference{
+  font-family:monospace;
+  background:#f3f4f6;
+  padding:3px 6px;
+  border-radius:5px;
+}
+
 @media(max-width:700px){
 
   .grid{
@@ -189,8 +225,8 @@ pre{
 <body>
 
 <header>
-  <h1>🔱 KundaliVeda V1.1.1</h1>
-  <p>Swiss Ephemeris • Lahiri Calculation Validation</p>
+  <h1>🔱 KundaliVeda V1.2</h1>
+  <p>Swiss Ephemeris • Lahiri Calculation Accuracy Validation</p>
 </header>
 
 <div class="container">
@@ -200,6 +236,10 @@ pre{
     ⏳ Loading Swiss Ephemeris...
   </div>
 
+
+  <!-- ==================================================
+       INPUT
+  =================================================== -->
 
   <div class="card">
 
@@ -269,36 +309,70 @@ pre{
 
   <div id="resultArea" class="hidden">
 
+
+    <!-- ==================================================
+         VALIDATION SUMMARY
+    =================================================== -->
+
     <div class="card">
 
-      <h2>1. Time Conversion</h2>
+      <h2>🔎 1. Validation Summary</h2>
+
+      <div id="validationSummary"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         TIME
+    =================================================== -->
+
+    <div class="card">
+
+      <h2>2. Time Conversion</h2>
 
       <div id="timeResult"></div>
 
     </div>
 
 
+    <!-- ==================================================
+         JD
+    =================================================== -->
+
     <div class="card">
 
-      <h2>2. Julian Day</h2>
+      <h2>3. Julian Day</h2>
 
       <div class="big" id="julianDay"></div>
+
+      <p class="small">
+        Swiss Ephemeris Julian Day calculated from UTC.
+      </p>
 
     </div>
 
 
+    <!-- ==================================================
+         AYANAMSA
+    =================================================== -->
+
     <div class="card">
 
-      <h2>3. Lahiri Ayanamsa</h2>
+      <h2>4. Lahiri Ayanamsa</h2>
 
       <div id="ayanamsaResult"></div>
 
     </div>
 
 
+    <!-- ==================================================
+         TROPICAL
+    =================================================== -->
+
     <div class="card">
 
-      <h2>4. Tropical Planetary Positions</h2>
+      <h2>5. Tropical Planetary Positions</h2>
 
       <div class="table-wrap">
 
@@ -323,9 +397,13 @@ pre{
     </div>
 
 
+    <!-- ==================================================
+         SIDEREAL
+    =================================================== -->
+
     <div class="card">
 
-      <h2>5. Lahiri Sidereal Positions</h2>
+      <h2>6. Lahiri Sidereal Positions</h2>
 
       <div class="table-wrap">
 
@@ -352,9 +430,18 @@ pre{
     </div>
 
 
+    <!-- ==================================================
+         DIFFERENCE
+    =================================================== -->
+
     <div class="card">
 
-      <h2>6. Tropical → Sidereal Difference</h2>
+      <h2>7. Tropical → Sidereal Difference</h2>
+
+      <p class="small">
+        The shortest angular difference is used here so that
+        0°/360° wrap-around does not create a false result.
+      </p>
 
       <div class="table-wrap">
 
@@ -379,18 +466,26 @@ pre{
     </div>
 
 
+    <!-- ==================================================
+         NODES
+    =================================================== -->
+
     <div class="card">
 
-      <h2>7. Rahu / Ketu</h2>
+      <h2>8. Rahu / Ketu</h2>
 
       <div id="nodeResult"></div>
 
     </div>
 
 
+    <!-- ==================================================
+         ENGINE DIAGNOSTIC
+    =================================================== -->
+
     <div class="card">
 
-      <h2>8. Calculation Engine Diagnostic</h2>
+      <h2>9. Calculation Engine Diagnostic</h2>
 
       <div id="diagnostic"
            class="info"
@@ -400,9 +495,13 @@ pre{
     </div>
 
 
+    <!-- ==================================================
+         RAW OUTPUT
+    =================================================== -->
+
     <div class="card">
 
-      <h2>Raw Swiss Ephemeris Output</h2>
+      <h2>10. Raw Swiss Ephemeris Output</h2>
 
       <pre id="rawOutput"></pre>
 
@@ -417,17 +516,37 @@ pre{
 
 /*
 ==========================================================
- KUNDALIVEDA V1.1.1
- CALCULATION VALIDATION ONLY
+ KUNDALIVEDA V1.2
+ CALCULATION ACCURACY VALIDATION
 
- No D1
- No D9
- No Dasha
- No interpretation
+ Purpose:
+ Validate the astronomical calculation layer first.
 
- First validate astronomical calculations.
+ Included:
+ ✔ Swiss Ephemeris WebAssembly
+ ✔ UTC conversion
+ ✔ Julian Day
+ ✔ Lahiri ayanamsa
+ ✔ Tropical positions
+ ✔ Lahiri sidereal positions
+ ✔ Mean Rahu
+ ✔ Ketu
+ ✔ Nakshatra + Pada
+ ✔ Angular difference validation
+ ✔ Automatic diagnostic checks
+
+ Not included:
+ ✘ D1
+ ✘ D9
+ ✘ Bhava
+ ✘ Dasha
+ ✘ Yoga
+ ✘ Predictions
+ ✘ Interpretation
+
 ==========================================================
 */
+
 
 import SwissEph from
 'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
@@ -438,7 +557,7 @@ let ready = false;
 
 
 /* ======================================================
-   CONSTANTS
+   PLANETS
 ====================================================== */
 
 const PLANETS = [
@@ -495,6 +614,10 @@ const PLANETS = [
 ];
 
 
+/* ======================================================
+   SIGNS
+====================================================== */
+
 const SIGNS = [
 
   "Mesha",
@@ -512,6 +635,10 @@ const SIGNS = [
 
 ];
 
+
+/* ======================================================
+   NAKSHATRAS
+====================================================== */
 
 const NAKSHATRAS = [
 
@@ -546,6 +673,10 @@ const NAKSHATRAS = [
 ];
 
 
+/* ======================================================
+   DOM
+====================================================== */
+
 const engineStatus =
   document.getElementById(
     "engineStatus"
@@ -558,7 +689,7 @@ const calculateBtn =
 
 
 /* ======================================================
-   NORMALIZE
+   NORMALIZE 0–360
 ====================================================== */
 
 function norm360(x){
@@ -570,6 +701,24 @@ function norm360(x){
   }
 
   return x;
+
+}
+
+
+/* ======================================================
+   SHORTEST ANGULAR DIFFERENCE
+====================================================== */
+
+function angularDifference(a,b){
+
+  let diff =
+    norm360(a - b);
+
+  if(diff > 180){
+    diff -= 360;
+  }
+
+  return diff;
 
 }
 
@@ -684,7 +833,7 @@ function getNakshatra(longitude){
 
 
 /* ======================================================
-   INPUT → UTC
+   INPUT
 ====================================================== */
 
 function readInput(){
@@ -698,6 +847,11 @@ function readInput(){
     document.getElementById(
       "birthTime"
     ).value;
+
+  const place =
+    document.getElementById(
+      "place"
+    ).value.trim();
 
   const lat =
     Number(
@@ -730,6 +884,43 @@ function readInput(){
   }
 
 
+  if(
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lon) ||
+    !Number.isFinite(offset)
+  ){
+
+    throw new Error(
+      "Latitude, longitude and UTC offset must be valid numbers."
+    );
+
+  }
+
+
+  if(
+    lat < -90 ||
+    lat > 90
+  ){
+
+    throw new Error(
+      "Latitude must be between -90 and +90."
+    );
+
+  }
+
+
+  if(
+    lon < -180 ||
+    lon > 180
+  ){
+
+    throw new Error(
+      "Longitude must be between -180 and +180."
+    );
+
+  }
+
+
   const [y,m,d] =
     date.split("-").map(Number);
 
@@ -738,7 +929,8 @@ function readInput(){
 
 
   /*
-    Create the local civil date at UTC midnight.
+    Local midnight is represented
+    at UTC midnight first.
   */
 
   const localMidnight =
@@ -753,7 +945,7 @@ function readInput(){
 
 
   /*
-    Local time → UTC.
+    Local civil time → UTC.
   */
 
   const utcMillis =
@@ -778,6 +970,8 @@ function readInput(){
 
 
   return {
+
+    place,
 
     year:
       utc.getUTCFullYear(),
@@ -824,8 +1018,9 @@ async function init(){
 
     await swe.initSwissEph();
 
+
     /*
-      Official Lahiri.
+      Official Swiss Ephemeris Lahiri mode.
     */
 
     swe.set_sid_mode(
@@ -863,6 +1058,7 @@ async function init(){
 
 }
 
+
 init();
 
 
@@ -890,8 +1086,20 @@ function calculatePlanet(
     swe[planet.code];
 
 
+  if(
+    planetId === undefined
+  ){
+
+    throw new Error(
+      "Swiss Ephemeris constant not found: " +
+      planet.code
+    );
+
+  }
+
+
   /*
-    TROPICAL
+    Tropical.
   */
 
   const tropical =
@@ -903,7 +1111,7 @@ function calculatePlanet(
 
 
   /*
-    SIDEREAL
+    Sidereal.
   */
 
   const sidereal =
@@ -923,7 +1131,9 @@ function calculatePlanet(
       planet.symbol,
 
     tropical:
-      tropical[0],
+      norm360(
+        tropical[0]
+      ),
 
     tropicalSpeed:
       tropical[3],
@@ -948,7 +1158,40 @@ function calculatePlanet(
 
 
 /* ======================================================
-   CALCULATE
+   VALIDATION HELPERS
+====================================================== */
+
+function addValidation(
+  html,
+  passed,
+  title,
+  details
+){
+
+  html += `
+
+    <div class="${passed ? "pass" : "fail"}">
+
+      <b>
+        ${passed ? "✓ PASS" : "✗ CHECK"}
+        — ${title}
+      </b>
+
+      <br><br>
+
+      ${details}
+
+    </div>
+
+  `;
+
+  return html;
+
+}
+
+
+/* ======================================================
+   MAIN CALCULATION
 ====================================================== */
 
 calculateBtn.addEventListener(
@@ -973,7 +1216,8 @@ calculateBtn.addEventListener(
 
 
       /*
-        Swiss Ephemeris julday uses UT.
+        Swiss Ephemeris julday()
+        expects Universal Time.
       */
 
       const jd =
@@ -986,7 +1230,7 @@ calculateBtn.addEventListener(
 
 
       /*
-        Official Lahiri.
+        Explicitly select Lahiri.
       */
 
       swe.set_sid_mode(
@@ -996,10 +1240,6 @@ calculateBtn.addEventListener(
       );
 
 
-      /*
-        Swiss Ephemeris ayanamsa.
-      */
-
       const ayanamsa =
         swe.get_ayanamsa_ut(
           jd
@@ -1007,7 +1247,7 @@ calculateBtn.addEventListener(
 
 
       /*
-        Calculate planets.
+        Planet calculations.
       */
 
       const results =
@@ -1020,9 +1260,9 @@ calculateBtn.addEventListener(
         );
 
 
-      /*
-        Mean Rahu.
-      */
+      /* ==================================================
+         MEAN RAHU
+      ================================================== */
 
       const rahuTropical =
         swe.calc_ut(
@@ -1050,7 +1290,9 @@ calculateBtn.addEventListener(
         symbol:"☊",
 
         tropical:
-          rahuTropical[0],
+          norm360(
+            rahuTropical[0]
+          ),
 
         tropicalSpeed:
           rahuTropical[3],
@@ -1061,13 +1303,23 @@ calculateBtn.addEventListener(
           ),
 
         siderealSpeed:
-          rahuSidereal[3]
+          rahuSidereal[3],
+
+        rawTropical:
+          Array.from(
+            rahuTropical
+          ),
+
+        rawSidereal:
+          Array.from(
+            rahuSidereal
+          )
 
       };
 
 
       /*
-        Ketu = Rahu + 180°.
+        Ketu is exactly opposite Rahu.
       */
 
       const ketu = {
@@ -1084,7 +1336,13 @@ calculateBtn.addEventListener(
         sidereal:
           norm360(
             rahu.sidereal + 180
-          )
+          ),
+
+        tropicalSpeed:
+          -rahu.tropicalSpeed,
+
+        siderealSpeed:
+          -rahu.siderealSpeed
 
       };
 
@@ -1094,13 +1352,18 @@ calculateBtn.addEventListener(
       );
 
 
-      /* ================================================
-         TIME
-      ================================================= */
+      /* ==================================================
+         TIME RESULT
+      ================================================== */
 
       document.getElementById(
         "timeResult"
       ).innerHTML = `
+
+        <b>Place:</b>
+        ${input.place || "Not specified"}
+
+        <br><br>
 
         <b>Local:</b>
         ${input.localDate}
@@ -1113,12 +1376,22 @@ calculateBtn.addEventListener(
         <b>Converted UTC:</b>
         ${input.utcDate}
 
+        <br><br>
+
+        <b>Latitude:</b>
+        ${input.latitude}
+
+        &nbsp;&nbsp;
+
+        <b>Longitude:</b>
+        ${input.longitude}
+
       `;
 
 
-      /* ================================================
-         JD
-      ================================================= */
+      /* ==================================================
+         JULIAN DAY
+      ================================================== */
 
       document.getElementById(
         "julianDay"
@@ -1126,9 +1399,9 @@ calculateBtn.addEventListener(
         jd.toFixed(8);
 
 
-      /* ================================================
+      /* ==================================================
          AYANAMSA
-      ================================================= */
+      ================================================== */
 
       document.getElementById(
         "ayanamsaResult"
@@ -1150,9 +1423,9 @@ calculateBtn.addEventListener(
       `;
 
 
-      /* ================================================
+      /* ==================================================
          TROPICAL TABLE
-      ================================================= */
+      ================================================== */
 
       const tropicalBody =
         document.getElementById(
@@ -1194,8 +1467,10 @@ calculateBtn.addEventListener(
           <td>
             ${
               r.tropicalSpeed !== undefined
-              ? r.tropicalSpeed.toFixed(8)
-              : "—"
+              ?
+              r.tropicalSpeed.toFixed(8)
+              :
+              "—"
             }
           </td>
 
@@ -1205,8 +1480,10 @@ calculateBtn.addEventListener(
               ?
               (
                 r.tropicalSpeed < 0
-                ? "Retrograde"
-                : "Direct"
+                ?
+                "Retrograde"
+                :
+                "Direct"
               )
               :
               "—"
@@ -1222,9 +1499,9 @@ calculateBtn.addEventListener(
       }
 
 
-      /* ================================================
+      /* ==================================================
          SIDEREAL TABLE
-      ================================================= */
+      ================================================== */
 
       const siderealBody =
         document.getElementById(
@@ -1241,10 +1518,12 @@ calculateBtn.addEventListener(
             r.sidereal
           );
 
+
         const degree =
           getDegreeInSign(
             r.sidereal
           );
+
 
         const nak =
           getNakshatra(
@@ -1304,9 +1583,9 @@ calculateBtn.addEventListener(
       }
 
 
-      /* ================================================
-         DIFFERENCE
-      ================================================= */
+      /* ==================================================
+         DIFFERENCE TABLE
+      ================================================== */
 
       const differenceBody =
         document.getElementById(
@@ -1322,20 +1601,39 @@ calculateBtn.addEventListener(
           r.tropical === undefined ||
           r.sidereal === undefined
         ){
+
           continue;
+
         }
 
 
-        const difference =
-          norm360(
-            r.tropical -
+        /*
+          IMPORTANT:
+          Use shortest angular difference.
+
+          This prevents a false large value when
+          a longitude crosses 0° / 360°.
+        */
+
+        const signedDifference =
+          angularDifference(
+            r.tropical,
             r.sidereal
           );
 
 
+        const absoluteDifference =
+          Math.abs(
+            signedDifference
+          );
+
+
         /*
-          For normal Lahiri positions
-          this should be around 23°36'.
+          Lahiri should be approximately
+          23.5°–23.8° for this historical date.
+
+          This is a plausibility check,
+          NOT a proof of correctness.
         */
 
         const expectedMin =
@@ -1346,8 +1644,8 @@ calculateBtn.addEventListener(
 
 
         const okay =
-          difference >= expectedMin &&
-          difference <= expectedMax;
+          absoluteDifference >= expectedMin &&
+          absoluteDifference <= expectedMax;
 
 
         const tr =
@@ -1373,15 +1671,17 @@ calculateBtn.addEventListener(
 
           <td>
             <b>
-              ${difference.toFixed(8)}°
+              ${absoluteDifference.toFixed(8)}°
             </b>
           </td>
 
           <td class="${okay ? "good" : "bad"}">
             ${
               okay
-              ? "✓ Plausible"
-              : "✗ CHECK"
+              ?
+              "✓ Plausible"
+              :
+              "✗ CHECK"
             }
           </td>
 
@@ -1394,100 +1694,265 @@ calculateBtn.addEventListener(
       }
 
 
-      /* ================================================
-         NODE
-      ================================================= */
+      /* ==================================================
+         NODE TABLE
+      ================================================== */
 
       document.getElementById(
         "nodeResult"
       ).innerHTML = `
 
-        <table>
+        <div class="table-wrap">
 
-          <tr>
-            <th></th>
-            <th>Longitude</th>
-            <th>Rashi</th>
-            <th>Degree</th>
-          </tr>
+          <table>
 
-          <tr>
-            <td>☊ Rahu</td>
-            <td>
-              ${rahu.sidereal.toFixed(8)}°
-            </td>
-            <td>
-              ${
-                SIGNS[
-                  getSign(
-                    rahu.sidereal
-                  )
-                ]
-              }
-            </td>
-            <td>
-              ${
-                formatDMS(
-                  getDegreeInSign(
-                    rahu.sidereal
-                  )
-                )
-              }
-            </td>
-          </tr>
+            <tr>
+              <th></th>
+              <th>Longitude</th>
+              <th>Rashi</th>
+              <th>Degree</th>
+              <th>Speed</th>
+            </tr>
 
-          <tr>
-            <td>☋ Ketu</td>
-            <td>
-              ${ketu.sidereal.toFixed(8)}°
-            </td>
-            <td>
-              ${
-                SIGNS[
-                  getSign(
-                    ketu.sidereal
-                  )
-                ]
-              }
-            </td>
-            <td>
-              ${
-                formatDMS(
-                  getDegreeInSign(
-                    ketu.sidereal
-                  )
-                )
-              }
-            </td>
-          </tr>
+            <tr>
 
-        </table>
+              <td>☊ Rahu</td>
+
+              <td>
+                ${rahu.sidereal.toFixed(8)}°
+              </td>
+
+              <td>
+                ${
+                  SIGNS[
+                    getSign(
+                      rahu.sidereal
+                    )
+                  ]
+                }
+              </td>
+
+              <td>
+                ${
+                  formatDMS(
+                    getDegreeInSign(
+                      rahu.sidereal
+                    )
+                  )
+                }
+              </td>
+
+              <td>
+                ${rahu.siderealSpeed.toFixed(8)}
+              </td>
+
+            </tr>
+
+            <tr>
+
+              <td>☋ Ketu</td>
+
+              <td>
+                ${ketu.sidereal.toFixed(8)}°
+              </td>
+
+              <td>
+                ${
+                  SIGNS[
+                    getSign(
+                      ketu.sidereal
+                    )
+                  ]
+                }
+              </td>
+
+              <td>
+                ${
+                  formatDMS(
+                    getDegreeInSign(
+                      ketu.sidereal
+                    )
+                  )
+                }
+              </td>
+
+              <td>
+                ${ketu.siderealSpeed.toFixed(8)}
+              </td>
+
+            </tr>
+
+          </table>
+
+        </div>
 
       `;
 
 
-      /* ================================================
-         DIAGNOSTIC
-      ================================================= */
+      /* ==================================================
+         VALIDATION SUMMARY
+      ================================================== */
 
       const sun =
         results.find(
-          x => x.name === "Sun"
+          x =>
+            x.name === "Sun"
         );
 
 
       const moon =
         results.find(
-          x => x.name === "Moon"
+          x =>
+            x.name === "Moon"
         );
 
+
+      const sunDifference =
+        Math.abs(
+          angularDifference(
+            sun.tropical,
+            sun.sidereal
+          )
+        );
+
+
+      const moonDifference =
+        Math.abs(
+          angularDifference(
+            moon.tropical,
+            moon.sidereal
+          )
+        );
+
+
+      const differenceChecks =
+        results.map(
+          r =>
+            Math.abs(
+              angularDifference(
+                r.tropical,
+                r.sidereal
+              )
+            )
+        );
+
+
+      const allDifferenceChecks =
+        differenceChecks.every(
+          d =>
+            d >= 23.5 &&
+            d <= 23.8
+        );
+
+
+      /*
+        Ketu opposition check.
+      */
+
+      const ketuOpposition =
+        Math.abs(
+          angularDifference(
+            ketu.sidereal,
+            rahu.sidereal + 180
+          )
+        ) < 0.000001;
+
+
+      let summary = "";
+
+
+      summary =
+        addValidation(
+          summary,
+          true,
+          "UTC conversion",
+          `
+            Local ${input.localDate}
+            ${input.localTime}
+            UTC${input.offset >= 0 ? "+" : ""}
+            ${input.offset}
+            was converted to
+            <b>${input.utcDate}</b>.
+          `
+        );
+
+
+      summary =
+        addValidation(
+          summary,
+          Number.isFinite(jd),
+          "Julian Day",
+          `
+            JD =
+            <span class="reference">
+              ${jd.toFixed(8)}
+            </span>
+          `
+        );
+
+
+      summary =
+        addValidation(
+          summary,
+          Number.isFinite(ayanamsa),
+          "Lahiri Ayanamsa",
+          `
+            Ayanamsa =
+            <span class="reference">
+              ${ayanamsa.toFixed(8)}°
+            </span>
+          `
+        );
+
+
+      summary =
+        addValidation(
+          summary,
+          allDifferenceChecks,
+          "Tropical → Sidereal consistency",
+          `
+            All calculated bodies have a
+            tropical/sidereal separation within
+            the expected Lahiri plausibility range
+            of approximately 23.5°–23.8°.
+          `
+        );
+
+
+      summary =
+        addValidation(
+          summary,
+          ketuOpposition,
+          "Rahu / Ketu opposition",
+          `
+            Ketu is calculated exactly 180°
+            from Rahu.
+          `
+        );
+
+
+      document.getElementById(
+        "validationSummary"
+      ).innerHTML =
+        summary;
+
+
+      /* ==================================================
+         DIAGNOSTIC
+      ================================================== */
 
       document.getElementById(
         "diagnostic"
       ).innerHTML = `
 
-        <b>Validation input</b><br>
+        <b>Validation Input</b><br>
+
         30 June 1982, 19:30 IST, Purulia
+
+        <br><br>
+
+        <b>UTC:</b>
+        ${input.utcDate}
 
         <br><br>
 
@@ -1506,8 +1971,18 @@ calculateBtn.addEventListener(
 
         <br><br>
 
+        <b>Sun Separation:</b>
+        ${sunDifference.toFixed(8)}°
+
+        <br><br>
+
         <b>Sidereal Moon:</b>
         ${moon.sidereal.toFixed(8)}°
+
+        <br><br>
+
+        <b>Moon Separation:</b>
+        ${moonDifference.toFixed(8)}°
 
         <br><br>
 
@@ -1519,29 +1994,55 @@ calculateBtn.addEventListener(
         <b>Sidereal Mode:</b>
         SE_SIDM_LAHIRI
 
+        <br><br>
+
+        <b>Calculation Stage:</b>
+        Astronomical validation only
+
       `;
 
 
-      /* ================================================
+      /* ==================================================
          RAW DATA
-      ================================================= */
+      ================================================== */
 
       document.getElementById(
         "rawOutput"
       ).textContent =
         JSON.stringify(
           {
+            version:"KundaliVeda V1.2",
+
             input,
+
             julianDay:jd,
+
             ayanamsa,
+
             planets:results,
+
             rahu,
-            ketu
+
+            ketu,
+
+            validation:{
+              sunSeparation:sunDifference,
+              moonSeparation:moonDifference,
+              allBodiesLahiriPlausible:
+                allDifferenceChecks,
+              ketuExactlyOppositeRahu:
+                ketuOpposition
+            }
+
           },
           null,
           2
         );
 
+
+      /* ==================================================
+         SHOW RESULTS
+      ================================================== */
 
       document.getElementById(
         "resultArea"
@@ -1554,17 +2055,19 @@ calculateBtn.addEventListener(
         "status success";
 
       engineStatus.textContent =
-        "✅ Validation calculation completed.";
+        "✅ V1.2 validation calculation completed.";
 
 
       window.scrollTo({
+
         top:
           document.getElementById(
             "resultArea"
           ).offsetTop - 10,
-        behavior:"smooth"
-      });
 
+        behavior:"smooth"
+
+      });
 
     }
     catch(error){
@@ -1600,7 +2103,9 @@ window.addEventListener(
     if(swe){
 
       try{
+
         swe.close();
+
       }
       catch(e){}
 
@@ -1612,4 +2117,4 @@ window.addEventListener(
 </script>
 
 </body>
-</html>
+  </html>
