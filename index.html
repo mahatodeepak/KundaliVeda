@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KundaliVeda V1.4.2 — D1 Rāśi Chart</title>
+<title>KundaliVeda V1.4.3 — D1 Rāśi Chart</title>
 
 <style>
 * {
@@ -228,7 +228,7 @@ tr:nth-child(even) {
 <body>
 
 <header>
-  <h1>🔱 KundaliVeda V1.4.2</h1>
+  <h1>🔱 KundaliVeda V1.4.3</h1>
   <p>D1 Rāśi Chart • Swiss Ephemeris • Lahiri Ayanāṁśa</p>
 </header>
 
@@ -630,22 +630,9 @@ async function initializeSwiss() {
 
   try {
 
-    /*
-      SwissEph is a CLASS.
-
-      It must be instantiated with new.
-    */
-
     swe = new SwissEph();
 
-
-    /*
-      The WebAssembly module must then
-      be initialized.
-    */
-
     await swe.initSwissEph();
-
 
     document.getElementById(
       "status"
@@ -655,11 +642,9 @@ async function initializeSwiss() {
         ✓ Swiss Ephemeris initialized successfully
       </span>`;
 
-
     console.log(
       "Swiss Ephemeris initialized"
     );
-
 
   } catch (error) {
 
@@ -674,7 +659,6 @@ async function initializeSwiss() {
       <br><br>
 
       ${error.message || error}`;
-
 
     console.error(
       "Swiss initialization error:",
@@ -739,22 +723,18 @@ function formatDegree(decimal) {
       decimal * 3600
     );
 
-
   const deg =
     Math.floor(
       totalSeconds / 3600
     );
-
 
   const min =
     Math.floor(
       (totalSeconds % 3600) / 60
     );
 
-
   const sec =
     totalSeconds % 60;
-
 
   return `${deg}°${String(min).padStart(2,"0")}′${String(sec).padStart(2,"0")}″`;
 
@@ -808,27 +788,22 @@ function nakshatraInfo(longitude) {
   const sidereal =
     normalize360(longitude);
 
-
   const size =
     360 / 27;
-
 
   const index =
     Math.floor(
       sidereal / size
     );
 
-
   const within =
     sidereal -
     index * size;
-
 
   const pada =
     Math.floor(
       within / (size / 4)
     ) + 1;
-
 
   return {
 
@@ -843,7 +818,7 @@ function nakshatraInfo(longitude) {
 
 
 /* =========================================================
-   VALIDATION
+   VALIDATION HELPERS
 ========================================================= */
 
 function calculateJdError(actual) {
@@ -883,13 +858,37 @@ function valuePass(
 
 
 /* =========================================================
-   UTC
+   V1.4.3 — CORRECT UTC CONVERSION
 ========================================================= */
+
+/*
+  IMPORTANT:
+
+  Do NOT do this:
+
+      Date.UTC(
+        year,
+        month,
+        day,
+        hour - 5.5,
+        minute
+      )
+
+  because the UTC offset contains a fractional hour.
+
+  Instead:
+
+  1. Build the local civil time as if it were UTC.
+  2. Subtract the complete UTC offset in milliseconds.
+
+  19:30 IST
+  - 05:30
+  = 14:00 UTC
+*/
 
 function calculateUTCDate() {
 
-  return new Date(
-
+  const localAsUTC =
     Date.UTC(
 
       BIRTH.year,
@@ -898,14 +897,26 @@ function calculateUTCDate() {
 
       BIRTH.day,
 
-      BIRTH.hour -
-        BIRTH.utcOffset,
+      BIRTH.hour,
 
       BIRTH.minute,
 
       BIRTH.second
 
-    )
+    );
+
+
+  const offsetMilliseconds =
+    BIRTH.utcOffset *
+    60 *
+    60 *
+    1000;
+
+
+  return new Date(
+
+    localAsUTC -
+    offsetMilliseconds
 
   );
 
@@ -944,12 +955,10 @@ function calculateD1House(
       longitude
     );
 
-
   const lagnaSign =
     signIndex(
       ascLongitude
     );
-
 
   return (
 
@@ -975,9 +984,7 @@ function renderD1Chart(calc) {
       "d1Chart"
     );
 
-
   svg.innerHTML = "";
-
 
   const NS =
     "http://www.w3.org/2000/svg";
@@ -995,7 +1002,6 @@ function renderD1Chart(calc) {
         tag
       );
 
-
     Object.entries(attrs)
       .forEach(
         ([key,value]) => {
@@ -1008,7 +1014,6 @@ function renderD1Chart(calc) {
         }
       );
 
-
     if (text) {
 
       element.textContent =
@@ -1016,11 +1021,9 @@ function renderD1Chart(calc) {
 
     }
 
-
     svg.appendChild(
       element
     );
-
 
     return element;
 
@@ -1044,8 +1047,7 @@ function renderD1Chart(calc) {
 
 
   /*
-    TRADITIONAL NORTH INDIAN
-    DIAMOND
+    NORTH INDIAN DIAMOND
   */
 
   add(
@@ -1059,7 +1061,7 @@ function renderD1Chart(calc) {
 
 
   /*
-    FOUR CORNER DIAGONALS
+    CORNER DIAGONALS
   */
 
   add(
@@ -1073,7 +1075,6 @@ function renderD1Chart(calc) {
     }
   );
 
-
   add(
     "line",
     {
@@ -1085,7 +1086,6 @@ function renderD1Chart(calc) {
     }
   );
 
-
   add(
     "line",
     {
@@ -1096,7 +1096,6 @@ function renderD1Chart(calc) {
       class: "chart-line"
     }
   );
-
 
   add(
     "line",
@@ -1111,13 +1110,7 @@ function renderD1Chart(calc) {
 
 
   /*
-    NORTH INDIAN FIXED HOUSE
-    CONTENT POSITIONS.
-
-    The important part is that the
-    house number remains fixed while
-    the zodiac sign changes according
-    to the Lagna.
+    HOUSE CONTENT POSITIONS
   */
 
   const positions = {
@@ -1150,7 +1143,7 @@ function renderD1Chart(calc) {
 
 
   /*
-    DRAW HOUSE CONTENT
+    DRAW HOUSES
   */
 
   for (
@@ -1846,6 +1839,9 @@ function renderRaw(calc) {
     lahiriAyanamsa:
       calc.ayanamsa,
 
+    utc:
+      calc.utc.toISOString(),
+
     tropicalAscendant:
       calc.tropicalAsc,
 
@@ -1995,9 +1991,6 @@ function calculate() {
 
     /*
       FLAGS
-
-      SEFLG_SWIEPH = 2
-      SEFLG_SIDEREAL = 65536
     */
 
     const tropicalFlags =
@@ -2069,9 +2062,7 @@ function calculate() {
 
 
     /*
-      KETU
-
-      Ketu is derived as Rahu + 180°.
+      KETU = RAHU + 180°
     */
 
     const rahu =
@@ -2110,20 +2101,14 @@ function calculate() {
 
 
     /*
-      ======================================================
-      PLACIDUS HOUSE CALCULATION
+      PLACIDUS HOUSES
 
-      IMPORTANT:
-
-      v0.1.0 houses_ex() returns:
+      houses_ex() returns:
 
       {
         cusps,
         ascmc
       }
-
-      It does NOT return [cusps, ascmc].
-      ======================================================
     */
 
     const houseSystem =
@@ -2192,8 +2177,6 @@ function calculate() {
 
     /*
       ASCENDANT
-
-      ascmc[0] = Ascendant
     */
 
     const tropicalAsc =
@@ -2210,8 +2193,6 @@ function calculate() {
 
     /*
       MC
-
-      ascmc[1] = MC
     */
 
     const tropicalMC =
@@ -2227,9 +2208,7 @@ function calculate() {
 
 
     /*
-      ======================================================
-      D1 WHOLE-SIGN HOUSES
-      ======================================================
+      D1 WHOLE SIGN HOUSES
     */
 
     planets.forEach(
@@ -2249,7 +2228,7 @@ function calculate() {
 
 
     /*
-      SAVE CALCULATION
+      STORE RESULT
     */
 
     lastCalculation = {
@@ -2280,47 +2259,37 @@ function calculate() {
 
 
     /*
-      RENDER EVERYTHING
+      RENDER
     */
 
     renderD1Chart(
       lastCalculation
     );
 
-
     renderD1Summary(
       lastCalculation
     );
-
 
     renderLagna(
       lastCalculation
     );
 
-
     renderPlanetTable(
       lastCalculation
     );
-
 
     renderHouseTable(
       lastCalculation
     );
 
-
     renderValidation(
       lastCalculation
     );
-
 
     renderRaw(
       lastCalculation
     );
 
-
-    /*
-      SUCCESS
-    */
 
     document.getElementById(
       "status"
@@ -2332,7 +2301,7 @@ function calculate() {
 
 
     console.log(
-      "KundaliVeda V1.4.2 calculation:",
+      "KundaliVeda V1.4.3:",
       lastCalculation
     );
 
@@ -2340,7 +2309,7 @@ function calculate() {
   } catch (error) {
 
     console.error(
-      "KundaliVeda V1.4.2 calculation error:",
+      "KundaliVeda V1.4.3 calculation error:",
       error
     );
 
