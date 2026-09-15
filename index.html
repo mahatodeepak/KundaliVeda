@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>KundaliVeda V1.3.1 — Astronomical Validation</title>
+<title>KundaliVeda V1.3.2 — Astronomical Validation</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -155,21 +153,10 @@ button:disabled{
 }
 
 @media(max-width:600px){
-  header h1{
-    font-size:23px;
-  }
-
-  .card{
-    padding:13px;
-  }
-
-  table{
-    font-size:12px;
-  }
-
-  th,td{
-    padding:7px 5px;
-  }
+  header h1{font-size:23px}
+  .card{padding:13px}
+  table{font-size:12px}
+  th,td{padding:7px 5px}
 }
 </style>
 </head>
@@ -178,107 +165,99 @@ button:disabled{
 
 <header>
   <h1>🔱 KundaliVeda</h1>
-  <p>V1.3.1 — Swiss Ephemeris Astronomical Validation</p>
+  <p>V1.3.2 — Swiss Ephemeris Astronomical Validation</p>
 </header>
 
 <div class="container">
 
-  <div class="card">
-    <div id="status" class="status">
-      ⏳ Initializing Swiss Ephemeris...
+<div class="card">
+  <div id="status" class="status">
+    ⏳ Initializing Swiss Ephemeris...
+  </div>
+
+  <button id="calculateBtn" disabled>
+    Calculate Birth Chart
+  </button>
+</div>
+
+<div class="card">
+  <h2>Birth Information</h2>
+
+  <div class="info-grid">
+
+    <div class="info">
+      <div class="label">Date</div>
+      <div class="value">30 June 1982</div>
     </div>
 
-    <button id="calculateBtn" disabled>
-      Calculate Birth Chart
-    </button>
-  </div>
-
-  <div class="card">
-    <h2>Birth Information</h2>
-
-    <div class="info-grid">
-
-      <div class="info">
-        <div class="label">Date</div>
-        <div class="value">30 June 1982</div>
-      </div>
-
-      <div class="info">
-        <div class="label">Local Time</div>
-        <div class="value">19:30 IST</div>
-      </div>
-
-      <div class="info">
-        <div class="label">UTC</div>
-        <div class="value">14:00 UTC</div>
-      </div>
-
-      <div class="info">
-        <div class="label">Place</div>
-        <div class="value">Purulia, West Bengal, India</div>
-      </div>
-
-      <div class="info">
-        <div class="label">Latitude</div>
-        <div class="value">23.3322° N</div>
-      </div>
-
-      <div class="info">
-        <div class="label">Longitude</div>
-        <div class="value">86.3652° E</div>
-      </div>
-
-      <div class="info">
-        <div class="label">UTC Offset</div>
-        <div class="value">+5.5 hours</div>
-      </div>
-
+    <div class="info">
+      <div class="label">Local Time</div>
+      <div class="value">19:30 IST</div>
     </div>
+
+    <div class="info">
+      <div class="label">UTC</div>
+      <div class="value">14:00 UTC</div>
+    </div>
+
+    <div class="info">
+      <div class="label">Place</div>
+      <div class="value">Purulia, West Bengal, India</div>
+    </div>
+
+    <div class="info">
+      <div class="label">Latitude</div>
+      <div class="value">23.3322° N</div>
+    </div>
+
+    <div class="info">
+      <div class="label">Longitude</div>
+      <div class="value">86.3652° E</div>
+    </div>
+
+    <div class="info">
+      <div class="label">UTC Offset</div>
+      <div class="value">+5.5 hours</div>
+    </div>
+
   </div>
+</div>
 
-  <div class="card">
-    <h2>Time & Ayanamsa Validation</h2>
+<div class="card">
+  <h2>Time & Ayanamsa Validation</h2>
+  <div id="timeValidation"></div>
+</div>
 
-    <div id="timeValidation"></div>
-  </div>
+<div class="card">
+  <h2>Ascendant / Lagna</h2>
+  <div id="ascendantResult"></div>
+</div>
 
-  <div class="card">
-    <h2>Ascendant / Lagna</h2>
+<div class="card">
+  <h2>MC / Midheaven</h2>
+  <div id="mcResult"></div>
+</div>
 
-    <div id="ascendantResult"></div>
-  </div>
+<div class="card">
+  <h2>Planetary Positions</h2>
+  <div id="planetTable"></div>
+</div>
 
-  <div class="card">
-    <h2>MC / Midheaven</h2>
+<div class="card">
+  <h2>Placidus House Cusps</h2>
+  <div id="houseValidation"></div>
+  <div id="houseTable"></div>
+</div>
 
-    <div id="mcResult"></div>
-  </div>
+<div class="card">
+  <h2>Calculation Validation</h2>
+  <div id="validationTable"></div>
+</div>
 
-  <div class="card">
-    <h2>Planetary Positions</h2>
-
-    <div id="planetTable"></div>
-  </div>
-
-  <div class="card">
-    <h2>Placidus House Cusps</h2>
-
-    <div id="houseValidation"></div>
-
-    <div id="houseTable"></div>
-  </div>
-
-  <div class="card">
-    <h2>Calculation Validation</h2>
-
-    <div id="validationTable"></div>
-  </div>
-
-  <div class="card">
-    <h2>Raw Swiss Ephemeris Data</h2>
-
-    <pre id="rawData" class="raw">Calculation not started.</pre>
-  </div>
+<div class="card">
+  <h2>Raw Swiss Ephemeris Data</h2>
+  <pre id="rawData" class="raw">Calculation not started.</pre>
+</div>
 
 </div>
 
@@ -289,26 +268,26 @@ import SwissEph from
 
 
 /* =========================================================
-   BASIC BIRTH DATA
+   BIRTH DATA
    ========================================================= */
 
 const BIRTH = {
-  year: 1982,
-  month: 6,
-  day: 30,
+  year:1982,
+  month:6,
+  day:30,
 
-  localHour: 19,
-  localMinute: 30,
+  localHour:19,
+  localMinute:30,
 
-  utcHour: 14,
-  utcMinute: 0,
+  utcHour:14,
+  utcMinute:0,
 
-  latitude: 23.3322,
-  longitude: 86.3652,
+  latitude:23.3322,
+  longitude:86.3652,
 
-  utcOffset: 5.5,
+  utcOffset:5.5,
 
-  place: "Purulia, West Bengal, India"
+  place:"Purulia, West Bengal, India"
 };
 
 
@@ -318,17 +297,17 @@ const BIRTH = {
 
 const EXPECTED = {
 
-  julianDay: 2445151.08333333,
+  julianDay:2445151.08333333,
 
-  ayanamsa: 23.61256829,
+  ayanamsa:23.61256829,
 
-  tropicalAscendant: 293.07607692,
+  tropicalAscendant:293.07607692,
 
-  siderealAscendant: 269.46809964,
+  siderealAscendant:269.46809964,
 
-  tropicalMC: 217.01635623,
+  tropicalMC:217.01635623,
 
-  siderealMC: 193.40837896
+  siderealMC:193.40837896
 };
 
 
@@ -388,40 +367,15 @@ const NAKSHATRAS = [
    ========================================================= */
 
 const PLANETS = [
-  {
-    name:"Sun",
-    id:"SE_SUN"
-  },
-  {
-    name:"Moon",
-    id:"SE_MOON"
-  },
-  {
-    name:"Mercury",
-    id:"SE_MERCURY"
-  },
-  {
-    name:"Venus",
-    id:"SE_VENUS"
-  },
-  {
-    name:"Mars",
-    id:"SE_MARS"
-  },
-  {
-    name:"Jupiter",
-    id:"SE_JUPITER"
-  },
-  {
-    name:"Saturn",
-    id:"SE_SATURN"
-  }
+  {name:"Sun",id:"SE_SUN"},
+  {name:"Moon",id:"SE_MOON"},
+  {name:"Mercury",id:"SE_MERCURY"},
+  {name:"Venus",id:"SE_VENUS"},
+  {name:"Mars",id:"SE_MARS"},
+  {name:"Jupiter",id:"SE_JUPITER"},
+  {name:"Saturn",id:"SE_SATURN"}
 ];
 
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
 
 let swe = null;
 let calculation = null;
@@ -433,13 +387,9 @@ let calculation = null;
 
 function normalize360(x){
 
-  let n = Number(x);
+  let n = Number(x) % 360;
 
-  n = n % 360;
-
-  if(n < 0){
-    n += 360;
-  }
+  if(n < 0) n += 360;
 
   return n;
 }
@@ -447,7 +397,11 @@ function normalize360(x){
 
 function angularDifference(a,b){
 
-  let d = Math.abs(normalize360(a) - normalize360(b));
+  let d =
+    Math.abs(
+      normalize360(a) -
+      normalize360(b)
+    );
 
   if(d > 180){
     d = 360 - d;
@@ -459,38 +413,46 @@ function angularDifference(a,b){
 
 function formatDegree(decimal){
 
+  decimal = Number(decimal);
+
+  if(!Number.isFinite(decimal)){
+    return "—";
+  }
+
   decimal = normalize360(decimal);
 
-  const deg = Math.floor(decimal);
+  let deg = Math.floor(decimal);
 
-  const minutesFloat = (decimal - deg) * 60;
+  const minutesFloat =
+    (decimal - deg) * 60;
 
-  const min = Math.floor(minutesFloat);
+  let min =
+    Math.floor(minutesFloat);
 
-  let sec = Math.round((minutesFloat - min) * 60);
-
-  let finalDeg = deg;
-  let finalMin = min;
+  let sec =
+    Math.round(
+      (minutesFloat - min) * 60
+    );
 
   if(sec === 60){
     sec = 0;
-    finalMin++;
+    min++;
   }
 
-  if(finalMin === 60){
-    finalMin = 0;
-    finalDeg++;
+  if(min === 60){
+    min = 0;
+    deg++;
   }
 
-  return `${finalDeg}°${String(finalMin).padStart(2,"0")}′${String(sec).padStart(2,"0")}″`;
+  return `${deg}°${String(min).padStart(2,"0")}′${String(sec).padStart(2,"0")}″`;
 }
 
 
 function signOf(longitude){
 
-  const lon = normalize360(longitude);
-
-  return Math.floor(lon / 30);
+  return Math.floor(
+    normalize360(longitude) / 30
+  );
 }
 
 
@@ -502,37 +464,26 @@ function degreeInSign(longitude){
 
 function nakshatraOf(longitude){
 
-  const lon = normalize360(longitude);
+  const lon =
+    normalize360(longitude);
 
-  const nakSize = 360 / 27;
+  const nakSize =
+    360 / 27;
 
-  const index = Math.floor(lon / nakSize);
+  const index =
+    Math.floor(lon / nakSize);
 
-  const within = lon % nakSize;
+  const within =
+    lon % nakSize;
 
-  const pada = Math.floor(within / (nakSize / 4)) + 1;
+  const pada =
+    Math.floor(
+      within / (nakSize / 4)
+    ) + 1;
 
   return {
     name:NAKSHATRAS[index],
     pada:pada
-  };
-}
-
-
-function passFail(value,expected,tolerance=0.00001){
-
-  const error = angularDifference(value,expected);
-
-  if(error <= tolerance){
-    return {
-      ok:true,
-      error:error
-    };
-  }
-
-  return {
-    ok:false,
-    error:error
   };
 }
 
@@ -548,68 +499,60 @@ function statusHTML(ok,text){
 
 
 /* =========================================================
-   HOUSE CUSP NORMALIZER
-   IMPORTANT V1.3.1 FIX
+   HOUSE CUSP NORMALIZATION
    ========================================================= */
 
 function normalizeCusps(cusps){
-
-  /*
-     Swiss Ephemeris / wrapper versions can expose
-     house cusps in different containers.
-
-     V1.3.1 deliberately handles:
-
-       1. Array with 12 values
-       2. Array with 13 values where index 0 is unused
-       3. Object with keys 0..12 where key 0 is unused
-       4. Object with keys 1..12
-
-     The UI ALWAYS produces exactly 12 real houses.
-  */
 
   if(!cusps){
     return [];
   }
 
 
-  /* ---------------------------------------------
-     Array
-     --------------------------------------------- */
+  /* Float64Array / Array */
 
-  if(Array.isArray(cusps)){
+  if(
+    Array.isArray(cusps) ||
+    ArrayBuffer.isView(cusps)
+  ){
 
-    if(cusps.length === 13){
-
-      return cusps
-        .slice(1,13)
+    const arr =
+      Array.from(cusps)
         .map(Number);
 
+    /*
+      Swiss Ephemeris C API style:
+      index 0 unused
+      houses 1–12
+    */
+
+    if(arr.length >= 13){
+      return arr
+        .slice(1,13);
     }
 
-    if(cusps.length === 12){
-
-      return cusps
-        .slice(0,12)
-        .map(Number);
+    if(arr.length === 12){
+      return arr
+        .slice(0,12);
     }
 
-    return cusps
-      .map(Number)
+    return arr
       .filter(Number.isFinite)
       .slice(0,12);
   }
 
 
-  /* ---------------------------------------------
-     Object
-     --------------------------------------------- */
+  /* Object fallback */
 
   if(typeof cusps === "object"){
 
-    const keys = Object.keys(cusps)
-      .filter(k => k !== "0")
-      .sort((a,b) => Number(a)-Number(b));
+    const keys =
+      Object.keys(cusps)
+        .filter(k => k !== "0")
+        .sort(
+          (a,b) =>
+            Number(a)-Number(b)
+        );
 
     return keys
       .map(k => Number(cusps[k]))
@@ -623,35 +566,13 @@ function normalizeCusps(cusps){
 
 
 /* =========================================================
-   RASHI + NAKSHATRA HTML
-   ========================================================= */
-
-function positionHTML(longitude){
-
-  const signIndex = signOf(longitude);
-
-  const deg = degreeInSign(longitude);
-
-  const nak = nakshatraOf(longitude);
-
-  return `
-    <b>${SIGNS[signIndex]}</b>
-    ${formatDegree(deg)}
-    <br>
-    <span class="small">
-      ${nak.name} — Pada ${nak.pada}
-    </span>
-  `;
-}
-
-
-/* =========================================================
    INITIALIZE
    ========================================================= */
 
 async function initialize(){
 
-  const status = document.getElementById("status");
+  const status =
+    document.getElementById("status");
 
   try{
 
@@ -667,7 +588,9 @@ async function initialize(){
         ✓ Swiss Ephemeris initialized successfully
       </span>`;
 
-    document.getElementById("calculateBtn").disabled = false;
+    document
+      .getElementById("calculateBtn")
+      .disabled = false;
 
   }catch(error){
 
@@ -688,36 +611,30 @@ async function initialize(){
 
 function calculate(){
 
-  if(!swe){
-    return;
-  }
-
+  if(!swe) return;
 
   try{
 
-    const year = BIRTH.year;
-    const month = BIRTH.month;
-    const day = BIRTH.day;
+    /* ---------------------------------------------
+       Julian Day
+       --------------------------------------------- */
 
     const utcDecimalHour =
       BIRTH.utcHour +
       BIRTH.utcMinute / 60;
 
 
-    /* ---------------------------------------------
-       Julian Day
-       --------------------------------------------- */
-
-    const jd = swe.julday(
-      year,
-      month,
-      day,
-      utcDecimalHour
-    );
+    const jd =
+      swe.julday(
+        BIRTH.year,
+        BIRTH.month,
+        BIRTH.day,
+        utcDecimalHour
+      );
 
 
     /* ---------------------------------------------
-       Ayanamsa
+       Lahiri
        --------------------------------------------- */
 
     swe.set_sid_mode(
@@ -729,7 +646,10 @@ function calculate(){
 
     let ayanamsa;
 
-    if(typeof swe.get_ayanamsa_ut === "function"){
+    if(
+      typeof swe.get_ayanamsa_ut ===
+      "function"
+    ){
 
       ayanamsa =
         swe.get_ayanamsa_ut(jd);
@@ -742,7 +662,7 @@ function calculate(){
 
 
     /* ---------------------------------------------
-       Planet calculations
+       PLANETS
        --------------------------------------------- */
 
     const planets = [];
@@ -750,7 +670,9 @@ function calculate(){
 
     for(const planet of PLANETS){
 
-      const planetId = swe[planet.id];
+      const planetId =
+        swe[planet.id];
+
 
       const tropical =
         swe.calc_ut(
@@ -798,13 +720,11 @@ function calculate(){
 
 
     /* ---------------------------------------------
-       Rahu
+       RAHU
        --------------------------------------------- */
 
     const rahuId =
-      swe.SE_MEAN_NODE !== undefined
-        ? swe.SE_MEAN_NODE
-        : swe.SE_MEAN_APOG;
+      swe.SE_MEAN_NODE;
 
 
     const rahuTropical =
@@ -825,10 +745,15 @@ function calculate(){
 
 
     const rahuT =
-      normalize360(rahuTropical[0]);
+      normalize360(
+        rahuTropical[0]
+      );
+
 
     const rahuS =
-      normalize360(rahuSidereal[0]);
+      normalize360(
+        rahuSidereal[0]
+      );
 
 
     planets.push({
@@ -840,22 +765,32 @@ function calculate(){
       sidereal:rahuS,
 
       difference:
-        angularDifference(rahuT,rahuS),
+        angularDifference(
+          rahuT,
+          rahuS
+        ),
 
       speed:
-        Number(rahuTropical[3] || 0)
+        Number(
+          rahuTropical[3] || 0
+        )
     });
 
 
     /* ---------------------------------------------
-       Ketu
+       KETU
        --------------------------------------------- */
 
     const ketuT =
-      normalize360(rahuT + 180);
+      normalize360(
+        rahuT + 180
+      );
+
 
     const ketuS =
-      normalize360(rahuS + 180);
+      normalize360(
+        rahuS + 180
+      );
 
 
     planets.push({
@@ -867,113 +802,68 @@ function calculate(){
       sidereal:ketuS,
 
       difference:
-        angularDifference(ketuT,ketuS),
+        angularDifference(
+          ketuT,
+          ketuS
+        ),
 
       speed:0
     });
 
 
-    /* ---------------------------------------------
-       Houses
-       --------------------------------------------- */
+    /* =================================================
+       HOUSES
+       ================================================= */
 
     const houseSystem = "P";
 
 
-    let tropicalHouses;
-    let siderealHouses;
-
-
     /*
-       Tropical houses
+      IMPORTANT V1.3.2 FIX
+
+      Correct wrapper signature:
+
+      houses(
+        julianDay,
+        geoLat,
+        geoLon,
+        houseSystem
+      )
+
+      houses_ex(
+        julianDay,
+        iflag,
+        geoLat,
+        geoLon,
+        houseSystem
+      )
+
+      The previous V1.3.1 code supplied
+      the arguments in the wrong order.
     */
 
-    if(typeof swe.houses === "function"){
 
-      tropicalHouses =
-        swe.houses(
-          jd,
-          BIRTH.latitude,
-          BIRTH.longitude,
-          houseSystem
-        );
-
-    }else{
-
-      tropicalHouses =
-        swe.swe_houses(
-          jd,
-          BIRTH.latitude,
-          BIRTH.longitude,
-          houseSystem
-        );
-    }
+    const tropicalHouses =
+      swe.houses(
+        jd,
+        BIRTH.latitude,
+        BIRTH.longitude,
+        houseSystem
+      );
 
 
-    /*
-       Sidereal houses
-
-       Prefer houses_ex because it allows
-       sidereal calculation flags.
-    */
-
-    if(typeof swe.houses_ex === "function"){
-
-      siderealHouses =
-        swe.houses_ex(
-          jd,
-          BIRTH.latitude,
-          BIRTH.longitude,
-          houseSystem,
-          swe.SEFLG_SIDEREAL
-        );
-
-    }else if(typeof swe.swe_houses_ex === "function"){
-
-      siderealHouses =
-        swe.swe_houses_ex(
-          jd,
-          BIRTH.latitude,
-          BIRTH.longitude,
-          houseSystem,
-          swe.SEFLG_SIDEREAL
-        );
-
-    }else{
-
-      /*
-         Fallback:
-         use tropical houses and subtract
-         Lahiri ayanamsa.
-      */
-
-      siderealHouses = {
-
-        cusps:
-          normalizeCusps(
-            tropicalHouses.cusps
-          ).map(c =>
-            normalize360(c - ayanamsa)
-          ),
-
-        ascmc:
-          [
-            normalize360(
-              tropicalHouses.ascmc[0] -
-              ayanamsa
-            ),
-
-            normalize360(
-              tropicalHouses.ascmc[1] -
-              ayanamsa
-            )
-          ]
-      };
-    }
+    const siderealHouses =
+      swe.houses_ex(
+        jd,
+        swe.SEFLG_SIDEREAL,
+        BIRTH.latitude,
+        BIRTH.longitude,
+        houseSystem
+      );
 
 
     /* ---------------------------------------------
-       Extract tropical cusps
+       HOUSE CUSPS
        --------------------------------------------- */
 
     const tropicalCusps =
@@ -982,10 +872,6 @@ function calculate(){
       );
 
 
-    /* ---------------------------------------------
-       Extract sidereal cusps
-       --------------------------------------------- */
-
     const siderealCusps =
       normalizeCusps(
         siderealHouses.cusps
@@ -993,75 +879,35 @@ function calculate(){
 
 
     /* ---------------------------------------------
-       Ascendant
+       ASCENDANT / MC
        --------------------------------------------- */
 
-    let tropicalAscendant;
+    const tropicalAscendant =
+      normalize360(
+        tropicalHouses.ascmc[0]
+      );
 
-    let tropicalMC;
+
+    const tropicalMC =
+      normalize360(
+        tropicalHouses.ascmc[1]
+      );
 
 
-    if(tropicalHouses.ascmc){
+    const siderealAscendant =
+      normalize360(
+        siderealHouses.ascmc[0]
+      );
 
-      tropicalAscendant =
-        normalize360(
-          tropicalHouses.ascmc[0]
-        );
 
-      tropicalMC =
-        normalize360(
-          tropicalHouses.ascmc[1]
-        );
-
-    }else{
-
-      tropicalAscendant =
-        tropicalCusps[0];
-
-      tropicalMC =
-        tropicalCusps[9];
-    }
+    const siderealMC =
+      normalize360(
+        siderealHouses.ascmc[1]
+      );
 
 
     /* ---------------------------------------------
-       Sidereal Ascendant / MC
-       --------------------------------------------- */
-
-    let siderealAscendant;
-
-    let siderealMC;
-
-
-    if(siderealHouses.ascmc){
-
-      siderealAscendant =
-        normalize360(
-          siderealHouses.ascmc[0]
-        );
-
-      siderealMC =
-        normalize360(
-          siderealHouses.ascmc[1]
-        );
-
-    }else{
-
-      siderealAscendant =
-        normalize360(
-          tropicalAscendant -
-          ayanamsa
-        );
-
-      siderealMC =
-        normalize360(
-          tropicalMC -
-          ayanamsa
-        );
-    }
-
-
-    /* ---------------------------------------------
-       Store result
+       STORE
        --------------------------------------------- */
 
     calculation = {
@@ -1104,7 +950,8 @@ function calculate(){
       </span>`;
 
     document.getElementById("rawData").textContent =
-      error.stack || error.message;
+      error.stack ||
+      error.message;
   }
 }
 
@@ -1118,25 +965,27 @@ function render(){
   const c = calculation;
 
 
-  /* ---------------------------------------------
-     Time validation
-     --------------------------------------------- */
+  /* =====================================================
+     TIME VALIDATION
+     ===================================================== */
 
-  const jdDiff =
+  const jdError =
     Math.abs(
       c.jd -
       EXPECTED.julianDay
     );
 
 
-  const ayaDiff =
+  const ayaError =
     Math.abs(
       c.ayanamsa -
       EXPECTED.ayanamsa
     );
 
 
-  document.getElementById("timeValidation").innerHTML = `
+  document.getElementById(
+    "timeValidation"
+  ).innerHTML = `
 
     <table>
 
@@ -1148,6 +997,7 @@ function render(){
       </tr>
 
       <tr>
+
         <td>Julian Day</td>
 
         <td>
@@ -1160,13 +1010,16 @@ function render(){
 
         <td>
           ${statusHTML(
-            jdDiff < 0.000001,
-            "JD difference = " + jdDiff.toFixed(10)
+            jdError < 0.000001,
+            "Difference = " +
+            jdError.toFixed(10)
           )}
         </td>
+
       </tr>
 
       <tr>
+
         <td>Lahiri Ayanamsa</td>
 
         <td>
@@ -1179,52 +1032,73 @@ function render(){
 
         <td>
           ${statusHTML(
-            ayaDiff < 0.000001,
-            "Difference = " + ayaDiff.toFixed(10) + "°"
+            ayaError < 0.000001,
+            "Difference = " +
+            ayaError.toFixed(10) +
+            "°"
           )}
         </td>
+
       </tr>
 
     </table>
   `;
 
 
-  /* ---------------------------------------------
-     Ascendant
-     --------------------------------------------- */
+  /* =====================================================
+     ASCENDANT
+     ===================================================== */
 
-  const ascDiff =
+  const ascDifference =
     angularDifference(
       c.tropicalAscendant,
       c.siderealAscendant
     );
 
 
-  const ascExpectedDiff =
+  const ascConsistency =
     angularDifference(
-      c.tropicalAscendant -
-      c.ayanamsa,
+      normalize360(
+        c.tropicalAscendant -
+        c.ayanamsa
+      ),
       c.siderealAscendant
     );
 
 
+  const ascExpected =
+    angularDifference(
+      c.siderealAscendant,
+      EXPECTED.siderealAscendant
+    );
+
+
   const ascSign =
-    signOf(c.siderealAscendant);
+    signOf(
+      c.siderealAscendant
+    );
 
 
-  const ascDeg =
-    degreeInSign(c.siderealAscendant);
+  const ascDegree =
+    degreeInSign(
+      c.siderealAscendant
+    );
 
 
   const ascNak =
-    nakshatraOf(c.siderealAscendant);
+    nakshatraOf(
+      c.siderealAscendant
+    );
 
 
-  document.getElementById("ascendantResult").innerHTML = `
+  document.getElementById(
+    "ascendantResult"
+  ).innerHTML = `
 
     <div class="info-grid">
 
       <div class="info">
+
         <div class="label">
           Tropical Ascendant
         </div>
@@ -1232,10 +1106,12 @@ function render(){
         <div class="value">
           ${c.tropicalAscendant.toFixed(8)}°
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Sidereal Ascendant — Lahiri
         </div>
@@ -1243,10 +1119,12 @@ function render(){
         <div class="value">
           ${c.siderealAscendant.toFixed(8)}°
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Lagna Rashi
         </div>
@@ -1254,21 +1132,25 @@ function render(){
         <div class="value">
           ${SIGNS[ascSign]}
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Lagna Degree
         </div>
 
         <div class="value">
-          ${formatDegree(ascDeg)}
+          ${formatDegree(ascDegree)}
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Nakshatra
         </div>
@@ -1276,10 +1158,12 @@ function render(){
         <div class="value">
           ${ascNak.name}
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Pada
         </div>
@@ -1287,44 +1171,62 @@ function render(){
         <div class="value">
           ${ascNak.pada}
         </div>
+
       </div>
 
     </div>
 
+
     <div style="margin-top:15px">
 
       ${statusHTML(
-        ascExpectedDiff < 0.00001,
+        ascConsistency < 0.00001,
         "Tropical → Sidereal Ascendant consistency"
+      )}
+
+      <br><br>
+
+      ${statusHTML(
+        ascExpected < 0.00001,
+        "Expected Sidereal Ascendant"
       )}
 
       <br><br>
 
       <span class="small">
         Angular separation:
-        ${ascDiff.toFixed(8)}°
+        ${ascDifference.toFixed(8)}°
       </span>
 
     </div>
   `;
 
 
-  /* ---------------------------------------------
+  /* =====================================================
      MC
-     --------------------------------------------- */
+     ===================================================== */
 
-  const mcDiff =
+  const mcDifference =
     angularDifference(
       c.tropicalMC,
       c.siderealMC
     );
 
 
-  const mcExpectedDiff =
+  const mcConsistency =
     angularDifference(
-      c.tropicalMC -
-      c.ayanamsa,
+      normalize360(
+        c.tropicalMC -
+        c.ayanamsa
+      ),
       c.siderealMC
+    );
+
+
+  const mcExpected =
+    angularDifference(
+      c.siderealMC,
+      EXPECTED.siderealMC
     );
 
 
@@ -1332,15 +1234,18 @@ function render(){
     signOf(c.siderealMC);
 
 
-  const mcDeg =
+  const mcDegree =
     degreeInSign(c.siderealMC);
 
 
-  document.getElementById("mcResult").innerHTML = `
+  document.getElementById(
+    "mcResult"
+  ).innerHTML = `
 
     <div class="info-grid">
 
       <div class="info">
+
         <div class="label">
           Tropical MC
         </div>
@@ -1348,10 +1253,12 @@ function render(){
         <div class="value">
           ${c.tropicalMC.toFixed(8)}°
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Sidereal MC
         </div>
@@ -1359,10 +1266,12 @@ function render(){
         <div class="value">
           ${c.siderealMC.toFixed(8)}°
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           Sidereal MC Rashi
         </div>
@@ -1370,42 +1279,53 @@ function render(){
         <div class="value">
           ${SIGNS[mcSign]}
         </div>
+
       </div>
 
 
       <div class="info">
+
         <div class="label">
           MC Degree
         </div>
 
         <div class="value">
-          ${formatDegree(mcDeg)}
+          ${formatDegree(mcDegree)}
         </div>
+
       </div>
 
     </div>
 
+
     <div style="margin-top:15px">
 
       ${statusHTML(
-        mcExpectedDiff < 0.00001,
+        mcConsistency < 0.00001,
         "Tropical → Sidereal MC consistency"
+      )}
+
+      <br><br>
+
+      ${statusHTML(
+        mcExpected < 0.00001,
+        "Expected Sidereal MC"
       )}
 
       <br><br>
 
       <span class="small">
         Angular separation:
-        ${mcDiff.toFixed(8)}°
+        ${mcDifference.toFixed(8)}°
       </span>
 
     </div>
   `;
 
 
-  /* ---------------------------------------------
-     Planet table
-     --------------------------------------------- */
+  /* =====================================================
+     PLANETS
+     ===================================================== */
 
   let planetHTML = `
 
@@ -1429,8 +1349,10 @@ function render(){
     const sign =
       signOf(p.sidereal);
 
-    const deg =
+
+    const degree =
       degreeInSign(p.sidereal);
+
 
     const nak =
       nakshatraOf(p.sidereal);
@@ -1456,7 +1378,7 @@ function render(){
           ${SIGNS[sign]}
           <br>
           <span class="small">
-            ${formatDegree(deg)}
+            ${formatDegree(degree)}
           </span>
         </td>
 
@@ -1478,23 +1400,24 @@ function render(){
 
 
   planetHTML += `
-
     </table>
-
     </div>
   `;
 
 
-  document.getElementById("planetTable").innerHTML =
+  document.getElementById(
+    "planetTable"
+  ).innerHTML =
     planetHTML;
 
 
-  /* ---------------------------------------------
+  /* =====================================================
      HOUSE VALIDATION
-     --------------------------------------------- */
+     ===================================================== */
 
   const tropicalCount =
     c.tropicalCusps.length;
+
 
   const siderealCount =
     c.siderealCusps.length;
@@ -1505,7 +1428,9 @@ function render(){
     siderealCount === 12;
 
 
-  document.getElementById("houseValidation").innerHTML = `
+  document.getElementById(
+    "houseValidation"
+  ).innerHTML = `
 
     <div class="status">
 
@@ -1519,17 +1444,18 @@ function render(){
       <br><br>
 
       <span class="small">
-        V1.3.1 ignores the Swiss Ephemeris cusp-0
-        placeholder and displays only houses 1–12.
+        V1.3.2 correctly removes the
+        Swiss Ephemeris cusp-0 placeholder.
+        Houses displayed: 1–12.
       </span>
 
     </div>
   `;
 
 
-  /* ---------------------------------------------
+  /* =====================================================
      HOUSE TABLE
-     --------------------------------------------- */
+     ===================================================== */
 
   let houseHTML = `
 
@@ -1542,7 +1468,7 @@ function render(){
         <th>Tropical Cusp</th>
         <th>Sidereal Cusp</th>
         <th>Sidereal Rashi</th>
-        <th>Degree in Rashi</th>
+        <th>Degree</th>
       </tr>
   `;
 
@@ -1552,16 +1478,10 @@ function render(){
     const tropical =
       c.tropicalCusps[i];
 
+
     const sidereal =
       c.siderealCusps[i];
 
-
-    /*
-       Safety check.
-
-       This prevents NaN from ever being printed
-       if an unexpected wrapper result occurs.
-    */
 
     if(
       !Number.isFinite(tropical) ||
@@ -1576,8 +1496,11 @@ function render(){
             House ${i+1}
           </td>
 
-          <td colspan="4" class="fail">
+          <td colspan="4"
+              class="fail">
+
             Invalid cusp value
+
           </td>
 
         </tr>
@@ -1590,7 +1513,8 @@ function render(){
     const sign =
       signOf(sidereal);
 
-    const deg =
+
+    const degree =
       degreeInSign(sidereal);
 
 
@@ -1623,7 +1547,7 @@ function render(){
         </td>
 
         <td>
-          ${formatDegree(deg)}
+          ${formatDegree(degree)}
         </td>
 
       </tr>
@@ -1632,33 +1556,37 @@ function render(){
 
 
   houseHTML += `
-
     </table>
-
     </div>
   `;
 
 
-  document.getElementById("houseTable").innerHTML =
+  document.getElementById(
+    "houseTable"
+  ).innerHTML =
     houseHTML;
 
 
-  /* ---------------------------------------------
-     Full validation panel
-     --------------------------------------------- */
+  /* =====================================================
+     VALIDATION PANEL
+     ===================================================== */
 
   const ascAyanamsaError =
     angularDifference(
-      c.tropicalAscendant -
-      c.ayanamsa,
+      normalize360(
+        c.tropicalAscendant -
+        c.ayanamsa
+      ),
       c.siderealAscendant
     );
 
 
   const mcAyanamsaError =
     angularDifference(
-      c.tropicalMC -
-      c.ayanamsa,
+      normalize360(
+        c.tropicalMC -
+        c.ayanamsa
+      ),
       c.siderealMC
     );
 
@@ -1677,7 +1605,30 @@ function render(){
     );
 
 
-  document.getElementById("validationTable").innerHTML = `
+  const rahu =
+    c.planets.find(
+      p => p.name === "Mean Rahu"
+    );
+
+
+  const ketu =
+    c.planets.find(
+      p => p.name === "Ketu"
+    );
+
+
+  const rahuKetuError =
+    angularDifference(
+      normalize360(
+        rahu.sidereal + 180
+      ),
+      ketu.sidereal
+    );
+
+
+  document.getElementById(
+    "validationTable"
+  ).innerHTML = `
 
     <table>
 
@@ -1688,46 +1639,59 @@ function render(){
 
 
       <tr>
-        <td>UTC conversion</td>
+
+        <td>
+          UTC conversion
+        </td>
+
         <td>
           ${statusHTML(
             true,
             "30 Jun 1982 14:00 UTC"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Julian Day</td>
+
+        <td>
+          Julian Day
+        </td>
+
         <td>
           ${statusHTML(
-            Math.abs(
-              c.jd -
-              EXPECTED.julianDay
-            ) < 0.000001,
+            jdError(c.jd) < 0.000001,
             c.jd.toFixed(8)
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Lahiri Ayanamsa</td>
+
+        <td>
+          Lahiri Ayanamsa
+        </td>
+
         <td>
           ${statusHTML(
-            Math.abs(
-              c.ayanamsa -
-              EXPECTED.ayanamsa
-            ) < 0.000001,
+            ayaError(c.ayanamsa) < 0.000001,
             c.ayanamsa.toFixed(8) + "°"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Sidereal Ascendant consistency</td>
+
+        <td>
+          Sidereal Ascendant consistency
+        </td>
+
         <td>
           ${statusHTML(
             ascAyanamsaError < 0.00001,
@@ -1736,11 +1700,16 @@ function render(){
             "°"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Sidereal MC consistency</td>
+
+        <td>
+          Sidereal MC consistency
+        </td>
+
         <td>
           ${statusHTML(
             mcAyanamsaError < 0.00001,
@@ -1749,11 +1718,16 @@ function render(){
             "°"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Expected Sidereal Ascendant</td>
+
+        <td>
+          Expected Sidereal Ascendant
+        </td>
+
         <td>
           ${statusHTML(
             expectedAscError < 0.00001,
@@ -1762,11 +1736,16 @@ function render(){
             "°"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Expected Sidereal MC</td>
+
+        <td>
+          Expected Sidereal MC
+        </td>
+
         <td>
           ${statusHTML(
             expectedMCError < 0.00001,
@@ -1775,11 +1754,16 @@ function render(){
             "°"
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Placidus houses</td>
+
+        <td>
+          Placidus houses
+        </td>
+
         <td>
           ${statusHTML(
             houseCountPass,
@@ -1787,50 +1771,34 @@ function render(){
              ${siderealCount}/12 sidereal`
           )}
         </td>
+
       </tr>
 
 
       <tr>
-        <td>Rahu / Ketu opposition</td>
+
         <td>
-          ${(() => {
-
-            const rahu =
-              c.planets.find(
-                p => p.name === "Mean Rahu"
-              );
-
-            const ketu =
-              c.planets.find(
-                p => p.name === "Ketu"
-              );
-
-            const diff =
-              angularDifference(
-                normalize360(
-                  rahu.sidereal + 180
-                ),
-                ketu.sidereal
-              );
-
-            return statusHTML(
-              diff < 0.00001,
-              "Error = " +
-              diff.toFixed(8) +
-              "°"
-            );
-
-          })()}
+          Rahu / Ketu opposition
         </td>
+
+        <td>
+          ${statusHTML(
+            rahuKetuError < 0.00001,
+            "Error = " +
+            rahuKetuError.toFixed(8) +
+            "°"
+          )}
+        </td>
+
       </tr>
 
     </table>
   `;
 
 
-  /* ---------------------------------------------
+  /* =====================================================
      RAW DATA
-     --------------------------------------------- */
+     ===================================================== */
 
   const raw = {
 
@@ -1853,28 +1821,63 @@ function render(){
       c.siderealMC,
 
     tropicalCusps:
-      c.tropicalCusps,
+      Array.from(c.tropicalCusps),
 
     siderealCusps:
-      c.siderealCusps,
+      Array.from(c.siderealCusps),
 
-    planets:
-      c.planets,
+    planets:c.planets,
 
-    rawTropicalHouses:
-      c.tropicalHouses,
+    rawTropicalHouses:{
+      cusps:Array.from(
+        c.tropicalHouses.cusps
+      ),
+      ascmc:Array.from(
+        c.tropicalHouses.ascmc
+      )
+    },
 
-    rawSiderealHouses:
-      c.siderealHouses
+    rawSiderealHouses:{
+      cusps:Array.from(
+        c.siderealHouses.cusps
+      ),
+      ascmc:Array.from(
+        c.siderealHouses.ascmc
+      )
+    }
   };
 
 
-  document.getElementById("rawData").textContent =
+  document.getElementById(
+    "rawData"
+  ).textContent =
     JSON.stringify(
       raw,
       null,
       2
     );
+}
+
+
+/* =========================================================
+   VALIDATION HELPERS
+   ========================================================= */
+
+function jdError(value){
+
+  return Math.abs(
+    value -
+    EXPECTED.julianDay
+  );
+}
+
+
+function ayaError(value){
+
+  return Math.abs(
+    value -
+    EXPECTED.ayanamsa
+  );
 }
 
 
@@ -1914,6 +1917,7 @@ window.addEventListener(
       }
 
     }
+
   }
 );
 
