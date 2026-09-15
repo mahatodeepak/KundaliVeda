@@ -2,289 +2,225 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="KundaliVeda V1.10.1 — Vedic astrology using Swiss Ephemeris and Lahiri Ayanamsa. D1, D9, Vimshottari Dasha, dignity, aspects, yogas and house analysis.">
-<meta name="theme-color" content="#17111f">
-<title>KundaliVeda V1.10.1</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>KundaliVeda V1.10.2 — Vedic Astrology</title>
 
 <style>
-:root{
-  --bg:#0f0b14;
-  --card:#19131f;
-  --card2:#211927;
-  --line:#3b2c45;
-  --text:#f5edf8;
-  --muted:#b9aabd;
-  --gold:#e8bd68;
-  --green:#69d39b;
-  --red:#ff7777;
-  --blue:#82b7ff;
-  --purple:#c49aff;
-  --orange:#f5a85b;
-}
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  background:linear-gradient(180deg,#0d0912,#15101b 45%,#0d0912);
-  color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  line-height:1.5;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f4f6;
+  color:#111827;
+  line-height:1.45
 }
-
 header{
-  padding:28px 16px 20px;
-  text-align:center;
-  background:linear-gradient(135deg,#21142b,#17101e);
-  border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg,#111827,#312e81);
+  color:#fff;
+  padding:22px 15px;
+  text-align:center
 }
-
-header h1{
-  margin:0;
-  font-size:clamp(25px,6vw,38px);
-  color:var(--gold);
-}
-
-header p{
-  margin:7px 0 0;
-  color:var(--muted);
-  font-size:14px;
-}
-
-main{
-  max-width:1250px;
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;color:#dbeafe;font-size:13px}
+.container{
+  max-width:1200px;
   margin:auto;
-  padding:16px;
+  padding:14px
 }
-
 .card{
-  background:rgba(25,19,31,.96);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+  overflow:hidden
 }
-
-h2{
-  margin:0 0 14px;
-  color:var(--gold);
-  font-size:22px;
+.card h2{
+  margin:0 0 12px;
+  font-size:18px;
+  color:#312e81
 }
-
-h3{
-  margin:18px 0 9px;
-  color:var(--purple);
-  font-size:17px;
+.card h3{
+  margin:14px 0 8px;
+  font-size:15px;
+  color:#374151
 }
-
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px
 }
-
 .info{
-  background:var(--card2);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:10px
 }
-
 .label{
-  color:var(--muted);
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.04em;
+  display:block;
+  color:#6b7280;
+  font-size:11px;
+  margin-bottom:3px
 }
-
 .value{
-  margin-top:3px;
-  font-weight:650;
+  font-weight:600;
+  font-size:14px
 }
-
-.engine{
-  color:var(--green);
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold
 }
-
-.table-wrap{
-  overflow-x:auto;
-  border-radius:12px;
-  border:1px solid var(--line);
+.status.ok{
+  background:#dcfce7;
+  color:#166534
 }
-
+.status.warn{
+  background:#fef3c7;
+  color:#92400e
+}
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:700px;
+  font-size:12px
 }
-
 th,td{
-  padding:9px 10px;
-  border-bottom:1px solid #30243a;
+  padding:8px 7px;
+  border-bottom:1px solid #e5e7eb;
   text-align:left;
-  font-size:13px;
-  white-space:nowrap;
+  vertical-align:top
 }
-
 th{
-  background:#251b2d;
-  color:var(--gold);
+  background:#f3f4f6;
+  color:#374151;
+  font-weight:bold;
   position:sticky;
-  top:0;
-  z-index:1;
+  top:0
 }
-
-tr:last-child td{
-  border-bottom:0;
+tr.current{
+  background:#eef2ff
 }
-
 .pass{
-  color:var(--green);
-  font-weight:700;
+  color:#15803d;
+  font-weight:bold
 }
-
 .fail{
-  color:var(--red);
-  font-weight:700;
+  color:#dc2626;
+  font-weight:bold
 }
-
-.warn{
-  color:var(--orange);
-  font-weight:700;
-}
-
-.small{
-  color:var(--muted);
-  font-size:12px;
-}
-
 .note{
-  background:#211a28;
-  border-left:3px solid var(--gold);
-  padding:10px 12px;
-  border-radius:8px;
-  color:#d8cddc;
-  font-size:13px;
+  font-size:12px;
+  color:#6b7280
 }
-
-.validation-item{
-  padding:8px 0;
-  border-bottom:1px solid #30243a;
-  font-size:13px;
-}
-
-.validation-item:last-child{
-  border-bottom:0;
-}
-
 .badge{
   display:inline-block;
-  padding:3px 8px;
-  border-radius:20px;
-  font-size:11px;
-  margin-left:5px;
-  background:#30243a;
-}
-
-.badge.pass{
-  background:#123522;
-}
-
-.badge.fail{
-  background:#421b1b;
-}
-
-.chart{
-  width:min(100%,560px);
-  aspect-ratio:1;
-  margin:12px auto 20px;
-  position:relative;
-  background:#17111d;
-  border:1px solid var(--line);
-  overflow:hidden;
-}
-
-.chart:before,
-.chart:after{
-  content:"";
-  position:absolute;
-  inset:10%;
-  border:1px solid #725b7c;
-  transform:rotate(45deg);
-}
-
-.chart:after{
-  transform:none;
-  inset:10%;
-}
-
-.house{
-  position:absolute;
-  width:23%;
-  height:17%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-  font-size:11px;
-  z-index:2;
-}
-
-.house strong{
-  color:var(--gold);
-  display:block;
-}
-
-.house span{
-  display:block;
-  color:#e8dcec;
-  font-size:11px;
-  line-height:1.25;
-}
-
-.h1{left:50%;top:17%}
-.h2{left:75%;top:25%}
-.h3{left:83%;top:50%}
-.h4{left:75%;top:75%}
-.h5{left:50%;top:83%}
-.h6{left:25%;top:75%}
-.h7{left:17%;top:50%}
-.h8{left:25%;top:25%}
-.h9{left:38%;top:30%}
-.h10{left:62%;top:30%}
-.h11{left:62%;top:70%}
-.h12{left:38%;top:70%}
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:10px;
-}
-
-.summary .box{
-  background:var(--card2);
-  border:1px solid var(--line);
-  padding:12px;
+  padding:3px 7px;
   border-radius:12px;
+  background:#ede9fe;
+  color:#5b21b6;
+  font-size:10px;
+  font-weight:bold;
+  margin:2px
 }
-
-.current{
-  border-color:#8e7040;
-  box-shadow:0 0 0 1px rgba(232,189,104,.12);
+.badge.green{
+  background:#dcfce7;
+  color:#166534
 }
-
+.badge.orange{
+  background:#ffedd5;
+  color:#9a3412
+}
+.badge.blue{
+  background:#dbeafe;
+  color:#1d4ed8
+}
+.chart-wrap{
+  overflow-x:auto;
+  text-align:center
+}
+svg.chart{
+  width:100%;
+  max-width:620px;
+  height:auto;
+  background:#fff
+}
+.chart-line{
+  stroke:#111827;
+  stroke-width:2;
+  fill:none
+}
+.house-num{
+  font-size:12px;
+  font-weight:bold;
+  fill:#6b7280
+}
+.chart-sign{
+  font-size:10px;
+  fill:#4338ca
+}
+.chart-planet{
+  font-size:11px;
+  font-weight:bold;
+  fill:#111827
+}
+.summary{
+  padding:12px;
+  border-radius:10px;
+  background:#eef2ff;
+  border-left:4px solid #4f46e5;
+  margin-top:10px;
+  font-size:13px
+}
+.yoga{
+  border:1px solid #ddd6fe;
+  background:#faf5ff;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:10px
+}
+.yoga strong{
+  color:#5b21b6
+}
+.validation-summary{
+  padding:15px;
+  border-radius:12px;
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:12px
+}
+.error-summary{
+  background:#fef2f2;
+  border-color:#fecaca;
+  color:#991b1b
+}
+.small{
+  font-size:11px
+}
 footer{
   text-align:center;
-  padding:25px 15px 40px;
-  color:var(--muted);
-  font-size:12px;
+  color:#6b7280;
+  font-size:11px;
+  padding:20px
 }
-
+.loading{
+  text-align:center;
+  padding:30px;
+  color:#6b7280
+}
 @media(max-width:600px){
-  main{padding:10px}
-  .card{padding:13px}
-  h2{font-size:19px}
-  th,td{font-size:12px;padding:8px}
+  header h1{font-size:21px}
+  .container{padding:9px}
+  .card{padding:12px}
+  table{font-size:11px}
+  th,td{padding:7px 5px}
 }
 </style>
 </head>
@@ -292,80 +228,130 @@ footer{
 <body>
 
 <header>
-  <h1>🔱 KundaliVeda V1.10.1</h1>
+  <h1>🔱 KundaliVeda V1.10.2</h1>
   <p>Vedic Astrology • D1 + D9 + Vimshottari Dasha • Swiss Ephemeris • Lahiri</p>
 </header>
 
-<main id="app">
-  <div class="card">
-    <div class="note">Initializing Swiss Ephemeris…</div>
+<div class="container">
+
+<div class="card">
+  <h2>Birth Information</h2>
+  <div class="grid">
+    <div class="info">
+      <span class="label">Date</span>
+      <span class="value">30 June 1982</span>
+    </div>
+    <div class="info">
+      <span class="label">Time</span>
+      <span class="value">19:30:00 IST</span>
+    </div>
+    <div class="info">
+      <span class="label">Place</span>
+      <span class="value">Purulia, West Bengal, India</span>
+    </div>
+    <div class="info">
+      <span class="label">Latitude</span>
+      <span class="value">23.3322° N</span>
+    </div>
+    <div class="info">
+      <span class="label">Longitude</span>
+      <span class="value">86.3652° E</span>
+    </div>
+    <div class="info">
+      <span class="label">UTC Offset</span>
+      <span class="value">+5:30</span>
+    </div>
   </div>
-</main>
+</div>
+
+<div class="card">
+  <h2>Swiss Ephemeris Engine</h2>
+  <div id="engineStatus" class="status warn">⏳ Initializing Swiss Ephemeris…</div>
+  <p class="note">
+    Swiss Ephemeris browser engine with Lahiri ayanamsa.
+    Calculations are performed locally in the browser.
+  </p>
+</div>
+
+<div id="app">
+  <div class="loading">Calculating horoscope…</div>
+</div>
+
+</div>
 
 <footer>
-  KundaliVeda V1.10.1 • Swiss Ephemeris • Lahiri Ayanāṁśa<br>
-  Educational astrology software — not a substitute for professional advice.
+  KundaliVeda V1.10.2 • Rule-based Vedic astrology calculation framework
 </footer>
 
 <script type="module">
 
 import SwissEph from
-'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
+  'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
 
-/* =========================================================
-   CONSTANTS
-========================================================= */
-
-const VERSION = "V1.10.1";
-
-const BIRTH = {
+const BIRTH={
   year:1982,
   month:6,
   day:30,
   hour:19,
   minute:30,
   second:0,
-  lat:23.3322,
-  lon:86.3652,
   utcOffset:5.5,
+  latitude:23.3322,
+  longitude:86.3652,
   place:"Purulia, West Bengal, India"
 };
 
-const EXPECTED = {
+const EXPECTED={
   jd:2445151.08333333,
-  ayanamsa:23.61256829,
-  sidAsc:269.46809964414786,
-  sidMC:193.40837895694517
+  lahiri:23.61256829,
+  tropicalAsc:293.07607691717345,
+  siderealAsc:269.46809964414786,
+  tropicalMC:217.01635622997077,
+  siderealMC:193.40837895694517
 };
 
-const SIGNS = [
-  "Mesha","Vrishabha","Mithuna","Karka",
-  "Simha","Kanya","Tula","Vrischika",
-  "Dhanu","Makara","Kumbha","Meena"
+const SIGNS=[
+  "Mesha","Vrishabha","Mithuna","Karka","Simha","Kanya",
+  "Tula","Vrischika","Dhanu","Makara","Kumbha","Meena"
 ];
 
-const SIGN_SYMBOLS = [
+const SIGN_SHORT=[
+  "Ar","Ta","Ge","Ca","Le","Vi",
+  "Li","Sc","Sg","Cp","Aq","Pi"
+];
+
+const SIGN_SYMBOLS=[
   "♈","♉","♊","♋","♌","♍",
   "♎","♏","♐","♑","♒","♓"
 ];
 
-const PLANETS = [
-  {id:0,name:"Sun",short:"Su"},
-  {id:1,name:"Moon",short:"Mo"},
-  {id:2,name:"Mercury",short:"Me"},
-  {id:3,name:"Venus",short:"Ve"},
-  {id:4,name:"Mars",short:"Ma"},
-  {id:5,name:"Jupiter",short:"Ju"},
-  {id:6,name:"Saturn",short:"Sa"},
-  {id:10,name:"Rahu",short:"Ra"}
+const NAKSHATRAS=[
+  "Ashwini","Bharani","Krittika","Rohini","Mrigashira","Ardra",
+  "Punarvasu","Pushya","Ashlesha","Magha","Purva Phalguni",
+  "Uttara Phalguni","Hasta","Chitra","Swati","Vishakha",
+  "Anuradha","Jyeshtha","Mula","Purva Ashadha","Uttara Ashadha",
+  "Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada",
+  "Uttara Bhadrapada","Revati"
 ];
 
-const DASHA_SEQ = [
+const PLANETS=[
+  {key:"Sun",name:"Sun",id:0},
+  {key:"Moon",name:"Moon",id:1},
+  {key:"Mercury",name:"Mercury",id:2},
+  {key:"Venus",name:"Venus",id:3},
+  {key:"Mars",name:"Mars",id:4},
+  {key:"Jupiter",name:"Jupiter",id:5},
+  {key:"Saturn",name:"Saturn",id:6},
+  {key:"Rahu",name:"Rahu",id:10},
+  {key:"Ketu",name:"Ketu",id:null}
+];
+
+const DASHA_SEQUENCE=[
   "Ketu","Venus","Sun","Moon","Mars",
   "Rahu","Jupiter","Saturn","Mercury"
 ];
 
-const DASHA_YEARS = {
+const DASHA_YEARS={
   Ketu:7,
   Venus:20,
   Sun:6,
@@ -377,56 +363,88 @@ const DASHA_YEARS = {
   Mercury:17
 };
 
-const NAKSHATRAS = [
-  "Ashwini","Bharani","Krittika","Rohini",
-  "Mrigashira","Ardra","Punarvasu","Pushya",
-  "Ashlesha","Magha","Purva Phalguni","Uttara Phalguni",
-  "Hasta","Chitra","Swati","Vishakha",
-  "Anuradha","Jyeshtha","Mula","Purva Ashadha",
-  "Uttara Ashadha","Shravana","Dhanishta","Shatabhisha",
-  "Purva Bhadrapada","Uttara Bhadrapada","Revati"
+const NAKSHATRA_LORDS=[
+  "Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury",
+  "Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury",
+  "Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury"
 ];
 
-const NAK_LORDS = [
-  "Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter",
-  "Saturn","Mercury","Ketu","Venus","Sun","Moon","Mars",
-  "Rahu","Jupiter","Saturn","Mercury","Ketu","Venus","Sun",
-  "Moon","Mars","Rahu","Jupiter","Saturn","Mercury"
-];
+const DAYS_PER_YEAR=365.25;
+const DAY_MS=86400000;
+const NAKSHATRA_SIZE=360/27;
 
-const DAYS_PER_YEAR = 365.25;
-
-const EXALTATION = {
-  Sun:0,
-  Moon:1,
-  Mars:9,
-  Mercury:5,
-  Jupiter:3,
-  Venus:11,
-  Saturn:6
+const HOUSE_LORDS={
+  0:"Mars",
+  1:"Venus",
+  2:"Mercury",
+  3:"Moon",
+  4:"Sun",
+  5:"Mercury",
+  6:"Venus",
+  7:"Mars",
+  8:"Jupiter",
+  9:"Saturn",
+  10:"Saturn",
+  11:"Jupiter"
 };
 
-const DEBILITATION = {
-  Sun:6,
-  Moon:7,
-  Mars:3,
-  Mercury:11,
-  Jupiter:9,
-  Venus:5,
-  Saturn:0
+const HOUSE_THEMES={
+  1:"Self / identity / body",
+  2:"Wealth / family / resources",
+  3:"Courage / communication / skills",
+  4:"Home / mother / property",
+  5:"Intelligence / creativity / speculation",
+  6:"Service / competition / debts",
+  7:"Marriage / partnership / public dealings",
+  8:"Transformation / inheritance / occult",
+  9:"Fortune / dharma / higher learning",
+  10:"Career / profession / status",
+  11:"Gains / networks / fulfilment",
+  12:"Expenses / retreat / foreign matters"
 };
 
-const OWN_SIGNS = {
-  Sun:[4],
-  Moon:[3],
-  Mars:[0,7],
-  Mercury:[2,5],
-  Jupiter:[8,11],
-  Venus:[1,6],
-  Saturn:[9,10]
+const GROUPS={
+  Dharma:[1,5,9],
+  Artha:[2,6,10],
+  Kama:[3,7,11],
+  Moksha:[4,8,12]
 };
 
-const COMBUSTION_LIMITS = {
+const DIGNITY={
+  Sun:{
+    exalt:0,debil:6,own:[4],
+    friend:[1,8,9,10],enemy:[2,5,6,7],neutral:[3,11]
+  },
+  Moon:{
+    exalt:1,debil:7,own:[3],
+    friend:[0,2,5,8,11],enemy:[6,10],neutral:[4,9]
+  },
+  Mars:{
+    exalt:9,debil:3,own:[0,7],
+    friend:[0,3,4,8,9],enemy:[1,6],neutral:[2,5,10,11]
+  },
+  Mercury:{
+    exalt:5,debil:11,own:[2,5],
+    friend:[0,1,6],enemy:[3,4,8,9],neutral:[7,10,11]
+  },
+  Jupiter:{
+    exalt:3,debil:9,own:[8,11],
+    friend:[0,3,4],enemy:[1,6],neutral:[2,5,7,9,10]
+  },
+  Venus:{
+    exalt:11,debil:5,own:[1,6],
+    friend:[1,2,5,6,10],enemy:[0,3,4],neutral:[7,8,9,11]
+  },
+  Saturn:{
+    exalt:6,debil:0,own:[9,10],
+    friend:[1,6,9,10],enemy:[3,4,5],
+    neutral:[0,2,7,8,11]
+  },
+  Rahu:{own:[10]},
+  Ketu:{own:[7]}
+};
+
+const COMBUSTION_LIMITS={
   Mercury:14,
   Venus:10,
   Mars:17,
@@ -434,2022 +452,1357 @@ const COMBUSTION_LIMITS = {
   Saturn:15
 };
 
-/* =========================================================
-   HELPERS
-========================================================= */
+const HOUSE_POSITIONS={
+  1:{x:300,y:235},
+  2:{x:165,y:100},
+  3:{x:100,y:170},
+  4:{x:100,y:300},
+  5:{x:165,y:435},
+  6:{x:300,y:365},
+  7:{x:300,y:505},
+  8:{x:435,y:435},
+  9:{x:500,y:300},
+  10:{x:500,y:170},
+  11:{x:435,y:100},
+  12:{x:300,y:165}
+};
 
-const app = document.getElementById("app");
-
-function esc(v){
-  return String(v)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;");
+function normalize360(x){
+  x=x%360;
+  return x<0?x+360:x;
 }
 
-function mod(x,n){
-  return ((x%n)+n)%n;
+function angularDifference(a,b){
+  const d=Math.abs(normalize360(a)-normalize360(b));
+  return Math.min(d,360-d);
 }
 
-function signIndex(longitude){
-  return Math.floor(mod(longitude,360)/30);
+function formatNumber(x,d=6){
+  return Number(x).toFixed(d);
 }
 
-function signName(longitude){
-  return SIGNS[signIndex(longitude)];
-}
-
-function symbol(sign){
-  return SIGN_SYMBOLS[signIndex(sign)];
-}
-
-function degInSign(longitude){
-  return mod(longitude,30);
-}
-
-function dms(deg){
+function formatDegree(deg){
+  deg=normalize360(deg);
   const d=Math.floor(deg);
-  const mf=(deg-d)*60;
-  const m=Math.floor(mf);
-  const s=Math.round((mf-m)*60);
+  const mFloat=(deg-d)*60;
+  const m=Math.floor(mFloat);
+  const s=Math.round((mFloat-m)*60);
 
   if(s===60){
-    return `${d}°${String(m+1).padStart(2,"0")}′00″`;
+    return `${d}°${m+1}′00″`;
   }
 
-  return `${d}°${String(m).padStart(2,"0")}′${String(s).padStart(2,"0")}″`;
+  return `${d}°${m}′${String(s).padStart(2,"0")}″`;
 }
 
-function fmt(n,d=8){
-  return Number(n).toFixed(d);
+function getSignIndex(longitude){
+  return Math.floor(normalize360(longitude)/30);
 }
 
-function angularDistance(a,b){
-  const x=Math.abs(mod(a-b,360));
-  return Math.min(x,360-x);
+function getSign(longitude){
+  return SIGNS[getSignIndex(longitude)];
 }
 
-function toUTCDate(){
-  return new Date(
-    Date.UTC(
-      BIRTH.year,
-      BIRTH.month-1,
-      BIRTH.day,
-      BIRTH.hour,
-      BIRTH.minute,
-      BIRTH.second
-    ) - BIRTH.utcOffset*3600000
-  );
+function getDegreeInSign(longitude){
+  return normalize360(longitude)%30;
 }
 
-function isoUTC(date){
+function getNakshatraInfo(longitude){
+  const lon=normalize360(longitude);
+  const index=Math.floor(lon/NAKSHATRA_SIZE);
+  const within=lon-index*NAKSHATRA_SIZE;
+  const pada=Math.floor(within/(NAKSHATRA_SIZE/4))+1;
+  const position=within/NAKSHATRA_SIZE;
+
+  return {
+    index,
+    name:NAKSHATRAS[index],
+    pada,
+    lord:NAKSHATRA_LORDS[index],
+    position,
+    within
+  };
+}
+
+function getWholeSignHouse(longitude,ascLongitude){
+  return ((getSignIndex(longitude)-getSignIndex(ascLongitude)+12)%12)+1;
+}
+
+function calculateUTCDate(){
+  return new Date(Date.UTC(
+    BIRTH.year,
+    BIRTH.month-1,
+    BIRTH.day,
+    BIRTH.hour-BIRTH.utcOffset,
+    BIRTH.minute,
+    BIRTH.second
+  ));
+}
+
+function calculateJD(date){
+  return date.getTime()/DAY_MS+2440587.5;
+}
+
+function getNavamsaStartOffset(signIndex){
+  if([0,3,6,9].includes(signIndex)) return 0;
+  if([1,4,7,10].includes(signIndex)) return 8;
+  return 4;
+}
+
+function calculateNavamsa(longitude){
+  const lon=normalize360(longitude);
+  const signIndex=getSignIndex(lon);
+  const degree=getDegreeInSign(lon);
+  const navamsaSize=30/9;
+  const navamsaIndex=Math.min(8,Math.floor(degree/navamsaSize));
+  const offset=getNavamsaStartOffset(signIndex);
+  const d9Sign=(signIndex+offset+navamsaIndex)%12;
+  const insideDegree=(degree-navamsaIndex*navamsaSize)*9;
+
+  return {
+    signIndex:d9Sign,
+    sign:SIGNS[d9Sign],
+    degree:insideDegree,
+    navamsaIndex:navamsaIndex+1,
+    longitude:d9Sign*30+insideDegree
+  };
+}
+
+function addDashaYears(date,years){
+  return new Date(date.getTime()+years*DAYS_PER_YEAR*DAY_MS);
+}
+
+function formatDateUTC(date){
   return date.toISOString();
 }
 
-function utcLabel(date){
-  return date.toISOString().replace(".000Z"," UTC");
-}
-
-function istLabel(date){
+function formatDateIST(date){
   return new Intl.DateTimeFormat("en-IN",{
     timeZone:"Asia/Kolkata",
-    day:"2-digit",
-    month:"2-digit",
     year:"numeric",
+    month:"short",
+    day:"2-digit",
     hour:"2-digit",
     minute:"2-digit",
+    second:"2-digit",
     hour12:false
-  }).format(date)+" IST";
+  }).format(date);
 }
 
-function yearsToMs(years){
-  return years*DAYS_PER_YEAR*86400000;
+function planetIndex(name){
+  return DASHA_SEQUENCE.indexOf(name);
 }
 
-function durationText(ms){
-  if(ms<=0) return "0 days";
+function buildVimshottari(moonLongitude,birthDate){
+  const nak=getNakshatraInfo(moonLongitude);
+  const birthLord=nak.lord;
+  const birthLordYears=DASHA_YEARS[birthLord];
 
-  let sec=Math.floor(ms/1000);
-  const days=Math.floor(sec/86400);
-  sec%=86400;
+  const elapsedFraction=nak.position;
+  const remainingFraction=1-elapsedFraction;
+  const balanceYears=birthLordYears*remainingFraction;
 
-  const hours=Math.floor(sec/3600);
-  sec%=3600;
+  const startIndex=planetIndex(birthLord);
+  const sequence=[];
 
-  const minutes=Math.floor(sec/60);
-  sec%=60;
+  for(let i=0;i<10;i++){
+    sequence.push(
+      DASHA_SEQUENCE[(startIndex+i)%DASHA_SEQUENCE.length]
+    );
+  }
 
-  if(days>0) return `${days} days ${hours}h`;
-  return `${hours}h ${minutes}m ${sec}s`;
-}
+  const mahadashas=[];
+  let cursor=new Date(birthDate);
 
-/* =========================================================
-   ASTROLOGICAL HELPERS
-========================================================= */
+  for(let i=0;i<sequence.length;i++){
+    const planet=sequence[i];
+    const fullYears=i===0?balanceYears:DASHA_YEARS[planet];
+    const start=new Date(cursor);
+    const end=addDashaYears(start,fullYears);
 
-function nakshatraInfo(longitude){
-  const nsize=360/27;
-  const idx=Math.floor(mod(longitude,360)/nsize);
-  const within=mod(longitude, nsize);
-  const pada=Math.min(4,Math.floor(within/(nsize/4))+1);
-  const progress=within/nsize;
+    const antardashas=[];
+    const adStartIndex=planetIndex(planet);
+
+    let adCursor=new Date(start);
+
+    for(let j=0;j<9;j++){
+      const adPlanet=
+        DASHA_SEQUENCE[(adStartIndex+j)%DASHA_SEQUENCE.length];
+
+      const adYears=
+        fullYears*DASHA_YEARS[adPlanet]/120;
+
+      const adStart=new Date(adCursor);
+      const adEnd=addDashaYears(adStart,adYears);
+
+      antardashas.push({
+        maha:planet,
+        planet:adPlanet,
+        years:adYears,
+        start:adStart,
+        end:adEnd
+      });
+
+      adCursor=adEnd;
+    }
+
+    mahadashas.push({
+      planet,
+      years:fullYears,
+      start,
+      end,
+      antardashas
+    });
+
+    cursor=end;
+  }
 
   return {
-    index:idx,
-    name:NAKSHATRAS[idx],
-    lord:NAK_LORDS[idx],
-    pada,
-    progress
+    birthNakshatra:nak,
+    birthLord,
+    balanceYears,
+    elapsedFraction,
+    remainingFraction,
+    mahadashas
   };
 }
 
-function dignity(planet,sign){
-  if(!(planet in EXALTATION)) return "Neutral";
+function getCurrentDasha(dashaData,now=new Date()){
+  for(const maha of dashaData.mahadashas){
+    if(now>=maha.start && now<maha.end){
+      for(const ad of maha.antardashas){
+        if(now>=ad.start && now<ad.end){
+          return {maha,ad};
+        }
+      }
+    }
+  }
 
-  if(EXALTATION[planet]===sign) return "Exalted";
-  if(DEBILITATION[planet]===sign) return "Debilitated";
-  if(OWN_SIGNS[planet]?.includes(sign)) return "Own Sign";
+  return null;
+}
 
-  /*
-    Simplified friendship convention retained for V1.10.
-    This is an educational comparative label, not a complete
-    classical planetary-friendship calculation.
-  */
+function getDignity(planet,signIndex){
+  const d=DIGNITY[planet];
+  if(!d) return "Neutral";
 
-  const friendly = {
-    Sun:[0,4],
-    Moon:[0,1,3,4],
-    Mercury:[1,2,5,6],
-    Venus:[1,2,6,9,10],
-    Mars:[0,3,8,11],
-    Jupiter:[0,3,4,8,11],
-    Saturn:[1,2,5,6,9,10]
-  };
-
-  const enemy = {
-    Sun:[1,6,9,10],
-    Moon:[7,9],
-    Mercury:[3,7,8,11],
-    Venus:[3,5,8],
-    Mars:[1,2,5,6,9,10],
-    Jupiter:[1,2,5,6,7,9,10],
-    Saturn:[0,3,4,7,8,11]
-  };
-
-  if(friendly[planet]?.includes(sign)) return "Friendly";
-  if(enemy[planet]?.includes(sign)) return "Enemy";
+  if(d.exalt===signIndex) return "Exalted";
+  if(d.debil===signIndex) return "Debilitated";
+  if(d.own?.includes(signIndex)) return "Own";
+  if(d.friend?.includes(signIndex)) return "Friendly";
+  if(d.enemy?.includes(signIndex)) return "Enemy";
+  if(d.neutral?.includes(signIndex)) return "Neutral";
 
   return "Neutral";
 }
 
-function dignityScore(d){
-  switch(d){
+function dignityScore(dignity){
+  switch(dignity){
     case "Exalted": return 100;
-    case "Own Sign": return 90;
+    case "Own": return 90;
     case "Friendly": return 70;
     case "Neutral": return 55;
     case "Enemy": return 40;
-    case "Debilitated": return 25;
-    default:return 55;
+    case "Debilitated": return 20;
+    default:return 50;
   }
 }
 
-function strengthAssessment(score){
-  if(score>=75) return "Strong";
-  if(score>=50) return "Moderate";
-  return "Weak";
-}
-
-function navamsaSign(longitude){
-  const si=signIndex(longitude);
-  const internal=degInSign(longitude);
-  const nav=Math.min(8,Math.floor(internal/(30/9)));
-
-  let start;
-
-  /*
-    Movable: starts from same sign.
-    Fixed: starts from 9th sign.
-    Dual: starts from 5th sign.
-  */
-
-  if([0,3,6,9].includes(si)){
-    start=si;
-  }else if([1,4,7,10].includes(si)){
-    start=mod(si+8,12);
-  }else{
-    start=mod(si+4,12);
-  }
-
-  return mod(start+nav,12);
-}
-
-function navamsaDegree(longitude){
-  const internal=degInSign(longitude);
-  const nav=Math.min(8,Math.floor(internal/(30/9)));
-  const within=(internal-nav*(30/9))*9;
-  return within;
-}
-
-function houseFromLagna(longitude,lagnaLongitude){
-  return mod(signIndex(longitude)-signIndex(lagnaLongitude),12)+1;
-}
-
-function houseSign(lagnaLongitude,house){
-  return mod(signIndex(lagnaLongitude)+house-1,12);
-}
-
-function planetDisplay(p){
-  return `${p.name}`;
-}
-
-/* =========================================================
-   SWISS EPHEMERIS
-========================================================= */
-
-let swe;
-
-async function initSwiss(){
-  swe = new SwissEph();
-
-  /*
-    IMPORTANT:
-    set_sid_mode is called on the initialized INSTANCE.
-    Do not call SwissEph.set_sid_mode().
-  */
-  await swe.initSwissEph();
-
-  swe.set_sid_mode(
-    swe.SE_SIDM_LAHIRI,
-    0,
-    0
-  );
-}
-
-function getJD(date){
-  return date.getTime()/86400000 + 2440587.5;
-}
-
-/* =========================================================
-   D1 CALCULATION
-========================================================= */
-
-function calculatePlanets(jd){
-
-  const result=[];
-
-  const flags =
-    swe.SEFLG_SIDEREAL |
-    swe.SEFLG_SPEED;
-
-  for(const p of PLANETS){
-
-    const r=swe.calc_ut(
+function getPlanetSpeed(jd,planet,swe){
+  if(planet.key==="Ketu"){
+    const rahu=swe.calc_ut(
       jd,
-      p.id,
-      flags
+      10,
+      swe.SEFLG_SWIEPH|swe.SEFLG_SPEED
     );
-
-    result.push({
-      name:p.name,
-      id:p.id,
-      longitude:mod(r[0],360),
-      latitude:r[1],
-      distance:r[2],
-      speed:r[3],
-      retrograde:r[3]<0
-    });
+    return -Number(rahu[3]);
   }
 
-  const rahu=result.find(x=>x.name==="Rahu");
+  const result=swe.calc_ut(
+    jd,
+    planet.id,
+    swe.SEFLG_SWIEPH|swe.SEFLG_SPEED
+  );
 
-  result.push({
-    name:"Ketu",
-    id:11,
-    longitude:mod(rahu.longitude+180,360),
-    latitude:-rahu.latitude,
-    distance:rahu.distance,
-    speed:-rahu.speed,
-    retrograde:true,
-    derived:true
-  });
-
-  return result;
+  return Number(result[3]);
 }
 
-/* =========================================================
-   HOUSES
-========================================================= */
+function getMotion(speed){
+  return speed<0?"Retrograde":"Direct";
+}
 
-function calculateHouses(jd){
+function getCombustion(planet,longitude,positions){
+  if(!COMBUSTION_LIMITS[planet.key]){
+    return {
+      applicable:false,
+      combust:false,
+      distance:null
+    };
+  }
 
-  const tropical=swe.houses_ex(
-    jd,
-    0,
-    BIRTH.lat,
-    BIRTH.lon,
-    "P"
-  );
-
-  const sidereal=swe.houses_ex(
-    jd,
-    swe.SEFLG_SIDEREAL,
-    BIRTH.lat,
-    BIRTH.lon,
-    "P"
-  );
+  const sun=positions.find(p=>p.key==="Sun");
+  const distance=angularDifference(longitude,sun.longitude);
+  const limit=COMBUSTION_LIMITS[planet.key];
 
   return {
-    tropical,
-    sidereal
+    applicable:true,
+    combust:distance<=limit,
+    distance,
+    limit
   };
 }
 
-/* =========================================================
-   D1 DATA
-========================================================= */
-
-function buildD1(planets,sidAsc){
-
-  return planets.map(p=>{
-    const sign=signIndex(p.longitude);
-    const degree=degInSign(p.longitude);
-    const nak=nakshatraInfo(p.longitude);
-
-    return {
-      ...p,
-      sign,
-      signName:SIGNS[sign],
-      degree,
-      house:houseFromLagna(p.longitude,sidAsc),
-      nakshatra:nak.name,
-      pada:nak.pada,
-      nakLord:nak.lord
-    };
-  });
-}
-
-/* =========================================================
-   D9 DATA
-========================================================= */
-
-function buildD9(planets,sidAsc){
-
-  const lagnaD9=navamsaSign(sidAsc);
-  const lagnaDegree=navamsaDegree(sidAsc);
-
-  const d9=planets.map(p=>{
-    const sign=navamsaSign(p.longitude);
-    const degree=navamsaDegree(p.longitude);
-
-    return {
-      ...p,
-      d1Sign:signIndex(p.longitude),
-      d9Sign:sign,
-      d9Degree:degree,
-      d9House:mod(sign-lagnaD9,12)+1
-    };
-  });
-
-  return {
-    planets:d9,
-    lagnaSign:lagnaD9,
-    lagnaDegree
-  };
-}
-
-/* =========================================================
-   DASHA
-========================================================= */
-
-function buildMahadashas(birthDate,birthNak){
-
-  const lord=birthNak.lord;
-  const startIndex=DASHA_SEQ.indexOf(lord);
-
-  const firstRemaining =
-    1-birthNak.progress;
-
-  const firstYears =
-    DASHA_YEARS[lord]*firstRemaining;
-
-  const periods=[];
-
-  let cursor=birthDate;
-
-  for(let i=0;i<10;i++){
-
-    const planet=DASHA_SEQ[mod(startIndex+i,9)];
-
-    const years=
-      i===0 ? firstYears : DASHA_YEARS[planet];
-
-    const start=cursor;
-    const end=new Date(
-      start.getTime()+yearsToMs(years)
-    );
-
-    periods.push({
-      planet,
-      years,
-      start,
-      end,
-      index:i
-    });
-
-    cursor=end;
-  }
-
-  return periods;
-}
-
-function buildAntardashas(md){
-
-  const startIndex=DASHA_SEQ.indexOf(md.planet);
-
-  const totalYears=DASHA_YEARS[md.planet];
-  const duration=md.end-md.start;
-
-  const list=[];
-
-  let cursor=md.start;
-
-  for(let i=0;i<9;i++){
-
-    const planet=DASHA_SEQ[
-      mod(startIndex+i,9)
-    ];
-
-    const fraction=
-      DASHA_YEARS[planet]/120;
-
-    const length=
-      i===8
-      ? md.end-cursor
-      : duration*fraction;
-
-    const end=
-      i===8
-      ? md.end
-      : new Date(cursor.getTime()+length);
-
-    list.push({
-      md:md.planet,
-      planet,
-      start:cursor,
-      end,
-      index:i
-    });
-
-    cursor=end;
-  }
-
-  return list;
-}
-
-function buildAllAntardashas(mahadashas){
-  const all=[];
-
-  for(const md of mahadashas){
-    all.push(...buildAntardashas(md));
-  }
-
-  return all;
-}
-
-function currentDasha(mahadashas,antardashas,now){
-
-  const md =
-    mahadashas.find(
-      x=>now>=x.start && now<x.end
-    ) || mahadashas[mahadashas.length-1];
-
-  const ad =
-    antardashas.find(
-      x=>x.md===md.planet &&
-      now>=x.start &&
-      now<x.end
-    );
-
-  return {md,ad};
-}
-
-/* =========================================================
-   YOGAS
-========================================================= */
-
-function detectYogas(d1){
-
-  const result=[];
-
-  const moon=d1.find(x=>x.name==="Moon");
-  const jupiter=d1.find(x=>x.name==="Jupiter");
-
-  if(
-    moon &&
-    jupiter &&
-    mod(jupiter.house-moon.house,12)===4 ||
-    moon &&
-    jupiter &&
-    mod(moon.house-jupiter.house,12)===4
-  ){
-    result.push({
-      name:"Gaja Kesari Yoga",
-      title:"Wisdom / Reputation",
-      text:"Jupiter occupies a kendra from the Moon.",
-      planets:"Moon + Jupiter"
-    });
-  }
+function getAspectHouses(planet){
+  if(planet==="Mars") return [4,7,8];
+  if(planet==="Jupiter") return [5,7,9];
+  if(planet==="Saturn") return [3,7,10];
 
   /*
-    Dhana screening:
-    2nd lord + 5th lord connected by placement.
-  */
-
-  const secondLord="Saturn";
-  const fifthLord="Mars";
-
-  const saturn=d1.find(x=>x.name===secondLord);
-  const mars=d1.find(x=>x.name===fifthLord);
-
-  if(
-    saturn &&
-    mars &&
-    (
-      saturn.house===mars.house ||
-      angularDistance(saturn.longitude,mars.longitude)<=30
-    )
-  ){
-    result.push({
-      name:"Dhana Yoga",
-      title:"Wealth Connection",
-      text:"Lords of houses 2 and 5 are connected.",
-      planets:"Saturn + Mars"
-    });
-  }
-
-  return result;
+   * Rahu and Ketu are included with their 7th aspect
+   * in V1.10.2 to match the expanded Graha Drishti model.
+   */
+  return [7];
 }
 
-/* =========================================================
-   HOUSE LORDS
-========================================================= */
+function calculateAspects(positions){
+  const results=[];
 
-const SIGN_LORDS=[
-  "Mars",
-  "Venus",
-  "Mercury",
-  "Moon",
-  "Sun",
-  "Mercury",
-  "Venus",
-  "Mars",
-  "Jupiter",
-  "Saturn",
-  "Saturn",
-  "Jupiter"
-];
+  for(const p of positions){
+    const aspects=getAspectHouses(p.key);
 
-function houseLordData(d1,sidAsc){
+    for(const aspect of aspects){
+      const targetHouse=((p.house-1+aspect-1)%12)+1;
+      const occupants=positions
+        .filter(x=>x.house===targetHouse)
+        .map(x=>x.name);
 
-  const out=[];
-
-  for(let h=1;h<=12;h++){
-
-    const sign=houseSign(sidAsc,h);
-    const lord=SIGN_LORDS[sign];
-
-    const lordPlanet=d1.find(
-      p=>p.name===lord
-    );
-
-    const occupants=d1.filter(
-      p=>p.house===h
-    );
-
-    out.push({
-      house:h,
-      sign,
-      lord,
-      lordHouse:lordPlanet?.house || null,
-      occupants
-    });
-  }
-
-  return out;
-}
-
-/* =========================================================
-   CONJUNCTIONS
-========================================================= */
-
-function conjunctions(d1){
-
-  const out=[];
-
-  for(let i=0;i<d1.length;i++){
-    for(let j=i+1;j<d1.length;j++){
-
-      const a=d1[i];
-      const b=d1[j];
-
-      const orb=angularDistance(
-        a.longitude,
-        b.longitude
-      );
-
-      if(orb<=10){
-        out.push({
-          a:a.name,
-          b:b.name,
-          orb
-        });
-      }
-    }
-  }
-
-  return out;
-}
-
-/* =========================================================
-   DRISHTI
-========================================================= */
-
-function aspectsForPlanet(p){
-
-  const normal=[7];
-
-  if(p.name==="Mars"){
-    return [4,7,8];
-  }
-
-  if(p.name==="Jupiter"){
-    return [5,7,9];
-  }
-
-  if(p.name==="Saturn"){
-    return [3,7,10];
-  }
-
-  return normal;
-}
-
-function aspectName(n){
-  if(n===3)return "3rd";
-  if(n===4)return "4th";
-  if(n===5)return "5th";
-  if(n===7)return "7th";
-  if(n===8)return "8th";
-  if(n===9)return "9th";
-  if(n===10)return "10th";
-  return `${n}th`;
-}
-
-function buildAspects(d1){
-
-  const out=[];
-
-  for(const p of d1){
-
-    for(const aspect of aspectsForPlanet(p)){
-
-      const targetHouse=
-        mod(p.house-1+(aspect-1),12)+1;
-
-      const targets=d1.filter(
-        x=>x.house===targetHouse
-      );
-
-      out.push({
+      results.push({
         planet:p.name,
         fromHouse:p.house,
         aspect,
         targetHouse,
-        targets
+        occupants
       });
     }
   }
 
-  return out;
+  return results;
 }
 
-/* =========================================================
-   COMBUSTION
-========================================================= */
+function isKendraFrom(fromHouse,targetHouse){
+  const d=((targetHouse-fromHouse+12)%12)+1;
+  return [1,4,7,10].includes(d);
+}
 
-function combustionData(d1){
+function houseLordMap(ascSignIndex){
+  const map={};
 
-  const sun=d1.find(
-    x=>x.name==="Sun"
-  );
-
-  return d1.map(p=>{
-
-    const distance=angularDistance(
-      p.longitude,
-      sun.longitude
-    );
-
-    const threshold=
-      COMBUSTION_LIMITS[p.name] ?? null;
-
-    let status="—";
-
-    if(threshold!==null){
-      status=
-        distance<=threshold
-        ? "Combust"
-        : "No";
-    }
-
-    return {
-      ...p,
-      sunDistance:distance,
-      threshold,
-      combustion:status
+  for(let house=1;house<=12;house++){
+    const sign=(ascSignIndex+house-1)%12;
+    map[house]={
+      house,
+      signIndex:sign,
+      sign:SIGNS[sign],
+      lord:HOUSE_LORDS[sign]
     };
-  });
+  }
+
+  return map;
 }
 
-/* =========================================================
-   STRENGTH
-========================================================= */
-
-function strengthData(d1,d9){
-
-  return d1.map(p=>{
-
-    const d1Dignity=dignity(
-      p.name,
-      p.sign
-    );
-
-    const d9p=d9.planets.find(
-      x=>x.name===p.name
-    );
-
-    const d9Dignity=dignity(
-      p.name,
-      d9p?.d9Sign ?? 0
-    );
-
-    const s1=dignityScore(d1Dignity);
-    const s9=dignityScore(d9Dignity);
-
-    const combined=Math.round((s1+s9)/2);
-
-    return {
-      name:p.name,
-      d1Sign:p.sign,
-      d1Dignity,
-      d9Sign:d9p?.d9Sign,
-      d9Dignity,
-      d1Score:s1,
-      d9Score:s9,
-      combined,
-      assessment:
-        strengthAssessment(combined)
-    };
-  });
+function findPlanet(positions,name){
+  return positions.find(p=>p.key===name||p.name===name);
 }
 
-/* =========================================================
-   FINANCE
-========================================================= */
-
-function financeData(d1,houseLords){
-
-  const selected=[2,5,9,11];
-
-  return selected.map(h=>{
-    const row=houseLords.find(
-      x=>x.house===h
-    );
-
-    return {
-      ...row,
-      occupants:d1.filter(
-        p=>p.house===h
-      )
-    };
-  });
+function getLordHouses(houseMap,planet){
+  return Object.values(houseMap)
+    .filter(x=>x.lord===planet)
+    .map(x=>x.house);
 }
 
-/* =========================================================
-   MARRIAGE
-========================================================= */
+function detectYogas(positions,houseMap){
+  const yogas=[];
 
-function marriageData(d1,d9){
+  const moon=findPlanet(positions,"Moon");
+  const jupiter=findPlanet(positions,"Jupiter");
 
-  const seventh=d1.find(
-    x=>x.house===7
-  );
-
-  const seventhLord=
-    SIGN_LORDS[seventh.sign];
-
-  const lordPlanet=d1.find(
-    x=>x.name===seventhLord
-  );
-
-  const venus=d1.find(
-    x=>x.name==="Venus"
-  );
-
-  const jupiter=d1.find(
-    x=>x.name==="Jupiter"
-  );
-
-  const d9SeventhSign=
-    mod(d9.lagnaSign+6,12);
-
-  const d9Occupants=
-    d9.planets.filter(
-      p=>p.d9House===7
-    );
-
-  return {
-    d1SeventhSign:seventh.sign,
-    d1Lord:seventhLord,
-    d1LordHouse:lordPlanet?.house,
-    venusHouse:venus?.house,
-    jupiterHouse:jupiter?.house,
-    d9SeventhSign,
-    d9Occupants
-  };
-}
-
-/* =========================================================
-   DASH → YOGA / HOUSE CONNECTION
-========================================================= */
-
-function dashaConnections(current, d1, yogas){
-
-  const active=[
-    current.md?.planet,
-    current.ad?.planet
-  ].filter(Boolean);
-
-  return active.map(name=>{
-
-    const p=d1.find(
-      x=>x.name===name
-    );
-
-    const lordOf=[];
-
-    for(let h=1;h<=12;h++){
-      if(SIGN_LORDS[
-        houseSign(
-          EXPECTED.sidAsc,
-          h
-        )
-      ]===name){
-        lordOf.push(h);
-      }
-    }
-
-    const yogaNames=yogas
-      .filter(y=>y.planets.includes(name))
-      .map(y=>y.name);
-
-    return {
-      name,
-      house:p?.house,
-      sign:p?.sign,
-      lordOf,
-      yogas:yogaNames
-    };
-  });
-}
-
-/* =========================================================
-   VALIDATION
-========================================================= */
-
-function validate(data){
-
-  const {
-    date,
-    jd,
-    ayanamsa,
-    tropicalHouses,
-    siderealHouses,
-    sidAsc,
-    sidMC,
-    d1,
-    d9,
-    birthNak,
-    mahadashas,
-    antardashas,
-    current,
-    conjunctionList,
-    aspects,
-    houseLords,
-    yogas,
-    finance,
-    marriage
-  }=data;
-
-  const checks=[];
-
-  function add(label,detail,pass){
-    checks.push({
-      label,
-      detail,
-      pass:!!pass
+  if(
+    moon &&
+    jupiter &&
+    isKendraFrom(moon.house,jupiter.house)
+  ){
+    yogas.push({
+      name:"Gaja Kesari Yoga",
+      type:"Wisdom / Reputation",
+      rule:"Jupiter occupies a kendra from Moon",
+      planets:["Moon","Jupiter"],
+      houses:[moon.house,jupiter.house]
     });
   }
 
-  add(
-    "UTC conversion",
-    isoUTC(date),
-    isoUTC(date)==="1982-06-30T14:00:00.000Z"
-  );
+  const secondLord=houseMap[2].lord;
+  const fifthLord=houseMap[5].lord;
 
-  add(
-    "Julian Day",
-    `${fmt(jd,8)} — error ${Math.abs(jd-EXPECTED.jd).toFixed(10)}`,
-    Math.abs(jd-EXPECTED.jd)<1e-7
-  );
+  const p2=findPlanet(positions,secondLord);
+  const p5=findPlanet(positions,fifthLord);
 
-  add(
-    "Lahiri Ayanamsa",
-    `${fmt(ayanamsa,8)}° — error ${Math.abs(ayanamsa-EXPECTED.ayanamsa).toFixed(10)}°`,
-    Math.abs(ayanamsa-EXPECTED.ayanamsa)<1e-7
-  );
-
-  add(
-    "Sidereal Ascendant",
-    `${fmt(sidAsc,8)}°`,
-    Math.abs(sidAsc-EXPECTED.sidAsc)<1e-7
-  );
-
-  add(
-    "Sidereal MC",
-    `${fmt(sidMC,8)}°`,
-    Math.abs(sidMC-EXPECTED.sidMC)<1e-7
-  );
-
-  /*
-    V1.10.1 FIX #1
-    Swiss Ephemeris houses arrays may contain an unused
-    index/metadata position depending on wrapper representation.
-
-    We explicitly inspect positions 1..12 and do NOT use
-    raw .length as the number of houses.
-  */
-
-  function usableCusps(houses){
-    if(!houses) return [];
-    const c=houses.cusps;
-
-    if(!c) return [];
-
-    const arr=[];
-
-    /*
-      Most SwissEph wrappers expose cusps as:
-      [0, cusp1, cusp2, ... cusp12]
-    */
-
-    for(let i=1;i<=12;i++){
-      if(Number.isFinite(Number(c[i]))){
-        arr.push(Number(c[i]));
-      }
-    }
-
-    /*
-      Fallback for zero-based 12-element representation.
-    */
-
-    if(arr.length!==12 && c.length===12){
-      const alt=[];
-
-      for(let i=0;i<12;i++){
-        if(Number.isFinite(Number(c[i]))){
-          alt.push(Number(c[i]));
-        }
-      }
-
-      return alt;
-    }
-
-    return arr;
+  if(
+    p2 &&
+    p5 &&
+    p2.house===p5.house
+  ){
+    yogas.push({
+      name:"Dhana Yoga",
+      type:"Wealth Connection",
+      rule:"Lords of houses 2 and 5 are connected",
+      planets:[secondLord,fifthLord],
+      lordHouses:[p2.house,p5.house]
+    });
   }
 
-  const tropicalCusps=usableCusps(tropicalHouses);
-  const siderealCusps=usableCusps(siderealHouses);
+  return yogas;
+}
 
-  add(
-    "Placidus house cusps",
-    `${tropicalCusps.length}/12 tropical, ${siderealCusps.length}/12 sidereal`,
-    tropicalCusps.length===12 &&
-    siderealCusps.length===12
-  );
+function analyzeFinance(positions,houseMap){
+  return [2,5,9,11].map(house=>{
+    const data=houseMap[house];
+    const occupants=positions
+      .filter(p=>p.house===house)
+      .map(p=>p.name);
 
-  const rahu=d1.find(x=>x.name==="Rahu");
-  const ketu=d1.find(x=>x.name==="Ketu");
+    const lord=findPlanet(positions,data.lord);
 
-  add(
-    "Rahu/Ketu opposition",
-    `${fmt(angularDistance(rahu.longitude,ketu.longitude),9)}°`,
-    Math.abs(
-      angularDistance(rahu.longitude,ketu.longitude)-180
-    )<1e-8
-  );
+    return {
+      house,
+      sign:data.sign,
+      lord:data.lord,
+      lordHouse:lord?.house??"—",
+      occupants,
+      theme:HOUSE_THEMES[house]
+    };
+  });
+}
 
-  add(
-    "D1 Lagna",
-    `${SIGNS[signIndex(sidAsc)]}`,
-    SIGNS[signIndex(sidAsc)]==="Dhanu"
-  );
+function analyzeMarriage(positions,d9Positions,houseMap){
+  const seventh=houseMap[7];
+  const seventhLord=findPlanet(positions,seventh.lord);
+  const venus=findPlanet(positions,"Venus");
+  const jupiter=findPlanet(positions,"Jupiter");
 
-  add(
-    "D1 house range",
-    "All planets assigned to houses 1–12",
-    d1.every(p=>p.house>=1 && p.house<=12)
-  );
-
-  add(
-    "D9 sign rule",
-    "All planets resolved through Navāṁśa rule",
-    d9.planets.every(
-      p=>p.d9Sign>=0 && p.d9Sign<12
-    )
-  );
-
-  add(
-    "D9 degree range",
-    "All D9 degrees 0°–30°",
-    d9.planets.every(
-      p=>p.d9Degree>=0 && p.d9Degree<30
-    )
-  );
-
-  add(
-    "Vimshottari sequence",
-    DASHA_SEQ.join(" → "),
-    DASHA_SEQ.length===9
-  );
-
-  add(
-    "Vimshottari cycle",
-    `${DASHA_SEQ.reduce((a,p)=>a+DASHA_YEARS[p],0)} years`,
-    DASHA_SEQ.reduce((a,p)=>a+DASHA_YEARS[p],0)===120
-  );
-
-  add(
-    "Birth Nakshatra",
-    `${birthNak.name} Pada ${birthNak.pada} — Lord ${birthNak.lord}`,
-    birthNak.name==="Swati" &&
-    birthNak.pada===2 &&
-    birthNak.lord==="Rahu"
-  );
-
-  add(
-    "Mahadasha generation",
-    `${mahadashas.length} periods generated`,
-    mahadashas.length===10
-  );
-
-  /*
-    V1.10.1 FIX #2
-    Count Antardashas PER Mahadasha.
-    There must be exactly 9 for each of the 10 MDs.
-  */
-
-  const counts={};
-
-  for(const ad of antardashas){
-    counts[ad.md]=(counts[ad.md]||0)+1;
-  }
-
-  const mdCountsOK =
-    mahadashas.every(
-      md=>counts[md.planet]===9
-    ) &&
-    antardashas.length===90;
-
-  add(
-    "Antardasha count",
-    `${antardashas.length} total — 9 per Mahadasha × ${mahadashas.length}`,
-    mdCountsOK
-  );
-
-  add(
-    "Current Dasha",
-    `${current.md?.planet || "—"} / ${current.ad?.planet || "—"}`,
-    !!current.md && !!current.ad
-  );
-
-  add(
-    "Conjunction engine",
-    `${conjunctionList.length} conjunction(s) within 10°`,
-    true
-  );
-
-  add(
-    "Graha Drishti engine",
-    `${aspects.length} aspect records`,
-    aspects.length>0
-  );
-
-  add(
-    "House Lord engine",
-    `${houseLords.length} house lords resolved`,
-    houseLords.length===12
-  );
-
-  add(
-    "Yoga engine",
-    `${yogas.length} qualifying yoga/screening result(s)`,
-    true
-  );
-
-  add(
-    "Finance engine",
-    `${finance.length} houses analyzed`,
-    finance.length===4
-  );
-
-  add(
-    "Marriage engine",
-    "D1 7th + Venus + Jupiter + D9 7th analyzed",
-    !!marriage
-  );
-
-  const finalPass=checks.every(x=>x.pass);
+  const d9Seventh=d9Positions.find(p=>p.house===7);
 
   return {
-    checks,
-    finalPass,
-    tropicalCusps,
-    siderealCusps
+    d1SeventhSign:seventh.sign,
+    d1SeventhLord:seventh.lord,
+    d1SeventhLordHouse:seventhLord?.house??"—",
+    venusHouse:venus?.house??"—",
+    jupiterHouse:jupiter?.house??"—",
+    d9SeventhSign:
+      d9Positions.length?
+      SIGNS[getSignIndex(
+        d9Positions.find(p=>p.house===7)?.longitude??60
+      )]:"—",
+    d9SeventhOccupants:d9Positions
+      .filter(p=>p.house===7)
+      .map(p=>p.name),
+    d9SeventhPlanet:d9Seventh?.name??"—"
   };
 }
 
-/* =========================================================
-   RENDER HELPERS
-========================================================= */
+function dashaYogaConnections(positions,houseMap,yogas){
+  return PLANETS.map(planet=>{
+    const natal=findPlanet(positions,planet.key);
+    const lordHouses=getLordHouses(houseMap,planet.name);
+    const yogaConnections=yogas
+      .filter(y=>y.planets.includes(planet.name))
+      .map(y=>y.name);
 
-function infoCard(label,value,extra=""){
+    return {
+      planet:planet.name,
+      natalHouse:natal?.house??"—",
+      lordHouses,
+      yogaConnections
+    };
+  });
+}
+
+function getCusp(cusps,house){
+  const a=Array.from(cusps||[]);
+  return a.length>=13?
+    Number(a[house]):
+    Number(a[house-1]);
+}
+
+const expectedTropical=[
+  0,
+  293.07607691717345,
+  329.10296298369565,
+  5.430725814651707,
+  37.01635622997077,
+  63.53959216123144,
+  87.70196170588167,
+  113.07607691717345,
+  149.10296298369565,
+  185.4307258146517,
+  217.01635622997077,
+  243.53959216123147,
+  267.7019617058817
+];
+
+const expectedSidereal=[
+  0,
+  269.46809964414786,
+  305.49498571067005,
+  341.8227485416261,
+  13.408378956945164,
+  39.931614888205836,
+  64.09398443285608,
+  89.46809964414786,
+  125.49498571067005,
+  161.8227485416261,
+  193.40837895694517,
+  219.93161488920587,
+  244.09398443285608
+];
+
+function cuspCount(actual,expected){
+  let count=0;
+
+  for(let i=1;i<=12;i++){
+    const a=getCusp(actual,i);
+    const e=getCusp(expected,i);
+
+    if(
+      Number.isFinite(a) &&
+      Number.isFinite(e) &&
+      angularDifference(a,e)<0.000001
+    ){
+      count++;
+    }
+  }
+
+  return count;
+}
+
+function check(name,pass,detail){
+  return {name,pass,detail};
+}
+
+function validateAll(ctx){
+  const {
+    utcDate,
+    jd,
+    ayanamsa,
+    tropicalAsc,
+    siderealAsc,
+    tropicalMC,
+    siderealMC,
+    tropicalCusps,
+    siderealCusps,
+    positions,
+    d9Positions,
+    dashaData,
+    currentDasha,
+    conjunctions,
+    aspects,
+    yogas,
+    finance,
+    marriage,
+    dashaConnections
+  }=ctx;
+
+  const checks=[];
+
+  checks.push(
+    check(
+      "UTC",
+      utcDate.toISOString()==="1982-06-30T14:00:00.000Z",
+      utcDate.toISOString()
+    )
+  );
+
+  checks.push(
+    check(
+      "Julian Day",
+      Math.abs(jd-EXPECTED.jd)<0.0000001,
+      formatNumber(jd,8)
+    )
+  );
+
+  checks.push(
+    check(
+      "Lahiri Ayanamsa",
+      Math.abs(ayanamsa-EXPECTED.lahiri)<0.00001,
+      `${formatNumber(ayanamsa,8)}°`
+    )
+  );
+
+  checks.push(
+    check(
+      "Sidereal Ascendant",
+      angularDifference(siderealAsc,EXPECTED.siderealAsc)<0.000001,
+      `${formatDegree(siderealAsc)} (${getSign(siderealAsc)})`
+    )
+  );
+
+  checks.push(
+    check(
+      "Sidereal MC",
+      angularDifference(siderealMC,EXPECTED.siderealMC)<0.000001,
+      `${formatDegree(siderealMC)} (${getSign(siderealMC)})`
+    )
+  );
+
+  checks.push(
+    check(
+      "Tropical Ascendant",
+      angularDifference(tropicalAsc,EXPECTED.tropicalAsc)<0.000001,
+      `${formatDegree(tropicalAsc)}`
+    )
+  );
+
+  checks.push(
+    check(
+      "Tropical MC",
+      angularDifference(tropicalMC,EXPECTED.tropicalMC)<0.000001,
+      `${formatDegree(tropicalMC)}`
+    )
+  );
+
+  checks.push(
+    check(
+      "Placidus house cusps",
+      cuspCount(tropicalCusps,expectedTropical)===12 &&
+      cuspCount(siderealCusps,expectedSidereal)===12,
+      `Tropical ${cuspCount(tropicalCusps,expectedTropical)}/12 • Sidereal ${cuspCount(siderealCusps,expectedSidereal)}/12`
+    )
+  );
+
+  const rahu=findPlanet(positions,"Rahu");
+  const ketu=findPlanet(positions,"Ketu");
+
+  checks.push(
+    check(
+      "Rahu/Ketu opposition",
+      rahu&&ketu&&
+      Math.abs(angularDifference(
+        normalize360(rahu.longitude+180),
+        ketu.longitude
+      ))<0.000001,
+      rahu&&ketu?
+      `${formatDegree(rahu.longitude)} / ${formatDegree(ketu.longitude)}`:
+      "Missing"
+    )
+  );
+
+  checks.push(
+    check(
+      "Ketu derived",
+      ketu&&Math.abs(
+        normalize360(rahu.longitude+180)-ketu.longitude
+      )<0.000001,
+      ketu?formatDegree(ketu.longitude):"Missing"
+    )
+  );
+
+  const ascSign=getSignIndex(siderealAsc);
+
+  checks.push(
+    check(
+      "D1 Lagna",
+      ascSign===8,
+      `${SIGNS[ascSign]} (${SIGN_SYMBOLS[ascSign]})`
+    )
+  );
+
+  checks.push(
+    check(
+      "D1 house range",
+      positions.every(p=>p.house>=1&&p.house<=12),
+      "All planets assigned 1–12"
+    )
+  );
+
+  checks.push(
+    check(
+      "D9 sign rule",
+      d9Positions.every(p=>p.d9&&p.d9.signIndex>=0&&p.d9.signIndex<12),
+      "All D9 signs valid"
+    )
+  );
+
+  checks.push(
+    check(
+      "D9 degree range",
+      d9Positions.every(p=>p.d9&&p.d9.degree>=0&&p.d9.degree<30),
+      "All D9 degrees valid"
+    )
+  );
+
+  checks.push(
+    check(
+      "D9 house range",
+      d9Positions.every(p=>p.house>=1&&p.house<=12),
+      "All D9 planets assigned 1–12"
+    )
+  );
+
+  checks.push(
+    check(
+      "Vimshottari sequence",
+      dashaData.mahadashas.length===10,
+      dashaData.mahadashas.map(x=>x.planet).join(" → ")
+    )
+  );
+
+  const totalDashaYears=
+    dashaData.mahadashas.reduce(
+      (sum,x)=>sum+x.years,
+      0
+    );
+
+  checks.push(
+    check(
+      "120-year cycle",
+      Math.abs(totalDashaYears-120)<0.000001,
+      `${formatNumber(totalDashaYears,6)} years`
+    )
+  );
+
+  checks.push(
+    check(
+      "Birth Nakshatra",
+      dashaData.birthNakshatra.name==="Swati" &&
+      dashaData.birthNakshatra.pada===2 &&
+      dashaData.birthNakshatra.lord==="Rahu",
+      `${dashaData.birthNakshatra.name} Pada ${dashaData.birthNakshatra.pada} • Lord ${dashaData.birthNakshatra.lord}`
+    )
+  );
+
+  checks.push(
+    check(
+      "Birth Nakshatra fraction",
+      Math.abs(
+        dashaData.elapsedFraction-
+        0.40195299
+      )<0.0001,
+      `${(dashaData.elapsedFraction*100).toFixed(6)}% elapsed`
+    )
+  );
+
+  checks.push(
+    check(
+      "Birth MD balance",
+      Math.abs(
+        dashaData.balanceYears-
+        10.764846106
+      )<0.001,
+      `${formatNumber(dashaData.balanceYears,9)} years`
+    )
+  );
+
+  checks.push(
+    check(
+      "Birth Mahadasha",
+      dashaData.mahadashas[0].planet==="Rahu" &&
+      Math.abs(
+        dashaData.mahadashas[0].years-
+        dashaData.balanceYears
+      )<0.000001,
+      `Rahu ${formatNumber(dashaData.mahadashas[0].years,6)} years`
+    )
+  );
+
+  checks.push(
+    check(
+      "Mahadasha generation",
+      dashaData.mahadashas.every(
+        x=>x.end>x.start
+      ),
+      "10 valid Mahadashas"
+    )
+  );
+
+  /*
+   * IMPORTANT V1.10.2 FIX:
+   * Antardashas are nested inside each Mahadasha.
+   * Validation therefore flattens them before counting.
+   */
+  const allAD=dashaData.mahadashas.flatMap(
+    m=>m.antardashas||[]
+  );
+
+  const adCounts={};
+
+  for(const ad of allAD){
+    adCounts[ad.maha]=(adCounts[ad.maha]||0)+1;
+  }
+
+  const eachNine=dashaData.mahadashas.every(
+    m=>adCounts[m.planet]===9
+  );
+
+  const adSequenceCorrect=dashaData.mahadashas.every(
+    maha=>{
+      const startIndex=planetIndex(maha.planet);
+
+      const expectedSeq=Array.from(
+        {length:9},
+        (_,i)=>
+          DASHA_SEQUENCE[
+            (startIndex+i)%DASHA_SEQUENCE.length
+          ]
+      );
+
+      return maha.antardashas.map(
+        x=>x.planet
+      ).join(",")===expectedSeq.join(",");
+    }
+  );
+
+  checks.push(
+    check(
+      "Antardasha count",
+      allAD.length===90 && eachNine,
+      `${allAD.length} total — ${dashaData.mahadashas.map(m=>adCounts[m.planet]).join("/")} per MD`
+    )
+  );
+
+  checks.push(
+    check(
+      "Antardasha order",
+      adSequenceCorrect,
+      "9-per-MD cyclic sequence correct"
+    )
+  );
+
+  const adDurationPass=dashaData.mahadashas.every(
+    maha=>{
+      const sum=maha.antardashas.reduce(
+        (s,a)=>s+a.years,
+        0
+      );
+      return Math.abs(sum-maha.years)<0.000001;
+    }
+  );
+
+  checks.push(
+    check(
+      "Antardasha duration sum",
+      adDurationPass,
+      "Each MD AD total equals MD duration"
+    )
+  );
+
+  const adContinuity=dashaData.mahadashas.every(
+    maha=>{
+      for(let i=1;i<maha.antardashas.length;i++){
+        if(
+          Math.abs(
+            maha.antardashas[i].start.getTime()-
+            maha.antardashas[i-1].end.getTime()
+          )>2
+        ) return false;
+      }
+      return true;
+    }
+  );
+
+  checks.push(
+    check(
+      "Antardasha continuity",
+      adContinuity,
+      "No gaps inside MD timelines"
+    )
+  );
+
+  let mahaContinuity=true;
+
+  for(let i=1;i<dashaData.mahadashas.length;i++){
+    if(
+      Math.abs(
+        dashaData.mahadashas[i].start.getTime()-
+        dashaData.mahadashas[i-1].end.getTime()
+      )>2
+    ){
+      mahaContinuity=false;
+    }
+  }
+
+  checks.push(
+    check(
+      "Mahadasha continuity",
+      mahaContinuity,
+      "No gaps between Mahadashas"
+    )
+  );
+
+  checks.push(
+    check(
+      "Mahadasha order",
+      dashaData.mahadashas.every(
+        (m,i)=>{
+          const start=planetIndex(
+            dashaData.mahadashas[0].planet
+          );
+          return planetIndex(m.planet)===
+            (start+i)%9;
+        }
+      ),
+      dashaData.mahadashas.map(x=>x.planet).join(" → ")
+    )
+  );
+
+  checks.push(
+    check(
+      "Current Dasha",
+      !!currentDasha,
+      currentDasha?
+      `${currentDasha.maha.planet} / ${currentDasha.ad.planet}`:
+      "No active Dasha"
+    )
+  );
+
+  checks.push(
+    check(
+      "Conjunction engine",
+      conjunctions.length===3,
+      `${conjunctions.length} conjunctions ≤10°`
+    )
+  );
+
+  checks.push(
+    check(
+      "Graha Drishti engine",
+      aspects.length===15,
+      `${aspects.length} aspects`
+    )
+  );
+
+  checks.push(
+    check(
+      "Planetary dignity engine",
+      positions.every(p=>
+        ["Exalted","Own","Friendly","Neutral","Enemy","Debilitated"]
+          .includes(p.dignity)
+      ),
+      "All dignity classifications valid"
+    )
+  );
+
+  checks.push(
+    check(
+      "Retrograde engine",
+      positions.every(p=>
+        p.motion==="Direct"||p.motion==="Retrograde"
+      ),
+      "All motion states valid"
+    )
+  );
+
+  /*
+   * V1.10 NEW ENGINES
+   */
+  checks.push(
+    check(
+      "House & House-Lord engine",
+      Object.keys(houseMap).length===12 &&
+      Object.values(houseMap).every(
+        x=>x.house>=1&&x.house<=12&&x.lord
+      ),
+      "12 classical whole-sign houses"
+    )
+  );
+
+  checks.push(
+    check(
+      "Yoga engine",
+      yogas.length===2 &&
+      yogas.some(y=>y.name==="Gaja Kesari Yoga") &&
+      yogas.some(y=>y.name==="Dhana Yoga"),
+      `${yogas.length} qualifying yogas`
+    )
+  );
+
+  checks.push(
+    check(
+      "Finance / Dhana engine",
+      finance.length===4 &&
+      finance.every(x=>[2,5,9,11].includes(x.house)),
+      "Houses 2, 5, 9, 11 analyzed"
+    )
+  );
+
+  checks.push(
+    check(
+      "Marriage engine",
+      marriage.d1SeventhLord==="Mercury" &&
+      marriage.d1SeventhLordHouse===6 &&
+      marriage.venusHouse===6,
+      `D1 7th ${marriage.d1SeventhSign} • Lord Mercury`
+    )
+  );
+
+  const jupiterConnection=
+    dashaConnections.find(
+      x=>x.planet==="Jupiter"
+    );
+
+  const saturnConnection=
+    dashaConnections.find(
+      x=>x.planet==="Saturn"
+    );
+
+  checks.push(
+    check(
+      "Dasha → Yoga/House engine",
+      jupiterConnection?.yogaConnections.includes(
+        "Gaja Kesari Yoga"
+      ) &&
+      saturnConnection?.yogaConnections.includes(
+        "Dhana Yoga"
+      ),
+      "Jupiter → Gaja Kesari • Saturn → Dhana"
+    )
+  );
+
+  return checks;
+}
+
+function createChartBase(){
   return `
-    <div class="info">
-      <div class="label">${esc(label)}</div>
-      <div class="value ${extra}">${value}</div>
-    </div>
+  <svg class="chart" viewBox="0 0 600 600"
+       xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="20" width="560" height="560"
+          class="chart-line"/>
+    <path d="
+      M20 20 L580 580
+      M580 20 L20 580
+      M300 20 L300 580
+      M20 300 L580 300"
+      class="chart-line"/>
+    <path d="
+      M300 20 L20 300 L300 580 L580 300 Z"
+      class="chart-line"/>
   `;
 }
 
-function planetTable(d1){
+function addSvgText(x,y,text,className){
+  return `
+    <text x="${x}" y="${y}"
+      text-anchor="middle"
+      class="${className}">
+      ${text}
+    </text>
+  `;
+}
+
+function renderChart(positions,title,isD9=false){
+  const houseData={};
+
+  for(let h=1;h<=12;h++){
+    houseData[h]=[];
+  }
+
+  for(const p of positions){
+    houseData[p.house].push(p);
+  }
+
+  let svg=createChartBase();
+
+  for(let h=1;h<=12;h++){
+    const pos=HOUSE_POSITIONS[h];
+
+    svg+=addSvgText(
+      pos.x,
+      pos.y-18,
+      String(h),
+      "house-num"
+    );
+
+    if(isD9){
+      const signIndex=
+        houseData[h][0]?.d9?
+        houseData[h][0].d9.signIndex:
+        null;
+
+      if(signIndex!==null){
+        svg+=addSvgText(
+          pos.x,
+          pos.y-3,
+          `${SIGN_SYMBOLS[signIndex]} ${SIGN_SHORT[signIndex]}`,
+          "chart-sign"
+        );
+      }
+    }else{
+      const signIndex=
+        positions.find(p=>p.house===h)?.signIndex;
+
+      if(signIndex!==undefined){
+        svg+=addSvgText(
+          pos.x,
+          pos.y-3,
+          `${SIGN_SYMBOLS[signIndex]} ${SIGN_SHORT[signIndex]}`,
+          "chart-sign"
+        );
+      }
+    }
+
+    const names=houseData[h]
+      .map(p=>p.key==="Rahu"?"Ra":
+            p.key==="Ketu"?"Ke":
+            p.name.slice(0,2))
+      .join(" ");
+
+    if(names){
+      svg+=addSvgText(
+        pos.x,
+        pos.y+17,
+        names,
+        "chart-planet"
+      );
+    }
+  }
+
+  svg+="</svg>";
 
   return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>Longitude</th>
-        <th>Sign</th>
-        <th>Degree</th>
-        <th>Nakshatra</th>
-        <th>Pada</th>
-        <th>House</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${d1.map(p=>`
+    <h3>${title}</h3>
+    <div class="chart-wrap">${svg}</div>
+  `;
+}
+
+function renderD1Positions(positions){
+  return `
+  <div class="card">
+    <h2>D1 Planetary Positions</h2>
+    <div style="overflow:auto">
+    <table>
+      <thead>
         <tr>
-          <td>${esc(p.name)}</td>
-          <td>${fmt(p.longitude,8)}</td>
-          <td>${SIGN_SYMBOLS[p.sign]} ${esc(p.signName)}</td>
-          <td>${dms(p.degree)}</td>
-          <td>${esc(p.nakshatra)}</td>
-          <td>${p.pada}</td>
+          <th>Planet</th>
+          <th>Sidereal Longitude</th>
+          <th>Sign</th>
+          <th>Nakshatra</th>
+          <th>Pada</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${positions.map(p=>`
+        <tr>
+          <td><b>${p.name}</b></td>
+          <td>${formatDegree(p.longitude)}</td>
+          <td>${SIGN_SYMBOLS[p.signIndex]} ${p.sign}</td>
+          <td>${p.nakshatra.name}</td>
+          <td>${p.nakshatra.pada}</td>
           <td>${p.house}</td>
         </tr>
       `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderChart(d1,lagnaSign,title){
-
-  const byHouse={};
-
-  for(let h=1;h<=12;h++){
-    byHouse[h]=[];
-  }
-
-  for(const p of d1){
-    const h=p.house || p.d9House;
-    if(byHouse[h]) byHouse[h].push(p.name);
-  }
-
-  return `
-  <div class="chart" aria-label="${esc(title)}">
-    ${Array.from({length:12},(_,i)=>{
-      const h=i+1;
-      const sign=mod(lagnaSign+h-1,12);
-      const cls=`h${h}`;
-
-      return `
-        <div class="house ${cls}">
-          <strong>H${h}</strong>
-          <span>${SIGN_SYMBOLS[sign]} ${SIGNS[sign]}</span>
-          <span>${byHouse[h]?.join(", ") || "—"}</span>
-        </div>
-      `;
-    }).join("")}
-  </div>
-  `;
-}
-
-function d9Table(d9){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>D1 Longitude</th>
-        <th>D1 Sign</th>
-        <th>D9 Sign</th>
-        <th>D9 Degree</th>
-        <th>D9 House</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${d9.planets.map(p=>`
-        <tr>
-          <td>${esc(p.name)}</td>
-          <td>${fmt(p.longitude,8)}</td>
-          <td>${esc(SIGNS[p.d1Sign])}</td>
-          <td>${SIGN_SYMBOLS[p.d9Sign]} ${esc(SIGNS[p.d9Sign])}</td>
-          <td>${dms(p.d9Degree)}</td>
-          <td>${p.d9House}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderDignity(data){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>D1 Sign</th>
-        <th>D1 Dignity</th>
-        <th>D9 Sign</th>
-        <th>D9 Dignity</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${data.map(p=>`
-        <tr>
-          <td>${esc(p.name)}</td>
-          <td>${SIGN_SYMBOLS[p.d1Sign]} ${SIGNS[p.d1Sign]}</td>
-          <td>${esc(p.d1Dignity)}</td>
-          <td>${SIGN_SYMBOLS[p.d9Sign]} ${SIGNS[p.d9Sign]}</td>
-          <td>${esc(p.d9Dignity)}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderRetro(data){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>Speed °/day</th>
-        <th>Motion</th>
-        <th>Sun Distance</th>
-        <th>Rule</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${data.map(p=>`
-        <tr>
-          <td>${esc(p.name)}</td>
-          <td>${fmt(p.speed,6)}</td>
-          <td>${p.retrograde ? "Retrograde":"Direct"}</td>
-          <td>${p.name==="Sun" ? "—" : fmt(p.sunDistance,4)+"°"}</td>
-          <td>${p.threshold===null ? "—" : "≤ "+p.threshold+"°"}</td>
-          <td>${esc(p.combustion)}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderConjunctions(list){
-
-  if(!list.length){
-    return `<div class="note">No planetary conjunctions within 10°.</div>`;
-  }
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet A</th>
-        <th>Planet B</th>
-        <th>Orb</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(x=>`
-        <tr>
-          <td>${esc(x.a)}</td>
-          <td>${esc(x.b)}</td>
-          <td>${fmt(x.orb,4)}°</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderAspects(list){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>From House</th>
-        <th>Aspect</th>
-        <th>Target House</th>
-        <th>Planets in Target</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(x=>`
-        <tr>
-          <td>${esc(x.planet)}</td>
-          <td>${x.fromHouse}</td>
-          <td>${aspectName(x.aspect)}</td>
-          <td>${x.targetHouse}</td>
-          <td>${x.targets.length
-            ? x.targets.map(p=>p.name).join(", ")
-            : "Empty"}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderStrength(list){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>D1 Score</th>
-        <th>D9 Score</th>
-        <th>Combined</th>
-        <th>Assessment</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(p=>`
-        <tr>
-          <td>${esc(p.name)}</td>
-          <td>${p.d1Score}/100</td>
-          <td>${p.d9Score}/100</td>
-          <td>${p.combined}/100</td>
-          <td>${esc(p.assessment)}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderHouseLordTable(list){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>House</th>
-        <th>Sign</th>
-        <th>Lord</th>
-        <th>Lord's House</th>
-        <th>Occupants</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(x=>`
-        <tr>
-          <td>${x.house}</td>
-          <td>${SIGN_SYMBOLS[x.sign]} ${SIGNS[x.sign]}</td>
-          <td>${esc(x.lord)}</td>
-          <td>${x.lordHouse ?? "—"}</td>
-          <td>${x.occupants.length
-            ? x.occupants.map(p=>p.name).join(", ")
-            : "Empty"}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderDashaTable(list){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Planet</th>
-        <th>Duration</th>
-        <th>Start UTC</th>
-        <th>End UTC</th>
-        <th>Start IST</th>
-        <th>End IST</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(x=>`
-        <tr class="${x.current?"current":""}">
-          <td>${esc(x.planet)}</td>
-          <td>${x.years.toFixed(9)} years</td>
-          <td>${isoUTC(x.start)}</td>
-          <td>${isoUTC(x.end)}</td>
-          <td>${istLabel(x.start)}</td>
-          <td>${istLabel(x.end)}</td>
-          <td>${x.current ? '<span class="pass">CURRENT</span>' : ""}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-function renderAntardashaTable(list){
-
-  return `
-  <div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Mahadasha</th>
-        <th>Antardasha</th>
-        <th>Start UTC</th>
-        <th>End UTC</th>
-        <th>Start IST</th>
-        <th>End IST</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${list.map(x=>`
-        <tr class="${x.current?"current":""}">
-          <td>${esc(x.md)}</td>
-          <td>${esc(x.planet)}</td>
-          <td>${isoUTC(x.start)}</td>
-          <td>${isoUTC(x.end)}</td>
-          <td>${istLabel(x.start)}</td>
-          <td>${istLabel(x.end)}</td>
-          <td>${x.current ? '<span class="pass">CURRENT</span>' : ""}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  </table>
-  </div>
-  `;
-}
-
-/* =========================================================
-   MAIN CALCULATION
-========================================================= */
-
-async function calculate(){
-
-  await initSwiss();
-
-  const birthDate=toUTCDate();
-  const jd=getJD(birthDate);
-
-  const ayanamsa=swe.get_ayanamsa_ut(jd);
-
-  const houses=calculateHouses(jd);
-
-  const tropicalAsc=
-    mod(Number(houses.tropical.ascmc[0]),360);
-
-  const tropicalMC=
-    mod(Number(houses.tropical.ascmc[1]),360);
-
-  const sidAsc=
-    mod(Number(houses.sidereal.ascmc[0]),360);
-
-  const sidMC=
-    mod(Number(houses.sidereal.ascmc[1]),360);
-
-  const planets=calculatePlanets(jd);
-
-  const d1=buildD1(
-    planets,
-    sidAsc
-  );
-
-  const moon=d1.find(
-    p=>p.name==="Moon"
-  );
-
-  const birthNak=nakshatraInfo(
-    moon.longitude
-  );
-
-  const d9=buildD9(
-    planets,
-    sidAsc
-  );
-
-  const mahadashas=
-    buildMahadashas(
-      birthDate,
-      birthNak
-    );
-
-  const antardashas=
-    buildAllAntardashas(
-      mahadashas
-    );
-
-  const now=new Date();
-
-  const current=
-    currentDasha(
-      mahadashas,
-      antardashas,
-      now
-    );
-
-  const conjunctionList=
-    conjunctions(d1);
-
-  const aspects=
-    buildAspects(d1);
-
-  const combustion=
-    combustionData(d1);
-
-  const dignityList=
-    strengthData(d1,d9);
-
-  const houseLords=
-    houseLordData(
-      d1,
-      sidAsc
-    );
-
-  const yogas=
-    detectYogas(d1);
-
-  const finance=
-    financeData(
-      d1,
-      houseLords
-    );
-
-  const marriage=
-    marriageData(
-      d1,
-      d9
-    );
-
-  const connections=
-    dashaConnections(
-      current,
-      d1,
-      yogas
-    );
-
-  const data={
-    date:birthDate,
-    jd,
-    ayanamsa,
-    tropicalHouses:houses.tropical,
-    siderealHouses:houses.sidereal,
-    tropicalAsc,
-    tropicalMC,
-    sidAsc,
-    sidMC,
-    planets,
-    d1,
-    d9,
-    birthNak,
-    mahadashas,
-    antardashas,
-    current,
-    conjunctionList,
-    aspects,
-    combustion,
-    dignityList,
-    houseLords,
-    yogas,
-    finance,
-    marriage,
-    connections
-  };
-
-  data.validation=validate(data);
-
-  render(data);
-}
-
-/* =========================================================
-   RENDER FULL PAGE
-========================================================= */
-
-function render(data){
-
-  const {
-    date,
-    jd,
-    ayanamsa,
-    tropicalAsc,
-    tropicalMC,
-    sidAsc,
-    sidMC,
-    d1,
-    d9,
-    birthNak,
-    mahadashas,
-    antardashas,
-    current,
-    conjunctionList,
-    aspects,
-    combustion,
-    dignityList,
-    houseLords,
-    yogas,
-    finance,
-    marriage,
-    connections,
-    validation
-  }=data;
-
-  const now=new Date();
-
-  for(const md of mahadashas){
-    md.current =
-      current.md &&
-      md.planet===current.md.planet &&
-      now>=md.start &&
-      now<md.end;
-  }
-
-  for(const ad of antardashas){
-    ad.current =
-      current.ad &&
-      ad.md===current.ad.md &&
-      ad.planet===current.ad.planet &&
-      now>=ad.start &&
-      now<ad.end;
-  }
-
-  app.innerHTML=`
-
-  <!-- BIRTH -->
-  <section class="card">
-    <h2>Birth Information</h2>
-
-    <div class="grid">
-      ${infoCard("Date","30 June 1982")}
-      ${infoCard("Time","19:30:00 IST")}
-      ${infoCard("Place",BIRTH.place)}
-      ${infoCard("Latitude","23.3322° N")}
-      ${infoCard("Longitude","86.3652° E")}
-      ${infoCard("UTC Offset","+5:30")}
-      ${infoCard(
-        "Swiss Ephemeris Engine",
-        "✓ Swiss Ephemeris initialized successfully",
-        "engine"
-      )}
+      </tbody>
+    </table>
     </div>
-  </section>
+  </div>
+  `;
+}
 
-  <!-- VALIDATED ASTRONOMICAL DATA -->
-  <section class="card">
-    <h2>Validated Astronomical Data</h2>
-
-    <div class="grid">
-      ${infoCard("UTC",isoUTC(date))}
-      ${infoCard("Julian Day",fmt(jd,8))}
-      ${infoCard("Lahiri Ayanāṁśa",fmt(ayanamsa,8)+"°")}
-      ${infoCard(
-        "Tropical Ascendant",
-        fmt(tropicalAsc,8)+"°"
-      )}
-      ${infoCard(
-        "Sidereal Ascendant",
-        fmt(sidAsc,8)+"° ("+
-        SIGN_SYMBOLS[signIndex(sidAsc)]+" "+
-        SIGNS[signIndex(sidAsc)]+")"
-      )}
-      ${infoCard(
-        "Tropical MC",
-        fmt(tropicalMC,8)+"°"
-      )}
-      ${infoCard(
-        "Sidereal MC",
-        fmt(sidMC,8)+"° ("+
-        SIGN_SYMBOLS[signIndex(sidMC)]+" "+
-        SIGNS[signIndex(sidMC)]+")"
-      )}
+function renderD9Positions(positions){
+  return `
+  <div class="card">
+    <h2>D9 Navamsa Positions</h2>
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>D9 Sign</th>
+          <th>D9 Degree</th>
+          <th>Navamsa #</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${positions.map(p=>`
+        <tr>
+          <td><b>${p.name}</b></td>
+          <td>${SIGN_SYMBOLS[p.d9.signIndex]} ${p.d9.sign}</td>
+          <td>${formatDegree(p.d9.degree)}</td>
+          <td>${p.d9.navamsaIndex}</td>
+          <td>${p.house}</td>
+        </tr>
+      `).join("")}
+      </tbody>
+    </table>
     </div>
-  </section>
+  </div>
+  `;
+}
 
-  <!-- D1 -->
-  <section class="card">
-    <h2>🕉️ D1 Rāśi Chart</h2>
+function renderDignity(positions){
+  return `
+  <div class="card">
+    <h2>Planetary Dignity & D1 + D9 Strength</h2>
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>D1</th>
+          <th>D1 Score</th>
+          <th>D9</th>
+          <th>D9 Score</th>
+          <th>Combined</th>
+          <th>Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${positions.map(p=>{
+        const combined=Math.round(
+          (p.d1Score+p.d9Score)/2
+        );
 
-    <div class="small">
-      North Indian Style — Whole Sign Houses
-    </div>
-
-    ${renderChart(
-      d1,
-      signIndex(sidAsc),
-      "D1 Rashi Chart"
-    )}
-
-    <div class="summary">
-      ${Array.from({length:12},(_,i)=>{
-        const h=i+1;
-        const sign=houseSign(sidAsc,h);
-        const occupants=d1
-          .filter(p=>p.house===h)
-          .map(p=>p.name);
+        const assessment=
+          combined>=75?"Strong":
+          combined>=55?"Moderate":
+          "Weak";
 
         return `
-          <div class="box">
-            <b>H${h}</b><br>
-            ${SIGN_SYMBOLS[sign]} ${SIGNS[sign]}<br>
-            <span class="small">
-              ${occupants.length
-                ? occupants.join(", ")
-                : "—"}
-            </span>
-          </div>
+        <tr>
+          <td><b>${p.name}</b></td>
+          <td>${p.dignity}</td>
+          <td>${p.d1Score}</td>
+          <td>${p.d9Dignity}</td>
+          <td>${p.d9Score}</td>
+          <td>${combined}</td>
+          <td>${assessment}</td>
+        </tr>
         `;
       }).join("")}
+      </tbody>
+    </table>
     </div>
+  </div>
+  `;
+}
 
-    <h3>D1 Rāśi</h3>
-    <div class="note">
-      ${SIGN_SYMBOLS[signIndex(sidAsc)]}
-      ${SIGNS[signIndex(sidAsc)]}
-    </div>
-
-    <h3>D1 Planetary Positions</h3>
-    ${planetTable(d1)}
-  </section>
-
-  <!-- D9 -->
-  <section class="card">
-    <h2>🔷 D9 Navāṁśa Chart</h2>
-
-    <div class="small">
-      North Indian Style — Whole Sign Houses
-    </div>
-
-    ${renderChart(
-      d9.planets.map(p=>({
-        name:p.name,
-        d9House:p.d9House
-      })),
-      d9.lagnaSign,
-      "D9 Navamsa Chart"
-    )}
-
-    <div class="summary">
-      ${Array.from({length:12},(_,i)=>{
-        const h=i+1;
-        const sign=mod(d9.lagnaSign+h-1,12);
-        const occupants=d9.planets
-          .filter(p=>p.d9House===h)
-          .map(p=>p.name);
+function renderMotion(positions){
+  return `
+  <div class="card">
+    <h2>Retrograde & Combustion</h2>
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>Speed °/day</th>
+          <th>Motion</th>
+          <th>Combustion</th>
+          <th>Sun Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${positions.map(p=>{
+        const c=p.combustion;
 
         return `
-          <div class="box">
-            <b>H${h}</b><br>
-            ${SIGN_SYMBOLS[sign]} ${SIGNS[sign]}<br>
-            <span class="small">
-              ${occupants.length
-                ? occupants.join(", ")
-                : "—"}
-            </span>
-          </div>
+        <tr>
+          <td><b>${p.name}</b></td>
+          <td>${formatNumber(p.speed,6)}</td>
+          <td>${p.motion}</td>
+          <td>
+            ${c.applicable?
+              (c.combust?
+                `<span class="badge orange">Combust</span>`:
+                `<span class="badge green">No</span>`):
+              "—"}
+          </td>
+          <td>
+            ${c.distance===null?
+              "—":
+              `${formatNumber(c.distance,4)}°`}
+          </td>
+        </tr>
         `;
       }).join("")}
+      </tbody>
+    </table>
     </div>
+  </div>
+  `;
+}
 
-    <h3>D9 Navāṁśa</h3>
-    <div class="note">
-      ${SIGN_SYMBOLS[d9.lagnaSign]}
-      ${SIGNS[d9.lagnaSign]}
-    </div>
-
-    <h3>D9 Summary</h3>
-
-    <div class="grid">
-      ${infoCard(
-        "D9 Lagna",
-        SIGN_SYMBOLS[d9.lagnaSign]+" "+
-        SIGNS[d9.lagnaSign]
-      )}
-
-      ${infoCard(
-        "D9 Lagna Degree",
-        dms(d9.lagnaDegree)
-      )}
-
-      ${infoCard(
-        "Source D1 Lagna",
-        `${SIGNS[signIndex(sidAsc)]} ${fmt(sidAsc,2)}°`
-      )}
-
-      ${infoCard(
-        "Navāṁśa Number",
-        Math.floor(degInSign(sidAsc)/(30/9))+1
-      )}
-    </div>
-
-    <h3>D9 Navāṁśa Positions</h3>
-    ${d9Table(d9)}
-  </section>
-
-  <!-- DIGNITY -->
-  <section class="card">
-    <h2>⭐ Planetary Dignity</h2>
-
-    <div class="note">
-      Dignity compares D1 and D9 sign placement using
-      classical exaltation, debilitation, own-sign and
-      simplified friendship rules.
-    </div>
-
-    ${renderDignity(dignityList)}
-  </section>
-
-  <!-- RETROGRADE -->
-  <section class="card">
-    <h2>🔄 Retrograde & Combustion</h2>
-
-    <div class="note">
-      Retrograde status comes from Swiss Ephemeris planetary
-      speed. Combustion uses the simplified solar-distance
-      thresholds defined by V1.10.
-    </div>
-
-    ${renderRetro(combustion)}
-  </section>
-
-  <!-- CONJUNCTION -->
-  <section class="card">
-    <h2>🔗 Conjunctions</h2>
-
-    <div class="note">
-      Planets within 10° of each other are listed.
-    </div>
-
-    ${renderConjunctions(conjunctionList)}
-  </section>
-
-  <!-- ASPECTS -->
-  <section class="card">
-    <h2>👁️ Vedic Planetary Aspects — Graha Drishti</h2>
-
-    <div class="note">
-      All classical planets receive the 7th aspect.
-      Mars additionally aspects 4th and 8th; Jupiter 5th
-      and 9th; Saturn 3rd and 10th. Nodes are not assigned
-      additional special aspects in this V1.10 convention.
-    </div>
-
-    ${renderAspects(aspects)}
-  </section>
-
-  <!-- STRENGTH -->
-  <section class="card">
-    <h2>💪 D1 + D9 Planetary Strength Summary</h2>
-
-    <div class="note">
-      Educational comparative indicator based primarily on
-      sign dignity. It is not a full Shadbala calculation.
-    </div>
-
-    ${renderStrength(dignityList)}
-  </section>
-
-  <!-- HOUSE LORDS -->
-  <section class="card">
-    <h2>🏠 D1 House & House-Lord Analysis</h2>
-
-    <div class="note">
-      Houses are whole-sign houses from the sidereal Dhanu
-      Lagna. The house lord is the classical ruler of the
-      sign occupying that house.
-    </div>
-
-    ${renderHouseLordTable(houseLords)}
-
-    <h3>Key House Groups</h3>
-
-    <div class="summary">
-      <div class="box">
-        <b>Dharma</b><br>
-        1st / 5th / 9th
-      </div>
-      <div class="box">
-        <b>Artha</b><br>
-        2nd / 6th / 10th
-      </div>
-      <div class="box">
-        <b>Kama</b><br>
-        3rd / 7th / 11th
-      </div>
-      <div class="box">
-        <b>Moksha</b><br>
-        4th / 8th / 12th
-      </div>
-    </div>
-  </section>
-
-  <!-- YOGA -->
-  <section class="card">
-    <h2>🔱 Yoga Detection</h2>
-
-    <div class="note">
-      Yoga detection is rule-based. Because several classical
-      yogas have school-specific definitions, results are labeled
-      as detections or screenings rather than absolute astrological
-      conclusions.
-    </div>
-
+function renderConjunctions(conjunctions){
+  return `
+  <div class="card">
+    <h2>Conjunctions</h2>
     ${
-      yogas.length
-      ? yogas.map(y=>`
-        <div class="info" style="margin-bottom:10px">
-          <b>${esc(y.name)}</b><br>
-          <span class="small">${esc(y.title)}</span>
-          <p>${esc(y.text)}</p>
-          <b>Planets:</b> ${esc(y.planets)}
-        </div>
-      `).join("")
-      : `<div class="note">No configured yoga screening matched.</div>`
+      conjunctions.length?
+      `
+      <table>
+        <thead>
+          <tr>
+            <th>Planets</th>
+            <th>Separation</th>
+          </tr>
+        </thead>
+        <tbody>
+        ${conjunctions.map(c=>`
+          <tr>
+            <td><b>${c.a}</b> + <b>${c.b}</b></td>
+            <td>${formatNumber(c.distance,4)}°</td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+      `:
+      `<p class="note">No conjunctions within 10°.</p>`
     }
-  </section>
+  </div>
+  `;
+}
 
-  <!-- FINANCE -->
-  <section class="card">
-    <h2>💰 Finance / Dhana Analysis</h2>
-
-    <div class="note">
-      This is an astrological analysis of the 2nd, 5th, 9th
-      and 11th houses. It is educational and is not financial advice.
+function renderAspects(aspects){
+  return `
+  <div class="card">
+    <h2>Graha Drishti</h2>
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>From House</th>
+          <th>Aspect</th>
+          <th>Target House</th>
+          <th>Occupants</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${aspects.map(a=>`
+        <tr>
+          <td><b>${a.planet}</b></td>
+          <td>${a.fromHouse}</td>
+          <td>${a.aspect}th</td>
+          <td>${a.targetHouse}</td>
+          <td>${a.occupants.length?
+            a.occupants.join(", "):
+            "Empty"}</td>
+        </tr>
+      `).join("")}
+      </tbody>
+    </table>
     </div>
+    <p class="note">
+      Mars: 4th, 7th, 8th • Jupiter: 5th, 7th, 9th •
+      Saturn: 3rd, 7th, 10th • other planets including nodes: 7th.
+    </p>
+  </div>
+  `;
+}
 
-    <div class="table-wrap">
+function renderHouseAnalysis(houseMap,positions){
+  return `
+  <div class="card">
+    <h2>🏠 House & House-Lord Analysis</h2>
+    <div style="overflow:auto">
     <table>
       <thead>
         <tr>
@@ -2458,543 +1811,987 @@ function render(data){
           <th>Lord</th>
           <th>Lord House</th>
           <th>Occupants</th>
+          <th>Theme</th>
         </tr>
       </thead>
       <tbody>
-        ${finance.map(x=>`
-          <tr>
-            <td>${x.house}</td>
-            <td>${SIGN_SYMBOLS[x.sign]} ${SIGNS[x.sign]}</td>
-            <td>${esc(x.lord)}</td>
-            <td>${x.lordHouse}</td>
-            <td>${x.occupants.length
-              ? x.occupants.map(p=>p.name).join(", ")
-              : "Empty"}</td>
-          </tr>
-        `).join("")}
+      ${Object.values(houseMap).map(h=>{
+        const lord=findPlanet(positions,h.lord);
+        const occupants=positions
+          .filter(p=>p.house===h.house)
+          .map(p=>p.name);
+
+        return `
+        <tr>
+          <td><b>${h.house}</b></td>
+          <td>${SIGN_SYMBOLS[h.signIndex]} ${h.sign}</td>
+          <td>${h.lord}</td>
+          <td>${lord?.house??"—"}</td>
+          <td>${occupants.length?
+            occupants.join(", "):
+            "Empty"}</td>
+          <td>${HOUSE_THEMES[h.house]}</td>
+        </tr>
+        `;
+      }).join("")}
       </tbody>
     </table>
     </div>
 
-    <h3>Finance Signals</h3>
-
-    <div class="summary">
-      <div class="box">
-        <b>2nd House</b><br>
-        <span class="small">
-          Accumulated wealth / resources
-        </span>
-      </div>
-
-      <div class="box">
-        <b>5th House</b><br>
-        <span class="small">
-          Speculation / intelligence / creativity
-        </span>
-      </div>
-
-      <div class="box">
-        <b>9th House</b><br>
-        <span class="small">
-          Fortune / dharma
-        </span>
-      </div>
-
-      <div class="box">
-        <b>11th House</b><br>
-        <span class="small">
-          Gains / networks / fulfilment
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MARRIAGE -->
-  <section class="card">
-    <h2>❤️ Marriage / Relationship Analysis</h2>
-
-    <div class="note">
-      This section evaluates the D1 7th house, its lord,
-      Venus, Jupiter, and the D9 7th house. It is an
-      astrological interpretation framework, not a guarantee
-      about relationships or marriage.
-    </div>
-
+    <h3>House Groups</h3>
     <div class="grid">
-      ${infoCard(
-        "D1 7th House",
-        SIGN_SYMBOLS[marriage.d1SeventhSign]+" "+
-        SIGNS[marriage.d1SeventhSign]
-      )}
-
-      ${infoCard(
-        "D1 7th Lord",
-        marriage.d1Lord
-      )}
-
-      ${infoCard(
-        "7th Lord House",
-        marriage.d1LordHouse
-      )}
-
-      ${infoCard(
-        "Venus House",
-        marriage.venusHouse
-      )}
-
-      ${infoCard(
-        "Jupiter House",
-        marriage.jupiterHouse
-      )}
-
-      ${infoCard(
-        "D9 7th Sign",
-        SIGN_SYMBOLS[marriage.d9SeventhSign]+" "+
-        SIGNS[marriage.d9SeventhSign]
-      )}
-
-      ${infoCard(
-        "D9 7th Occupants",
-        marriage.d9Occupants.length
-        ? marriage.d9Occupants.map(p=>p.name).join(", ")
-        : "Empty"
-      )}
-    </div>
-  </section>
-
-  <!-- CURRENT DASHA -->
-  <section class="card">
-    <h2>⏳ Current Vimshottari Dasha</h2>
-
-    <div class="summary">
-
-      <div class="box current">
-        <b>Mahadasha</b><br>
-        <strong>${esc(current.md.planet)}</strong><br>
-        <span class="small">
-          ${isoUTC(current.md.start)}
-          → ${isoUTC(current.md.end)}
-        </span>
-        <br><br>
-        <span class="small">
-          IST: ${istLabel(current.md.start)}
-          → ${istLabel(current.md.end)}
-        </span>
-        <br><br>
-        <b>CURRENT</b><br>
-        Remaining:
-        <span id="mdCountdown">
-          ${durationText(current.md.end-now)}
-        </span>
-      </div>
-
-      <div class="box current">
-        <b>Antardasha</b><br>
-        <strong>${esc(current.ad.planet)}</strong><br>
-        <span class="small">
-          ${isoUTC(current.ad.start)}
-          → ${isoUTC(current.ad.end)}
-        </span>
-        <br><br>
-        <span class="small">
-          IST: ${istLabel(current.ad.start)}
-          → ${istLabel(current.ad.end)}
-        </span>
-        <br><br>
-        <b>CURRENT</b><br>
-        Remaining:
-        <span id="adCountdown">
-          ${durationText(current.ad.end-now)}
-        </span>
-      </div>
-
-      <div class="box">
-        <b>Birth Nakshatra</b><br>
-        ${esc(birthNak.name)} Pada ${birthNak.pada}<br>
-        <span class="small">
-          Lord: ${esc(birthNak.lord)}
-        </span>
-      </div>
-
-      <div class="box">
-        <b>Nakshatra Progress</b><br>
-        ${(birthNak.progress*100).toFixed(6)}%<br>
-        <span class="small">
-          Remaining:
-          ${((1-birthNak.progress)*100).toFixed(6)}%
-        </span>
-      </div>
-    </div>
-
-    <h3>Birth Mahadasha Balance</h3>
-
-    <div class="note">
-      ${
-        (
-          DASHA_YEARS[birthNak.lord]*
-          (1-birthNak.progress)
-        ).toFixed(9)
-      } years
-      <br>
-      ${
-        (
-          DASHA_YEARS[birthNak.lord]*
-          (1-birthNak.progress)*
-          DAYS_PER_YEAR
-        ).toFixed(3)
-      } days
-    </div>
-
-    <h3>Vimshottari Mahadasha</h3>
-    ${renderDashaTable(mahadashas)}
-
-    <h3>Antardasha Timeline — All Mahadashas</h3>
-    ${renderAntardashaTable(antardashas)}
-  </section>
-
-  <!-- DASHA CONNECTION -->
-  <section class="card">
-    <h2>⏳ Dasha → Yoga / House Connection</h2>
-
-    <div class="note">
-      Current period:
-      <b>${esc(current.md.planet)} Mahadasha /
-      ${esc(current.ad.planet)} Antardasha.</b>
-      This section shows the house lordship, placement and
-      detected yoga connections of the currently active planets.
-    </div>
-
-    ${connections.map(c=>`
-      <div class="info" style="margin-bottom:10px">
-        <h3 style="margin-top:0">${esc(c.name)}</h3>
-
-        <b>D1 placement:</b>
-        House ${c.house},
-        ${SIGN_SYMBOLS[c.sign]} ${SIGNS[c.sign]}
-
-        <br><br>
-
-        <b>House lord of:</b>
-        ${c.lordOf.length
-          ? c.lordOf.join(", ")
-          : "—"}
-
-        <br><br>
-
-        <b>Yoga connections:</b>
-        ${c.yogas.length
-          ? c.yogas.join(", ")
-          : "None detected"}
-      </div>
-    `).join("")}
-  </section>
-
-  <!-- VALIDATION -->
-  <section class="card">
-    <h2>🔬 V1.10.1 Validation</h2>
-
-    ${
-      validation.checks.map(x=>`
-        <div class="validation-item">
-          ${x.pass ? "✓" : "✗"}
-          ${esc(x.label)}:
-          ${esc(x.detail)}
-          <span class="badge ${x.pass?"pass":"fail"}">
-            ${x.pass?"PASS":"FAIL"}
+      ${Object.entries(GROUPS).map(([name,houses])=>`
+        <div class="info">
+          <span class="label">${name}</span>
+          <span class="value">
+            Houses ${houses.join(", ")}
           </span>
         </div>
-      `).join("")
-    }
-
-    <div style="margin-top:15px" class="note">
-      FINAL VALIDATION:
-      <strong class="${validation.finalPass?"pass":"fail"}">
-        ${validation.finalPass
-          ? "ALL PASS"
-          : "CHECK REQUIRED"}
-      </strong>
+      `).join("")}
     </div>
-  </section>
+  </div>
+  `;
+}
 
-  <!-- CALCULATION LAYER -->
-  <section class="card">
-    <h2>🧪 Calculation Layer Validation</h2>
+function renderYogas(yogas){
+  return `
+  <div class="card">
+    <h2>🕉️ Yoga Detection</h2>
 
-    <div class="table-wrap">
+    ${yogas.map(y=>`
+      <div class="yoga">
+        <strong>${y.name}</strong>
+        <div class="small">${y.type}</div>
+        <p>${y.rule}</p>
+        <div>
+          ${y.planets.map(p=>
+            `<span class="badge">${p}</span>`
+          ).join("")}
+        </div>
+      </div>
+    `).join("")}
+
+    <p class="note">
+      Rule-based screening using the selected classical framework.
+      Yogas are interpretive indicators and are not absolute predictions.
+    </p>
+  </div>
+  `;
+}
+
+function renderFinance(finance){
+  return `
+  <div class="card">
+    <h2>💰 Finance / Dhana Analysis</h2>
+
+    <div style="overflow:auto">
     <table>
       <thead>
         <tr>
-          <th>Calculation</th>
-          <th>Source</th>
+          <th>House</th>
+          <th>Sign</th>
+          <th>Lord</th>
+          <th>Lord House</th>
+          <th>Occupants</th>
+          <th>Theme</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${finance.map(x=>`
+        <tr>
+          <td><b>${x.house}</b></td>
+          <td>${x.sign}</td>
+          <td>${x.lord}</td>
+          <td>${x.lordHouse}</td>
+          <td>${x.occupants.length?
+            x.occupants.join(", "):
+            "Empty"}</td>
+          <td>${x.theme}</td>
+        </tr>
+      `).join("")}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="summary">
+      Finance analysis focuses on houses <b>2, 5, 9 and 11</b>,
+      their classical lords and occupants. This is an astrological
+      framework, not financial advice or a guarantee of financial results.
+    </div>
+  </div>
+  `;
+}
+
+function renderMarriage(marriage){
+  return `
+  <div class="card">
+    <h2>❤️ Marriage / Relationship Analysis</h2>
+
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>D1 7th Sign</td>
+          <td><b>${marriage.d1SeventhSign}</b></td>
+        </tr>
+        <tr>
+          <td>D1 7th Lord</td>
+          <td><b>${marriage.d1SeventhLord}</b></td>
+        </tr>
+        <tr>
+          <td>D1 7th Lord House</td>
+          <td><b>${marriage.d1SeventhLordHouse}</b></td>
+        </tr>
+        <tr>
+          <td>Venus House</td>
+          <td><b>${marriage.venusHouse}</b></td>
+        </tr>
+        <tr>
+          <td>Jupiter House</td>
+          <td><b>${marriage.jupiterHouse}</b></td>
+        </tr>
+        <tr>
+          <td>D9 7th Sign</td>
+          <td><b>${marriage.d9SeventhSign}</b></td>
+        </tr>
+        <tr>
+          <td>D9 7th Occupants</td>
+          <td><b>${marriage.d9SeventhOccupants.length?
+            marriage.d9SeventhOccupants.join(", "):
+            "Empty"}</b></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="summary">
+      Relationship analysis uses the D1 7th house and lord,
+      Venus, Jupiter and the D9 7th house. It is a structured
+      interpretive framework, not a guarantee about marriage outcomes.
+    </div>
+  </div>
+  `;
+}
+
+function renderDashaYogaConnections(data,currentDasha){
+  return `
+  <div class="card">
+    <h2>🔗 Dasha → Yoga / House Connection</h2>
+
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>Natal House</th>
+          <th>Lord of Houses</th>
+          <th>Yoga Connections</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${data.map(x=>{
+        const current=
+          currentDasha &&
+          (
+            currentDasha.maha.planet===x.planet ||
+            currentDasha.ad.planet===x.planet
+          );
+
+        return `
+        <tr class="${current?"current":""}">
+          <td>
+            <b>${x.planet}</b>
+            ${current?
+              `<span class="badge blue">CURRENT</span>`:
+              ""}
+          </td>
+          <td>${x.natalHouse}</td>
+          <td>
+            ${x.lordHouses.length?
+              x.lordHouses.join(", "):
+              "—"}
+          </td>
+          <td>
+            ${x.yogaConnections.length?
+              x.yogaConnections.map(y=>
+                `<span class="badge green">${y}</span>`
+              ).join(""):
+              "—"}
+          </td>
+        </tr>
+        `;
+      }).join("")}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="summary">
+      <b>Important:</b> Jupiter is explicitly connected with
+      <b>Gaja Kesari Yoga</b>, while Saturn is connected with
+      <b>Dhana Yoga</b>.
+    </div>
+  </div>
+  `;
+}
+
+function renderCurrentDasha(current){
+  if(!current) return "";
+
+  const now=new Date();
+  const remaining=current.ad.end-now;
+
+  const totalHours=Math.max(
+    0,
+    Math.floor(remaining/3600000)
+  );
+
+  const days=Math.floor(totalHours/24);
+  const hours=totalHours%24;
+
+  return `
+  <div class="card">
+    <h2>⏳ Current Vimshottari Dasha</h2>
+
+    <div class="grid">
+      <div class="info">
+        <span class="label">Mahadasha</span>
+        <span class="value">${current.maha.planet}</span>
+      </div>
+      <div class="info">
+        <span class="label">Mahadasha Period</span>
+        <span class="value">
+          ${formatDateIST(current.maha.start)}
+          →
+          ${formatDateIST(current.maha.end)}
+        </span>
+      </div>
+      <div class="info">
+        <span class="label">Antardasha</span>
+        <span class="value">${current.ad.planet}</span>
+      </div>
+      <div class="info">
+        <span class="label">Antardasha Period</span>
+        <span class="value">
+          ${formatDateIST(current.ad.start)}
+          →
+          ${formatDateIST(current.ad.end)}
+        </span>
+      </div>
+      <div class="info">
+        <span class="label">Remaining in Current AD</span>
+        <span class="value">${days} days ${hours}h</span>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+function renderMahadasha(dashaData){
+  return `
+  <div class="card">
+    <h2>Vimshottari Mahadasha</h2>
+
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Mahadasha</th>
+          <th>Years</th>
+          <th>Start UTC</th>
+          <th>End UTC</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${dashaData.mahadashas.map((m,i)=>`
+        <tr>
+          <td>${i+1}</td>
+          <td><b>${m.planet}</b></td>
+          <td>${formatNumber(m.years,9)}</td>
+          <td>${formatDateUTC(m.start)}</td>
+          <td>${formatDateUTC(m.end)}</td>
+        </tr>
+      `).join("")}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  `;
+}
+
+function renderAntardasha(dashaData,currentDasha){
+  const all=dashaData.mahadashas.flatMap(
+    m=>m.antardashas
+  );
+
+  return `
+  <div class="card">
+    <h2>Vimshottari Antardasha — 90 Periods</h2>
+
+    <div style="overflow:auto;max-height:700px">
+    <table>
+      <thead>
+        <tr>
+          <th>MD</th>
+          <th>AD</th>
+          <th>Years</th>
+          <th>Start UTC</th>
+          <th>End UTC</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${all.map(ad=>{
+        const current=
+          currentDasha &&
+          currentDasha.maha.planet===ad.maha &&
+          currentDasha.ad.planet===ad.planet;
+
+        return `
+        <tr class="${current?"current":""}">
+          <td><b>${ad.maha}</b></td>
+          <td>
+            ${ad.planet}
+            ${current?
+              `<span class="badge blue">CURRENT</span>`:
+              ""}
+          </td>
+          <td>${formatNumber(ad.years,9)}</td>
+          <td>${formatDateUTC(ad.start)}</td>
+          <td>${formatDateUTC(ad.end)}</td>
+        </tr>
+        `;
+      }).join("")}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  `;
+}
+
+function renderValidation(checks){
+  const passed=checks.filter(x=>x.pass).length;
+  const failed=checks.length-passed;
+  const allPass=failed===0;
+
+  return `
+  <div class="card">
+    <h2>✅ V1.10.2 Validation</h2>
+
+    <div class="validation-summary ${allPass?"":"error-summary"}">
+      ${allPass?
+        "FINAL VALIDATION: ALL PASS":
+        `FINAL VALIDATION: ${failed} FAILED`}
+      <br>
+      <span class="small">
+        ${passed}/${checks.length} checks passed
+      </span>
+    </div>
+
+    <div style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Validation</th>
+          <th>Status</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${checks.map(c=>`
+        <tr>
+          <td>${c.name}</td>
+          <td class="${c.pass?"pass":"fail"}">
+            ${c.pass?"PASS":"FAIL"}
+          </td>
+          <td>${c.detail}</td>
+        </tr>
+      `).join("")}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  `;
+}
+
+function renderCalculationLayer(checks){
+  const names=[
+    "House & House-Lord engine",
+    "Yoga engine",
+    "Finance / Dhana engine",
+    "Marriage engine",
+    "Dasha → Yoga/House engine"
+  ];
+
+  const rows=checks.filter(
+    x=>names.includes(x.name)
+  );
+
+  return `
+  <div class="card">
+    <h2>Calculation Layer Validation</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Engine</th>
+          <th>Type</th>
           <th>Method</th>
           <th>Status</th>
         </tr>
       </thead>
-
       <tbody>
+      ${rows.map(x=>`
         <tr>
-          <td>Planetary Longitudes</td>
-          <td>Swiss Ephemeris</td>
-          <td>Engine-derived</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Lahiri Ayanāṁśa</td>
-          <td>Swiss Ephemeris</td>
-          <td>Engine-derived</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Ascendant / MC</td>
-          <td>Swiss Ephemeris</td>
-          <td>Placidus</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>D1 Houses</td>
+          <td>${x.name}</td>
           <td>Derived</td>
-          <td>Whole-sign from sidereal Lagna</td>
-          <td class="pass">PASS</td>
+          <td>${x.detail}</td>
+          <td class="${x.pass?"pass":"fail"}">
+            ${x.pass?"PASS":"FAIL"}
+          </td>
         </tr>
-
-        <tr>
-          <td>D9 Sign</td>
-          <td>Derived</td>
-          <td>Traditional Navāṁśa division</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Rahu / Ketu</td>
-          <td>Derived</td>
-          <td>Ketu = Rahu + 180°</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Vimshottari</td>
-          <td>Derived</td>
-          <td>Nakshatra + 120-year cycle</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Retrograde</td>
-          <td>Swiss Ephemeris speed</td>
-          <td>Speed sign</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Combustion</td>
-          <td>Derived</td>
-          <td>Solar angular-distance rule</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Conjunction</td>
-          <td>Derived</td>
-          <td>≤10° separation</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Graha Drishti</td>
-          <td>Derived</td>
-          <td>Classical Vedic aspect rules</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>House Lords</td>
-          <td>Derived</td>
-          <td>Classical sign ownership</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Yoga Detection</td>
-          <td>Derived</td>
-          <td>Explicit rule engine</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Finance Analysis</td>
-          <td>Derived</td>
-          <td>2/5/9/11 house framework</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Marriage Analysis</td>
-          <td>Derived</td>
-          <td>D1 7th + D9 7th framework</td>
-          <td class="pass">PASS</td>
-        </tr>
-
-        <tr>
-          <td>Dasha → Yoga</td>
-          <td>Derived</td>
-          <td>Active lord connection</td>
-          <td class="pass">PASS</td>
-        </tr>
+      `).join("")}
       </tbody>
     </table>
-    </div>
-  </section>
-
-  <!-- TECHNICAL NOTES -->
-  <section class="card">
-    <h2>Technical Notes</h2>
-
-    <div class="note">
-
-      <b>V1.10.1 Core:</b>
-      The validated V1.9.1 astronomical calculation architecture
-      is retained. V1.10 analytical features are preserved.
-
-      <br><br>
-
-      <b>Swiss Ephemeris:</b>
-      Browser engine uses the pinned SwissEph V0.1.0 module.
-      Initialization is performed with:
-      <br>
-      <code>new SwissEph()</code>
-      followed by
-      <code>await swe.initSwissEph()</code>.
-
-      <br><br>
-
-      <b>Sidereal system:</b>
-      Lahiri Ayanāṁśa.
-
-      <br><br>
-
-      <b>D1:</b>
-      Whole-sign houses based on the sidereal Ascendant.
-
-      <br><br>
-
-      <b>D9:</b>
-      Traditional Navāṁśa sign division using movable,
-      fixed and dual sign starting rules.
-
-      <br><br>
-
-      <b>Rahu/Ketu:</b>
-      Ketu is derived exactly 180° from Rahu.
-
-      <br><br>
-
-      <b>Vimshottari:</b>
-      V1.8/V1.9.1 implementation retained, including
-      365.25 days per dasha year for calendar conversion.
-
-      <br><br>
-
-      <b>Validation fix:</b>
-      Placidus validation now checks the twelve actual
-      house cusps rather than the raw wrapper array length.
-      Antardasha validation independently verifies nine
-      Antardashas for each of the ten Mahadashas.
-
-      <br><br>
-
-      <b>Yoga Engine:</b>
-      Rule-based screening. Some classical yogas have multiple
-      school-specific definitions, so V1.10.1 avoids presenting
-      every detected condition as an absolute prediction.
-
-      <br><br>
-
-      <b>Strength:</b>
-      D1 + D9 dignity comparison is an educational indicator,
-      not full Shadbala.
-
-      <br><br>
-
-      <b>Finance:</b>
-      Astrological analysis only; not financial advice.
-
-      <br><br>
-
-      <b>Marriage:</b>
-      Astrological analysis only; not a guarantee of relationship outcome.
-
-      <br><br>
-
-      <b>Important:</b>
-      Astronomical values come from Swiss Ephemeris.
-      Other analytical features are derived from explicit
-      astrological rules.
-
-    </div>
-  </section>
-
+  </div>
   `;
-
-  /*
-    Live countdown.
-    Recalculate display only; astronomical/dasha boundaries
-    remain fixed for this calculation.
-  */
-
-  clearInterval(window.__kvCountdown);
-
-  window.__kvCountdown=setInterval(()=>{
-
-    const t=new Date();
-
-    const mdEl=document.getElementById("mdCountdown");
-    const adEl=document.getElementById("adCountdown");
-
-    if(mdEl){
-      mdEl.textContent=
-        durationText(current.md.end-t);
-    }
-
-    if(adEl){
-      adEl.textContent=
-        durationText(current.ad.end-t);
-    }
-
-  },1000);
 }
 
-/* =========================================================
-   ERROR HANDLING
-========================================================= */
-
-calculate().catch(err=>{
-
-  console.error(err);
-
-  app.innerHTML=`
-    <section class="card">
-      <h2>❌ KundaliVeda Calculation Error</h2>
-
-      <div class="note">
-        <b>Swiss Ephemeris error:</b>
-        ${esc(err?.message || err)}
-        <br><br>
-        Please refresh the page and try again.
-      </div>
-
-      <h3>Engine initialization used by V1.10.1</h3>
-
-      <div class="note">
-        SwissEph instance → initSwissEph() → set_sid_mode()
-      </div>
-    </section>
+function renderTechnicalNotes(){
+  return `
+  <div class="card">
+    <h2>Technical Notes</h2>
+    <ul class="note">
+      <li>Swiss Ephemeris WASM is pinned to v0.1.0.</li>
+      <li>Lahiri ayanamsa is used for the sidereal calculation.</li>
+      <li>D1 houses use whole-sign house assignment.</li>
+      <li>D9 is calculated using the classical Navamsa sign rule.</li>
+      <li>Vimshottari uses 365.25 days per year.</li>
+      <li>Rahu is calculated from Swiss Ephemeris and Ketu is derived by 180° opposition.</li>
+      <li>Graha Drishti includes the classical special aspects of Mars, Jupiter and Saturn plus 7th aspects for the other planets and nodes.</li>
+      <li>Yoga detection is rule-based screening and depends on the selected astrological school.</li>
+      <li>Finance and marriage sections are interpretive astrology tools, not financial, legal or medical advice.</li>
+    </ul>
+  </div>
   `;
-});
+}
+
+async function main(){
+
+  const engineStatus=
+    document.getElementById("engineStatus");
+
+  try{
+
+    const swe=new SwissEph();
+
+    await swe.initSwissEph();
+
+    swe.set_sid_mode(
+      swe.SE_SIDM_LAHIRI,
+      0,
+      0
+    );
+
+    engineStatus.className="status ok";
+    engineStatus.textContent=
+      "✓ Swiss Ephemeris initialized";
+
+    const utcDate=calculateUTCDate();
+    const jd=calculateJD(utcDate);
+
+    /*
+     * Tropical houses
+     */
+    const housesTropical=swe.houses_ex(
+      jd,
+      BIRTH.latitude,
+      BIRTH.longitude,
+      "P",
+      0
+    );
+
+    /*
+     * Sidereal houses
+     */
+    const housesSidereal=swe.houses_ex(
+      jd,
+      BIRTH.latitude,
+      BIRTH.longitude,
+      "P",
+      swe.SEFLG_SIDEREAL
+    );
+
+    const tropicalCusps=housesTropical[0];
+    const tropicalAngles=housesTropical[1];
+
+    const siderealCusps=housesSidereal[0];
+    const siderealAngles=housesSidereal[1];
+
+    const tropicalAsc=
+      normalize360(Number(tropicalAngles[0]));
+
+    const tropicalMC=
+      normalize360(Number(tropicalAngles[1]));
+
+    const siderealAsc=
+      normalize360(Number(siderealAngles[0]));
+
+    const siderealMC=
+      normalize360(Number(siderealAngles[1]));
+
+    /*
+     * Swiss Ephemeris exposes the current sidereal ayanamsa.
+     */
+    const ayanamsa=
+      Number(swe.get_ayanamsa_ut(jd));
+
+    const positions=[];
+
+    for(const planet of PLANETS){
+
+      let longitude;
+
+      if(planet.key==="Ketu"){
+        const rahuResult=swe.calc_ut(
+          jd,
+          10,
+          swe.SEFLG_SWIEPH|swe.SEFLG_SPEED
+        );
+
+        longitude=
+          normalize360(
+            Number(rahuResult[0])+180
+          );
+      }else{
+        const result=swe.calc_ut(
+          jd,
+          planet.id,
+          swe.SEFLG_SWIEPH|
+          swe.SEFLG_SPEED|
+          swe.SEFLG_SIDEREAL
+        );
+
+        longitude=normalize360(
+          Number(result[0])
+        );
+      }
+
+      /*
+       * The node calculation above is tropical unless
+       * corrected here. Calculate Rahu sidereally explicitly.
+       */
+      if(planet.key==="Rahu"){
+        const result=swe.calc_ut(
+          jd,
+          10,
+          swe.SEFLG_SWIEPH|
+          swe.SEFLG_SPEED|
+          swe.SEFLG_SIDEREAL
+        );
+
+        longitude=normalize360(
+          Number(result[0])
+        );
+      }
+
+      if(planet.key==="Ketu"){
+        const rahuResult=swe.calc_ut(
+          jd,
+          10,
+          swe.SEFLG_SWIEPH|
+          swe.SEFLG_SPEED|
+          swe.SEFLG_SIDEREAL
+        );
+
+        longitude=normalize360(
+          Number(rahuResult[0])+180
+        );
+      }
+
+      const signIndex=getSignIndex(longitude);
+      const nakshatra=getNakshatraInfo(longitude);
+      const house=getWholeSignHouse(
+        longitude,
+        siderealAsc
+      );
+
+      positions.push({
+        key:planet.key,
+        name:planet.name,
+        id:planet.id,
+        longitude,
+        signIndex,
+        sign:SIGNS[signIndex],
+        nakshatra,
+        house
+      });
+    }
+
+    /*
+     * D9 Lagna
+     */
+    const d9Asc=calculateNavamsa(siderealAsc);
+    const d9AscHouseSign=d9Asc.signIndex;
+
+    const d9Positions=positions.map(p=>{
+      const d9=calculateNavamsa(p.longitude);
+
+      const house=
+        ((d9.signIndex-d9AscHouseSign+12)%12)+1;
+
+      return {
+        ...p,
+        d9,
+        house
+      };
+    });
+
+    /*
+     * Add D1 / D9 dignity.
+     */
+    for(const p of positions){
+
+      const d1Dignity=
+        getDignity(
+          p.name,
+          p.signIndex
+        );
+
+      const d9=
+        d9Positions.find(
+          x=>x.key===p.key
+        );
+
+      const d9Dignity=
+        getDignity(
+          p.name,
+          d9.d9.signIndex
+        );
+
+      p.dignity=d1Dignity;
+      p.d1Score=dignityScore(d1Dignity);
+      p.d9Dignity=d9Dignity;
+      p.d9Score=dignityScore(d9Dignity);
+    }
+
+    /*
+     * Motion + combustion.
+     */
+    for(const p of positions){
+
+      const speed=getPlanetSpeed(
+        jd,
+        p,
+        swe
+      );
+
+      p.speed=speed;
+      p.motion=getMotion(speed);
+      p.combustion=getCombustion(
+        p,
+        p.longitude,
+        positions
+      );
+    }
+
+    /*
+     * Conjunction engine
+     */
+    const conjunctions=[];
+
+    for(let i=0;i<positions.length;i++){
+      for(let j=i+1;j<positions.length;j++){
+
+        const distance=
+          angularDifference(
+            positions[i].longitude,
+            positions[j].longitude
+          );
+
+        if(distance<=10){
+          conjunctions.push({
+            a:positions[i].name,
+            b:positions[j].name,
+            distance
+          });
+        }
+      }
+    }
+
+    /*
+     * Graha Drishti
+     */
+    const aspects=calculateAspects(
+      positions
+    );
+
+    /*
+     * Vimshottari
+     */
+    const moon=findPlanet(
+      positions,
+      "Moon"
+    );
+
+    const dashaData=
+      buildVimshottari(
+        moon.longitude,
+        utcDate
+      );
+
+    const currentDasha=
+      getCurrentDasha(
+        dashaData,
+        new Date()
+      );
+
+    /*
+     * House / lord analysis
+     */
+    const houseMap=
+      houseLordMap(
+        getSignIndex(siderealAsc)
+      );
+
+    /*
+     * Yogas
+     */
+    const yogas=
+      detectYogas(
+        positions,
+        houseMap
+      );
+
+    /*
+     * Finance
+     */
+    const finance=
+      analyzeFinance(
+        positions,
+        houseMap
+      );
+
+    /*
+     * Marriage
+     */
+    const marriage=
+      analyzeMarriage(
+        positions,
+        d9Positions,
+        houseMap
+      );
+
+    /*
+     * Dasha → Yoga / House
+     */
+    const dashaConnections=
+      dashaYogaConnections(
+        positions,
+        houseMap,
+        yogas
+      );
+
+    /*
+     * Validation
+     */
+    const checks=validateAll({
+      utcDate,
+      jd,
+      ayanamsa,
+      tropicalAsc,
+      siderealAsc,
+      tropicalMC,
+      siderealMC,
+      tropicalCusps,
+      siderealCusps,
+      positions,
+      d9Positions,
+      dashaData,
+      currentDasha,
+      conjunctions,
+      aspects,
+      yogas,
+      finance,
+      marriage,
+      dashaConnections,
+      houseMap
+    });
+
+    const validationPass=
+      checks.every(x=>x.pass);
+
+    /*
+     * Render.
+     */
+    document.getElementById("app").innerHTML=`
+
+    <div class="card">
+      <h2>Validated Astronomical Data</h2>
+
+      <div class="grid">
+        <div class="info">
+          <span class="label">UTC</span>
+          <span class="value">
+            ${utcDate.toISOString()}
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Julian Day</span>
+          <span class="value">
+            ${formatNumber(jd,8)}
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Lahiri Ayanamsa</span>
+          <span class="value">
+            ${formatNumber(ayanamsa,8)}°
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Tropical Ascendant</span>
+          <span class="value">
+            ${formatDegree(tropicalAsc)}
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Sidereal Ascendant</span>
+          <span class="value">
+            ${formatDegree(siderealAsc)}
+            (${getSign(siderealAsc)})
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Tropical MC</span>
+          <span class="value">
+            ${formatDegree(tropicalMC)}
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Sidereal MC</span>
+          <span class="value">
+            ${formatDegree(siderealMC)}
+            (${getSign(siderealMC)})
+          </span>
+        </div>
+
+        <div class="info">
+          <span class="label">Validation</span>
+          <span class="value ${validationPass?"pass":"fail"}">
+            ${validationPass?
+              "ALL PASS":
+              "CHECK REQUIRED"}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>D1 Rashi Chart</h2>
+      ${renderChart(
+        positions,
+        "D1 North Indian Chart",
+        false
+      )}
+    </div>
+
+    ${renderD1Positions(positions)}
+
+    <div class="card">
+      <h2>D9 Navamsa Chart</h2>
+      ${renderChart(
+        d9Positions,
+        "D9 North Indian Chart",
+        true
+      )}
+
+      <div class="summary">
+        <b>D9 Lagna:</b>
+        ${SIGN_SYMBOLS[d9Asc.signIndex]}
+        ${d9Asc.sign}
+        ${formatDegree(d9Asc.degree)}
+        • Navamsa #${d9Asc.navamsaIndex}
+      </div>
+    </div>
+
+    ${renderD9Positions(d9Positions)}
+
+    ${renderDignity(positions)}
+
+    ${renderMotion(positions)}
+
+    ${renderConjunctions(conjunctions)}
+
+    ${renderAspects(aspects)}
+
+    ${renderHouseAnalysis(
+      houseMap,
+      positions
+    )}
+
+    ${renderYogas(yogas)}
+
+    ${renderFinance(finance)}
+
+    ${renderMarriage(marriage)}
+
+    ${renderDashaYogaConnections(
+      dashaConnections,
+      currentDasha
+    )}
+
+    ${renderCurrentDasha(currentDasha)}
+
+    ${renderMahadasha(dashaData)}
+
+    ${renderAntardasha(
+      dashaData,
+      currentDasha
+    )}
+
+    ${renderValidation(checks)}
+
+    ${renderCalculationLayer(checks)}
+
+    ${renderTechnicalNotes()}
+    `;
+
+  }catch(error){
+
+    console.error(error);
+
+    engineStatus.className="status warn";
+    engineStatus.textContent=
+      "✗ Swiss Ephemeris initialization/calculation failed";
+
+    document.getElementById("app").innerHTML=`
+      <div class="card">
+        <h2>Calculation Error</h2>
+        <p class="fail">
+          ${error?.message||String(error)}
+        </p>
+        <p class="note">
+          Please refresh the page and try again.
+        </p>
+      </div>
+    `;
+  }
+}
+
+main();
 
 </script>
 
 </body>
-  </html>
+</html>
