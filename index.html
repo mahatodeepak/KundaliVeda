@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>KundaliVeda V1.10.2 — D1, D9, Dasha, Yoga & Analysis</title>
+<title>KundaliVeda V1.11 — D1, D9, Dasha, Yoga & Analysis</title>
 
 <meta name="description"
-content="KundaliVeda V1.10.2 — Vedic Astrology using Swiss Ephemeris, Lahiri Ayanamsa, D1, D9, Vimshottari Dasha, dignity, planetary strength, Graha Drishti, Yogas, finance and marriage analysis.">
+content="KundaliVeda V1.11 — Vedic Astrology using Swiss Ephemeris, Lahiri Ayanamsa, D1, D9, Vimshottari Dasha, dignity, planetary strength, Graha Drishti, Yogas, finance and marriage analysis.">
 
 <style>
 *{box-sizing:border-box}
@@ -227,53 +227,150 @@ footer{
  table{font-size:12px}
  th,td{padding:6px}
 }
+
+
+/* ============================================================
+V1.11 BIRTH FORM
+============================================================ */
+.birth-card{overflow:hidden}
+.birth-form{margin-top:18px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.form-grid label{display:flex;flex-direction:column;gap:7px}
+.form-grid label span{font-weight:700;font-size:.9rem;color:#dbeafe}
+.form-grid small{font-weight:400;opacity:.65}
+.form-grid input,.form-grid select{
+width:100%;padding:13px 14px;border:1px solid rgba(148,163,184,.28);
+border-radius:12px;background:rgba(15,23,42,.72);color:#f8fafc;
+font:inherit;outline:none;transition:.2s ease;
+}
+.form-grid input:focus,.form-grid select:focus{
+border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.15);
+transform:translateY(-1px);
+}
+.form-grid input::placeholder{color:#94a3b8}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.primary-btn,.secondary-btn{
+border:0;border-radius:12px;padding:13px 20px;font-weight:800;
+font-size:.95rem;cursor:pointer;transition:.2s ease;
+}
+.primary-btn{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#fff;box-shadow:0 8px 24px rgba(59,130,246,.24)}
+.secondary-btn{background:rgba(148,163,184,.12);color:#e2e8f0;border:1px solid rgba(148,163,184,.25)}
+.primary-btn:hover,.secondary-btn:hover{transform:translateY(-2px)}
+.primary-btn:disabled{opacity:.6;cursor:wait;transform:none}
+.form-message{min-height:22px;margin-top:12px;font-size:.9rem}
+.form-message.error{color:#fca5a5}
+.form-message.success{color:#86efac}
+.birth-summary{
+margin-top:18px;padding:14px 16px;border-radius:14px;
+background:linear-gradient(135deg,rgba(30,41,59,.75),rgba(15,23,42,.55));
+border:1px solid rgba(148,163,184,.18);color:#e2e8f0;
+display:flex;align-items:center;gap:12px;flex-wrap:wrap
+}
+.summary-badge{
+font-size:.7rem;font-weight:900;letter-spacing:.12em;
+padding:6px 9px;border-radius:999px;background:rgba(56,189,248,.14);color:#7dd3fc
+}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr}
+.form-actions button{width:100%}
+.birth-summary{align-items:flex-start;flex-direction:column}
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🔱 KundaliVeda V1.10.2</h1>
+<h1>🔱 KundaliVeda V1.11</h1>
 <p>Vedic Astrology • D1 + D9 • Vimshottari Dasha • Yogas • Swiss Ephemeris • Lahiri</p>
 </header>
 
 <main>
 
-<section class="card">
-<h2>Birth Information</h2>
+<section class="card birth-card">
+<h2>🪐 Birth Details</h2>
+<p class="section-intro">Enter the birth information below. The Swiss Ephemeris astronomy engine, Lahiri ayanāṁśa, D1, D9 and Vimshottari calculations remain based on the existing verified calculation layer.</p>
 
-<div class="info-grid">
+<form id="birthForm" class="birth-form" novalidate>
+<div class="form-grid">
 
-<div class="info">
-Date
-<div class="value">30 June 1982</div>
+<label>
+<span>Full Name <small>(optional)</small></span>
+<input id="birthName" type="text" maxlength="80" placeholder="Enter name">
+</label>
+
+<label>
+<span>Birth Date</span>
+<input id="birthDate" type="date" required value="1982-06-30">
+</label>
+
+<label>
+<span>Birth Time</span>
+<input id="birthTime" type="time" required step="1" value="19:30:00">
+</label>
+
+<label>
+<span>Birth Place</span>
+<input id="birthPlace" type="text" required maxlength="120" value="Purulia, West Bengal, India" placeholder="City, State, Country">
+</label>
+
+<label>
+<span>Latitude</span>
+<input id="birthLat" type="number" required min="-90" max="90" step="0.000001" value="23.3322" placeholder="e.g. 23.3322">
+</label>
+
+<label>
+<span>Longitude</span>
+<input id="birthLon" type="number" required min="-180" max="180" step="0.000001" value="86.3652" placeholder="e.g. 86.3652">
+</label>
+
+<label>
+<span>UTC Offset</span>
+<select id="utcOffset" required>
+<option value="5.5" selected>UTC +05:30 — India</option>
+<option value="0">UTC +00:00</option>
+<option value="1">UTC +01:00</option>
+<option value="2">UTC +02:00</option>
+<option value="3">UTC +03:00</option>
+<option value="4">UTC +04:00</option>
+<option value="5">UTC +05:00</option>
+<option value="5.5">UTC +05:30</option>
+<option value="6">UTC +06:00</option>
+<option value="7">UTC +07:00</option>
+<option value="8">UTC +08:00</option>
+<option value="9">UTC +09:00</option>
+<option value="10">UTC +10:00</option>
+<option value="11">UTC +11:00</option>
+<option value="12">UTC +12:00</option>
+<option value="-1">UTC −01:00</option>
+<option value="-2">UTC −02:00</option>
+<option value="-3">UTC −03:00</option>
+<option value="-4">UTC −04:00</option>
+<option value="-5">UTC −05:00</option>
+<option value="-6">UTC −06:00</option>
+<option value="-7">UTC −07:00</option>
+<option value="-8">UTC −08:00</option>
+<option value="-9">UTC −09:00</option>
+<option value="-10">UTC −10:00</option>
+<option value="-11">UTC −11:00</option>
+<option value="-12">UTC −12:00</option>
+</select>
+</label>
+
 </div>
 
-<div class="info">
-Time
-<div class="value">19:30:00 IST</div>
+<div class="form-actions">
+<button type="submit" class="primary-btn" id="calculateBtn">🔮 Calculate Kundali</button>
+<button type="button" class="secondary-btn" id="resetBtn">↺ Reset</button>
 </div>
 
-<div class="info">
-Place
-<div class="value">Purulia, West Bengal, India</div>
-</div>
+<div id="formMessage" class="form-message" aria-live="polite"></div>
+</form>
 
-<div class="info">
-Latitude
-<div class="value">23.3322° N</div>
-</div>
-
-<div class="info">
-Longitude
-<div class="value">86.3652° E</div>
-</div>
-
-<div class="info">
-UTC Offset
-<div class="value">+5:30</div>
-</div>
-
+<div id="birthSummary" class="birth-summary">
+<div class="summary-badge">CURRENT CHART</div>
+<div id="currentBirthText">30 June 1982 • 19:30:00 IST • Purulia, West Bengal, India</div>
 </div>
 </section>
 
@@ -616,7 +713,7 @@ timing, spouse characteristics, or relationship outcome.
 
 
 <section class="card">
-<h2>🔬 V1.10.2 Validation</h2>
+<h2>🔬 V1.11 Validation</h2>
 <div id="validation" class="validation">Calculating validation...</div>
 </section>
 
@@ -649,7 +746,7 @@ timing, spouse characteristics, or relationship outcome.
 </main>
 
 <footer>
-KundaliVeda V1.10.2 • Swiss Ephemeris • Lahiri Ayanāṁśa
+KundaliVeda V1.11 • Swiss Ephemeris • Lahiri Ayanāṁśa
 </footer>
 
 
@@ -663,7 +760,7 @@ import SwissEph from
 BIRTH
 ============================================================ */
 
-const BIRTH={
+let BIRTH={
 year:1982,
 month:6,
 day:30,
@@ -3059,7 +3156,31 @@ const lines=[];
 
 let allPass=true;
 
+const referenceBirth =
+c.utcDate.toISOString()==="1982-06-30T14:00:00.000Z" &&
+Math.abs(BIRTH.latitude-23.3322)<0.000001 &&
+Math.abs(BIRTH.longitude-86.3652)<0.000001 &&
+BIRTH.place==="Purulia, West Bengal, India";
+
+const REFERENCE_ONLY=new Set([
+"UTC conversion",
+"Julian Day",
+"Lahiri Ayanamsa",
+"Sidereal Ascendant",
+"Sidereal MC",
+"Placidus house cusps",
+"D1 Lagna",
+"Birth Nakshatra",
+"Yoga engine",
+"D9 marriage framework"
+]);
+
 function check(label,pass,detail){
+if(!referenceBirth && REFERENCE_ONLY.has(label)){
+pass=true;
+detail="Reference regression check skipped for custom birth data";
+}
+
 
 if(!pass)allPass=false;
 
@@ -3725,7 +3846,7 @@ document.getElementById("validation").textContent=
 lines.join("\n");
 
 console.log(
-"KundaliVeda V1.10.2 Validation"
+"KundaliVeda V1.11 Validation"
 );
 
 console.log(lines.join("\n"));
@@ -4070,6 +4191,141 @@ runValidation();
 
 }
 
+
+/* ============================================================
+V1.11 BIRTH INPUT CONTROLLER
+============================================================ */
+function setFormMessage(message,type=""){
+const el=document.getElementById("formMessage");
+if(!el)return;
+el.textContent=message;
+el.className="form-message"+(type?" "+type:"");
+}
+
+function pad2(n){return String(n).padStart(2,"0")}
+
+function syncBirthSummary(){
+const name=document.getElementById("birthName")?.value.trim();
+const date=document.getElementById("birthDate")?.value;
+const time=document.getElementById("birthTime")?.value;
+const place=document.getElementById("birthPlace")?.value.trim();
+const offset=Number(document.getElementById("utcOffset")?.value||5.5);
+if(!date||!time||!place)return;
+const d=new Date(date+"T00:00:00");
+const dateText=d.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
+const sign=offset>=0?"+":"−";
+const abs=Math.abs(offset);
+const oh=String(Math.floor(abs)).padStart(2,"0");
+const om=String(Math.round((abs-Math.floor(abs))*60)).padStart(2,"0");
+const who=name?name+" • ":"";
+document.getElementById("currentBirthText").textContent=
+`${who}${dateText} • ${time} • ${place} • UTC ${sign}${oh}:${om}`;
+}
+
+function clearCalculationOutput(){
+const ids=["astroData","d1Table","d9Table","d9Summary","dignityTable","strengthTable",
+"motionTable","conjunctionTable","aspectTable","houseAnalysis","yogaTable",
+"financeAnalysis","marriageAnalysis","currentDasha","dashaConnections","dashaTable",
+"layerValidation","technicalNotes"];
+for(const id of ids){
+const el=document.getElementById(id);
+if(el)el.innerHTML="";
+}
+for(const id of ["d1Chart","d9Chart"]){
+const el=document.getElementById(id);
+if(el)el.innerHTML="";
+}
+const v=document.getElementById("validation");
+if(v)v.textContent="Waiting for calculation...";
+}
+
+async function calculateFromForm(){
+const date=document.getElementById("birthDate").value;
+const time=document.getElementById("birthTime").value;
+const place=document.getElementById("birthPlace").value.trim();
+const lat=Number(document.getElementById("birthLat").value);
+const lon=Number(document.getElementById("birthLon").value);
+const utcOffset=Number(document.getElementById("utcOffset").value);
+
+if(!date||!time||!place||!Number.isFinite(lat)||!Number.isFinite(lon)||!Number.isFinite(utcOffset)){
+setFormMessage("Please complete all required birth details.","error");return;
+}
+if(lat<-90||lat>90||lon<-180||lon>180){
+setFormMessage("Latitude must be −90 to +90 and longitude must be −180 to +180.","error");return;
+}
+const parts=date.split("-");
+const [year,month,day]=parts.map(Number);
+const [hour,minute,secondRaw]=time.split(":").map(Number);
+const second=Number.isFinite(secondRaw)?secondRaw:0;
+const test=new Date(Date.UTC(year,month-1,day,hour,minute,second));
+if(test.getUTCFullYear()!==year||test.getUTCMonth()!==month-1||test.getUTCDate()!==day){
+setFormMessage("Please enter a valid birth date.","error");return;
+}
+
+BIRTH={
+year,month,day,hour,minute,second,utcOffset,latitude:lat,longitude:lon,place
+};
+
+syncBirthSummary();
+clearCalculationOutput();
+setFormMessage("Calculating your Kundali…","success");
+
+const btn=document.getElementById("calculateBtn");
+if(btn)btn.disabled=true;
+
+try{
+await calculate();
+setFormMessage("Kundali calculated successfully.","success");
+window.scrollTo({top:0,behavior:"smooth"});
+}catch(error){
+console.error(error);
+setFormMessage(error?.message||String(error),"error");
+const status=document.getElementById("engineStatus");
+if(status)status.innerHTML=`<span class="fail">✗ Calculation failed</span><br><br><span class="fail">${error?.message||String(error)}</span>`;
+const validation=document.getElementById("validation");
+if(validation)validation.textContent="ERROR:\n\n"+(error?.stack||error?.message||String(error));
+}finally{
+if(btn)btn.disabled=false;
+}
+}
+
+function loadBirthFormFromBirth(){
+const date=`${BIRTH.year}-${pad2(BIRTH.month)}-${pad2(BIRTH.day)}`;
+const time=`${pad2(BIRTH.hour)}:${pad2(BIRTH.minute)}:${pad2(BIRTH.second)}`;
+document.getElementById("birthDate").value=date;
+document.getElementById("birthTime").value=time;
+document.getElementById("birthPlace").value=BIRTH.place;
+document.getElementById("birthLat").value=BIRTH.latitude;
+document.getElementById("birthLon").value=BIRTH.longitude;
+document.getElementById("utcOffset").value=String(BIRTH.utcOffset);
+syncBirthSummary();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+loadBirthFormFromBirth();
+
+document.getElementById("birthForm")?.addEventListener("submit",e=>{
+e.preventDefault();
+calculateFromForm();
+});
+
+document.getElementById("resetBtn")?.addEventListener("click",async()=>{
+BIRTH={
+year:1982,month:6,day:30,hour:19,minute:30,second:0,
+utcOffset:5.5,latitude:23.3322,longitude:86.3652,
+place:"Purulia, West Bengal, India"
+};
+document.getElementById("birthName").value="";
+loadBirthFormFromBirth();
+clearCalculationOutput();
+setFormMessage("Reference birth details restored. Recalculating…","success");
+const btn=document.getElementById("calculateBtn");
+if(btn)btn.disabled=true;
+try{await calculate();setFormMessage("Reference chart restored.","success")}
+catch(error){setFormMessage(error?.message||String(error),"error")}
+finally{if(btn)btn.disabled=false}
+});
+});
 
 /* ============================================================
 START
