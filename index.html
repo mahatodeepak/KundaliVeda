@@ -3414,25 +3414,15 @@ dashaData.mahadashas.flatMap(
 m=>m.antardashas||[]
 );
 
-const counts={};
-
-for(const ad of allAD){
-
-counts[ad.maha]=
-(counts[ad.maha]||0)+1;
-
-}
-
 const eachNine=
 dashaData.mahadashas.length===10 &&
 dashaData.mahadashas.every(
-m=>(m.antardashas||[]).length===9 &&
-counts[m.planet]===9
+m=>(m.antardashas||[]).length===9
 );
 
 const adCountPass=
 allAD.length===90 &&
- dashaData.mahadashas.length===10 &&
+dashaData.mahadashas.length===10 &&
 eachNine;
 
 check(
