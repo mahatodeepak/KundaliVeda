@@ -1,15 +1,11 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>KundaliVeda V1.11 — D1, D9, Dasha, Yoga & Analysis</title>
-
-<meta name="description"
-content="KundaliVeda V1.11 — Vedic Astrology using Swiss Ephemeris, Lahiri Ayanamsa, D1, D9, Vimshottari Dasha, dignity, planetary strength, Graha Drishti, Yogas, finance and marriage analysis.">
-
-<style>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>KundaliVeda V1.12 — D1, D9, Dasha, Yoga &amp; Analysis</title>
+  <meta name="description" content="KundaliVeda V1.12 — Vedic Astrology using Swiss Ephemeris, Lahiri Ayanamsa, D1, D9, Vimshottari Dasha, dignity, planetary strength, Graha Drishti, Yogas, finance and marriage analysis.">
+  <style>
 *{box-sizing:border-box}
 
 body{
@@ -277,480 +273,286 @@ padding:6px 9px;border-radius:999px;background:rgba(56,189,248,.14);color:#7dd3f
 }
 
 </style>
-</head>
-
-<body>
-
-<header>
-<h1>🔱 KundaliVeda V1.11</h1>
-<p>Vedic Astrology • D1 + D9 • Vimshottari Dasha • Yogas • Swiss Ephemeris • Lahiri</p>
-</header>
-
-<main>
-
-<section class="card birth-card">
-<h2>🪐 Birth Details</h2>
-<p class="section-intro">Enter the birth information below. The Swiss Ephemeris astronomy engine, Lahiri ayanāṁśa, D1, D9 and Vimshottari calculations remain based on the existing verified calculation layer.</p>
-
-<form id="birthForm" class="birth-form" novalidate>
-<div class="form-grid">
-
-<label>
-<span>Full Name <small>(optional)</small></span>
-<input id="birthName" type="text" maxlength="80" placeholder="Enter name">
-</label>
-
-<label>
-<span>Birth Date</span>
-<input id="birthDate" type="date" required value="1982-06-30">
-</label>
-
-<label>
-<span>Birth Time</span>
-<input id="birthTime" type="time" required step="1" value="19:30:00">
-</label>
-
-<label>
-<span>Birth Place</span>
-<input id="birthPlace" type="text" required maxlength="120" value="Purulia, West Bengal, India" placeholder="City, State, Country">
-</label>
-
-<label>
-<span>Latitude</span>
-<input id="birthLat" type="number" required min="-90" max="90" step="0.000001" value="23.3322" placeholder="e.g. 23.3322">
-</label>
-
-<label>
-<span>Longitude</span>
-<input id="birthLon" type="number" required min="-180" max="180" step="0.000001" value="86.3652" placeholder="e.g. 86.3652">
-</label>
-
-<label>
-<span>UTC Offset</span>
-<select id="utcOffset" required>
-<option value="5.5" selected>UTC +05:30 — India</option>
-<option value="0">UTC +00:00</option>
-<option value="1">UTC +01:00</option>
-<option value="2">UTC +02:00</option>
-<option value="3">UTC +03:00</option>
-<option value="4">UTC +04:00</option>
-<option value="5">UTC +05:00</option>
-<option value="5.5">UTC +05:30</option>
-<option value="6">UTC +06:00</option>
-<option value="7">UTC +07:00</option>
-<option value="8">UTC +08:00</option>
-<option value="9">UTC +09:00</option>
-<option value="10">UTC +10:00</option>
-<option value="11">UTC +11:00</option>
-<option value="12">UTC +12:00</option>
-<option value="-1">UTC −01:00</option>
-<option value="-2">UTC −02:00</option>
-<option value="-3">UTC −03:00</option>
-<option value="-4">UTC −04:00</option>
-<option value="-5">UTC −05:00</option>
-<option value="-6">UTC −06:00</option>
-<option value="-7">UTC −07:00</option>
-<option value="-8">UTC −08:00</option>
-<option value="-9">UTC −09:00</option>
-<option value="-10">UTC −10:00</option>
-<option value="-11">UTC −11:00</option>
-<option value="-12">UTC −12:00</option>
-</select>
-</label>
-
-</div>
-
-<div class="form-actions">
-<button type="submit" class="primary-btn" id="calculateBtn">🔮 Calculate Kundali</button>
-<button type="button" class="secondary-btn" id="resetBtn">↺ Reset</button>
-</div>
-
-<div id="formMessage" class="form-message" aria-live="polite"></div>
-</form>
-
-<div id="birthSummary" class="birth-summary">
-<div class="summary-badge">CURRENT CHART</div>
-<div id="currentBirthText">30 June 1982 • 19:30:00 IST • Purulia, West Bengal, India</div>
-</div>
-</section>
-
-
-<section class="card">
-<h2>Swiss Ephemeris Engine</h2>
-<div id="engineStatus">Initializing...</div>
-</section>
-
-
-<section class="card">
-<h2>Validated Astronomical Data</h2>
-<div id="astroData" class="info-grid">Calculating...</div>
-</section>
-
-
-<section class="card">
-<h2>🕉️ D1 Rāśi Chart</h2>
-
-<div class="chart-title">
-<strong>North Indian Style — Whole Sign Houses</strong>
-</div>
-
-<div class="chart-container">
-<svg id="d1Chart"
-class="chart"
-viewBox="0 0 600 600"
-xmlns="http://www.w3.org/2000/svg"></svg>
-</div>
-
-<div class="legend">D1 = Rāśi / Birth Chart</div>
-</section>
-
-
-<section class="card">
-<h2>D1 Planetary Positions</h2>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>Longitude</th>
-<th>Sign</th>
-<th>Degree</th>
-<th>Nakshatra</th>
-<th>Pada</th>
-<th>House</th>
-</tr>
-</thead>
-
-<tbody id="d1Table"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>🔷 D9 Navāṁśa Chart</h2>
-
-<div class="chart-title">
-<strong>North Indian Style — Whole Sign Houses</strong>
-</div>
-
-<div class="chart-container">
-<svg id="d9Chart"
-class="chart"
-viewBox="0 0 600 600"
-xmlns="http://www.w3.org/2000/svg"></svg>
-</div>
-
-<div class="legend">D9 = Navāṁśa</div>
-</section>
-
-
-<section class="card">
-<h2>D9 Navāṁśa Positions</h2>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>D1 Longitude</th>
-<th>D1 Sign</th>
-<th>D9 Sign</th>
-<th>D9 Degree</th>
-<th>D9 House</th>
-</tr>
-</thead>
-
-<tbody id="d9Table"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>D9 Summary</h2>
-<div id="d9Summary" class="info-grid"></div>
-</section>
-
-
-<section class="card">
-<h2>⭐ Planetary Dignity</h2>
-
-<p class="section-intro">
-Dignity compares D1 and D9 sign placement using the simplified
-classical dignity model used by KundaliVeda.
-</p>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>D1 Sign</th>
-<th>D1 Dignity</th>
-<th>D9 Sign</th>
-<th>D9 Dignity</th>
-</tr>
-</thead>
-
-<tbody id="dignityTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>💪 D1 + D9 Planetary Strength</h2>
-
-<p class="section-intro">
-Educational comparative indicator based on D1 and D9 sign dignity.
-This is not a full Shadbala calculation.
-</p>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>D1 Score</th>
-<th>D9 Score</th>
-<th>Combined</th>
-<th>Assessment</th>
-</tr>
-</thead>
-
-<tbody id="strengthTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>🔄 Retrograde & Combustion</h2>
-
-<p class="section-intro">
-Retrograde status uses Swiss Ephemeris speed.
-Combustion uses simplified solar-distance thresholds.
-</p>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>Speed °/day</th>
-<th>Motion</th>
-<th>Sun Distance</th>
-<th>Rule</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="motionTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>🔗 Conjunctions</h2>
-<p class="section-intro">
-Planets within 10° of each other are listed.
-</p>
-
-<div id="conjunctions"></div>
-</section>
-
-
-<section class="card">
-<h2>👁️ Graha Drishti</h2>
-
-<p class="section-intro">
-Classical Vedic planetary aspects. Rahu and Ketu are included with
-their 7th aspect in this analytical model.
-</p>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>From House</th>
-<th>Aspect</th>
-<th>Target House</th>
-<th>Planets in Target</th>
-</tr>
-</thead>
-
-<tbody id="aspectTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>🪷 House & House-Lord Analysis</h2>
-
-<p class="section-intro">
-Whole-sign D1 houses from the sidereal Lagna.
-</p>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>House</th>
-<th>Sign</th>
-<th>House Lord</th>
-<th>Lord House</th>
-<th>Occupants</th>
-<th>Group</th>
-</tr>
-</thead>
-
-<tbody id="houseTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>✨ Yoga Detection</h2>
-
-<div id="yogaResults"></div>
-
-<p class="note">
-Yoga detection is rule-based screening using the definitions shown.
-Different schools of Vedic astrology may use additional conditions.
-It should not be treated as a guaranteed prediction.
-</p>
-</section>
-
-
-<section class="card">
-<h2>💰 Finance & Wealth Houses</h2>
-
-<div id="financeAnalysis"></div>
-
-<p class="note">
-Astrological interpretation only. This is not financial or investment advice.
-</p>
-</section>
-
-
-<section class="card">
-<h2>💍 Marriage Framework</h2>
-
-<div id="marriageAnalysis"></div>
-
-<p class="note">
-This is an educational astrological framework, not a guarantee of marriage
-timing, spouse characteristics, or relationship outcome.
-</p>
-</section>
-
-
-<section class="card">
-<h2>⏳ Current Vimshottari Dasha</h2>
-<div id="currentDasha">Calculating...</div>
-</section>
-
-
-<section class="card">
-<h2>🔗 Dasha → House & Yoga Connections</h2>
-
-<div id="dashaConnections"></div>
-</section>
-
-
-<section class="card">
-<h2>Vimshottari Mahadasha</h2>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Planet</th>
-<th>Duration</th>
-<th>Start UTC</th>
-<th>End UTC</th>
-<th>Start IST</th>
-<th>End IST</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="mahadashaTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>Antardasha</h2>
-
-<div id="antardashaTitle"></div>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Mahadasha</th>
-<th>Antardasha</th>
-<th>Start UTC</th>
-<th>End UTC</th>
-<th>Start IST</th>
-<th>End IST</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="antardashaTable"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>🔬 V1.11 Validation</h2>
-<div id="validation" class="validation">Calculating validation...</div>
-</section>
-
-
-<section class="card">
-<h2>🧪 Calculation Layer Validation</h2>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Calculation</th>
-<th>Source</th>
-<th>Method</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="layerValidation"></tbody>
-</table>
-</div>
-</section>
-
-
-<section class="card">
-<h2>Technical Notes</h2>
-<div id="technicalNotes" class="note"></div>
-</section>
-
-</main>
-
-<footer>
-KundaliVeda V1.11 • Swiss Ephemeris • Lahiri Ayanāṁśa
-</footer>
-
-
-<script type="module">
+ </head>
+ <body>
+  <header>
+   <h1>🔱 KundaliVeda V1.12</h1>
+   <p>Vedic Astrology • D1 + D9 • Vimshottari Dasha • Yogas • Swiss Ephemeris • Lahiri</p>
+  </header>
+  <main>
+   <section class="card birth-card">
+    <h2>🪐 Birth Details</h2>
+    <p class="section-intro">Enter the birth information below. The Swiss Ephemeris astronomy engine, Lahiri ayanāṁśa, D1, D9 and Vimshottari calculations remain based on the existing verified calculation layer.</p>
+    <form id="birthForm" class="birth-form" novalidate>
+     <div class="form-grid">
+      <label> <span>Full Name <small>(optional)</small></span> <input id="birthName" type="text" maxlength="80" placeholder="Enter name"> </label> <label> <span>Birth Date</span> <input id="birthDate" type="date" required value="1982-06-30"> </label> <label> <span>Birth Time</span> <input id="birthTime" type="time" required step="1" value="19:30:00"> </label> <label> <span>Birth Place</span> <input id="birthPlace" type="text" required maxlength="120" value="Purulia, West Bengal, India" placeholder="City, State, Country"> </label> <label> <span>Latitude</span> <input id="birthLat" type="number" required min="-90" max="90" step="0.000001" value="23.3322" placeholder="e.g. 23.3322"> </label> <label> <span>Longitude</span> <input id="birthLon" type="number" required min="-180" max="180" step="0.000001" value="86.3652" placeholder="e.g. 86.3652"> </label> <label> <span>UTC Offset</span> <select id="utcOffset" required> <option value="5.5" selected>UTC +05:30 — India</option> <option value="0">UTC +00:00</option> <option value="1">UTC +01:00</option> <option value="2">UTC +02:00</option> <option value="3">UTC +03:00</option> <option value="4">UTC +04:00</option> <option value="5">UTC +05:00</option> <option value="5.5">UTC +05:30</option> <option value="6">UTC +06:00</option> <option value="7">UTC +07:00</option> <option value="8">UTC +08:00</option> <option value="9">UTC +09:00</option> <option value="10">UTC +10:00</option> <option value="11">UTC +11:00</option> <option value="12">UTC +12:00</option> <option value="-1">UTC −01:00</option> <option value="-2">UTC −02:00</option> <option value="-3">UTC −03:00</option> <option value="-4">UTC −04:00</option> <option value="-5">UTC −05:00</option> <option value="-6">UTC −06:00</option> <option value="-7">UTC −07:00</option> <option value="-8">UTC −08:00</option> <option value="-9">UTC −09:00</option> <option value="-10">UTC −10:00</option> <option value="-11">UTC −11:00</option> <option value="-12">UTC −12:00</option> </select> </label>
+     </div>
+     <div class="form-actions">
+      <button type="submit" class="primary-btn" id="calculateBtn">🔮 Calculate Kundali</button>
+      <button type="button" class="secondary-btn" id="resetBtn">↺ Reset</button>
+     </div>
+     <div id="formMessage" class="form-message" aria-live="polite"></div>
+    </form>
+    <div id="birthSummary" class="birth-summary">
+     <div class="summary-badge">CURRENT CHART</div>
+     <div id="currentBirthText">30 June 1982 • 19:30:00 IST • Purulia, West Bengal, India</div>
+    </div>
+   </section>
+   <section class="card">
+    <h2>Swiss Ephemeris Engine</h2>
+    <div id="engineStatus">Initializing...</div>
+   </section>
+   <section class="card">
+    <h2>Validated Astronomical Data</h2>
+    <div id="astroData" class="info-grid">Calculating...</div>
+   </section>
+   <section class="card">
+    <h2>🕉️ D1 Rāśi Chart</h2>
+    <div class="chart-title">
+     <strong>North Indian Style — Whole Sign Houses</strong>
+    </div>
+    <div class="chart-container">
+     <svg id="d1Chart" class="chart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="legend">D1 = Rāśi / Birth Chart</div>
+   </section>
+   <section class="card">
+    <h2>D1 Planetary Positions</h2>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>Longitude</th>
+        <th>Sign</th>
+        <th>Degree</th>
+        <th>Nakshatra</th>
+        <th>Pada</th>
+        <th>House</th>
+       </tr>
+      </thead>
+      <tbody id="d1Table"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>🔷 D9 Navāṁśa Chart</h2>
+    <div class="chart-title">
+     <strong>North Indian Style — Whole Sign Houses</strong>
+    </div>
+    <div class="chart-container">
+     <svg id="d9Chart" class="chart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="legend">D9 = Navāṁśa</div>
+   </section>
+   <section class="card">
+    <h2>D9 Navāṁśa Positions</h2>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>D1 Longitude</th>
+        <th>D1 Sign</th>
+        <th>D9 Sign</th>
+        <th>D9 Degree</th>
+        <th>D9 House</th>
+       </tr>
+      </thead>
+      <tbody id="d9Table"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>D9 Summary</h2>
+    <div id="d9Summary" class="info-grid"></div>
+   </section>
+   <section class="card">
+    <h2>⭐ Planetary Dignity</h2>
+    <p class="section-intro">Dignity compares D1 and D9 sign placement using the simplified classical dignity model used by KundaliVeda.</p>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>D1 Sign</th>
+        <th>D1 Dignity</th>
+        <th>D9 Sign</th>
+        <th>D9 Dignity</th>
+       </tr>
+      </thead>
+      <tbody id="dignityTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>💪 D1 + D9 Planetary Strength</h2>
+    <p class="section-intro">Educational comparative indicator based on D1 and D9 sign dignity. This is not a full Shadbala calculation.</p>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>D1 Score</th>
+        <th>D9 Score</th>
+        <th>Combined</th>
+        <th>Assessment</th>
+       </tr>
+      </thead>
+      <tbody id="strengthTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>🔄 Retrograde &amp; Combustion</h2>
+    <p class="section-intro">Retrograde status uses Swiss Ephemeris speed. Combustion uses simplified solar-distance thresholds.</p>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>Speed °/day</th>
+        <th>Motion</th>
+        <th>Sun Distance</th>
+        <th>Rule</th>
+        <th>Status</th>
+       </tr>
+      </thead>
+      <tbody id="motionTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>🔗 Conjunctions</h2>
+    <p class="section-intro">Planets within 10° of each other are listed.</p>
+    <div id="conjunctions"></div>
+   </section>
+   <section class="card">
+    <h2>👁️ Graha Drishti</h2>
+    <p class="section-intro">Classical Vedic planetary aspects. Rahu and Ketu are included with their 7th aspect in this analytical model.</p>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>From House</th>
+        <th>Aspect</th>
+        <th>Target House</th>
+        <th>Planets in Target</th>
+       </tr>
+      </thead>
+      <tbody id="aspectTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>🪷 House &amp; House-Lord Analysis</h2>
+    <p class="section-intro">Whole-sign D1 houses from the sidereal Lagna.</p>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>House</th>
+        <th>Sign</th>
+        <th>House Lord</th>
+        <th>Lord House</th>
+        <th>Occupants</th>
+        <th>Group</th>
+       </tr>
+      </thead>
+      <tbody id="houseTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>✨ Yoga Detection</h2>
+    <div id="yogaResults"></div>
+    <p class="note">Yoga detection is rule-based screening using the definitions shown. Different schools of Vedic astrology may use additional conditions. It should not be treated as a guaranteed prediction.</p>
+   </section>
+   <section class="card">
+    <h2>💰 Finance &amp; Wealth Houses</h2>
+    <div id="financeAnalysis"></div>
+    <p class="note">Astrological interpretation only. This is not financial or investment advice.</p>
+   </section>
+   <section class="card">
+    <h2>💍 Marriage Framework</h2>
+    <div id="marriageAnalysis"></div>
+    <p class="note">This is an educational astrological framework, not a guarantee of marriage timing, spouse characteristics, or relationship outcome.</p>
+   </section>
+   <section class="card">
+    <h2>⏳ Current Vimshottari Dasha</h2>
+    <div id="currentDasha">Calculating...</div>
+   </section>
+   <section class="card">
+    <h2>🔗 Dasha → House &amp; Yoga Connections</h2>
+    <div id="dashaConnections"></div>
+   </section>
+   <section class="card">
+    <h2>Vimshottari Mahadasha</h2>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Planet</th>
+        <th>Duration</th>
+        <th>Start UTC</th>
+        <th>End UTC</th>
+        <th>Start IST</th>
+        <th>End IST</th>
+        <th>Status</th>
+       </tr>
+      </thead>
+      <tbody id="mahadashaTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>Antardasha</h2>
+    <div id="antardashaTitle"></div>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Mahadasha</th>
+        <th>Antardasha</th>
+        <th>Start UTC</th>
+        <th>End UTC</th>
+        <th>Start IST</th>
+        <th>End IST</th>
+        <th>Status</th>
+       </tr>
+      </thead>
+      <tbody id="antardashaTable"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>🔬 V1.12 Validation</h2>
+    <div id="validation" class="validation">Calculating validation...</div>
+   </section>
+   <section class="card">
+    <h2>🧪 Calculation Layer Validation</h2>
+    <div class="table-wrap">
+     <table>
+      <thead>
+       <tr>
+        <th>Calculation</th>
+        <th>Source</th>
+        <th>Method</th>
+        <th>Status</th>
+       </tr>
+      </thead>
+      <tbody id="layerValidation"></tbody>
+     </table>
+    </div>
+   </section>
+   <section class="card">
+    <h2>Technical Notes</h2>
+    <div id="technicalNotes" class="note"></div>
+   </section>
+  </main>
+  <footer>KundaliVeda V1.12 • Swiss Ephemeris • Lahiri Ayanāṁśa</footer>
+  <script type="module">
 
 import SwissEph from
 'https://cdn.jsdelivr.net/gh/prolaxu/swisseph-wasm@v0.1.0/src/swisseph.js';
@@ -1309,7 +1111,7 @@ currentStart=new Date(end.getTime());
 }
 
 
-/* Antardashas */
+/* Antardashas — V1.12 */
 
 for(const maha of mahadashas){
 
@@ -1332,8 +1134,9 @@ const adYears=
 maha.fullYears*
 DASHA_YEARS[adPlanet]/120;
 
-const adEnd=
-addDashaYears(
+const adEnd=(i===8)
+?new Date(maha.end.getTime())
+:addDashaYears(
 adStart,
 adYears
 );
@@ -2114,8 +1917,8 @@ calculation.jd,p
 const retrograde=speed<0;
 
 let distance="—";
-let combustion="—";
-let status="—";
+let combustion="Not applicable";
+let status="N/A";
 
 if(p.key!=="Sun"){
 
@@ -3545,6 +3348,67 @@ dashaData.mahadashas.length===10,
 FLATTENED AD VALIDATION
 ============================================================ */
 
+/* ============================================================
+V1.12 ANTARDASHA INTEGRITY
+============================================================ */
+
+let adIntegrity=true;
+let adIntegrityMessage="10 Mahadashas × 9 ADs; order and boundaries verified";
+
+if(dashaData.mahadashas.length!==10){
+
+adIntegrity=false;
+adIntegrityMessage=`Expected 10 Mahadashas; found ${dashaData.mahadashas.length}`;
+
+}else{
+
+for(const maha of dashaData.mahadashas){
+
+const ads=maha.antardashas||[];
+
+if(ads.length!==9){
+adIntegrity=false;
+adIntegrityMessage=`${maha.planet}: expected 9 ADs; found ${ads.length}`;
+break;
+}
+
+const mi=planetIndex(maha.planet);
+
+if(ads[0].start.getTime()!==maha.start.getTime() ||
+ads[8].end.getTime()!==maha.end.getTime()){
+adIntegrity=false;
+adIntegrityMessage=`${maha.planet}: AD boundary mismatch`;
+break;
+}
+
+for(let i=0;i<9;i++){
+
+const expected=DASHA_SEQUENCE[(mi+i)%9];
+
+if(ads[i].planet!==expected){
+adIntegrity=false;
+adIntegrityMessage=`${maha.planet}: AD order mismatch at position ${i+1}`;
+break;
+}
+
+if(i>0 && ads[i].start.getTime()!==ads[i-1].end.getTime()){
+adIntegrity=false;
+adIntegrityMessage=`${maha.planet}: AD boundary gap/overlap at position ${i+1}`;
+break;
+}
+
+}
+
+if(!adIntegrity)break;
+}
+}
+
+check(
+"V1.12 Antardasha integrity",
+adIntegrity,
+adIntegrityMessage
+);
+
 const allAD=
 dashaData.mahadashas.flatMap(
 m=>m.antardashas||[]
@@ -3560,17 +3424,21 @@ counts[ad.maha]=
 }
 
 const eachNine=
+dashaData.mahadashas.length===10 &&
 dashaData.mahadashas.every(
-m=>counts[m.planet]===9
+m=>(m.antardashas||[]).length===9 &&
+counts[m.planet]===9
 );
 
 const adCountPass=
-allAD.length===90&&eachNine;
+allAD.length===90 &&
+ dashaData.mahadashas.length===10 &&
+eachNine;
 
 check(
 "Antardasha generation",
 adCountPass,
-`${allAD.length} total ADs; 9 per Mahadasha`
+`${allAD.length} total ADs; ${dashaData.mahadashas.length} Mahadashas; ${eachNine?"9 per Mahadasha":"COUNT MISMATCH"}`
 );
 
 
@@ -3846,7 +3714,7 @@ document.getElementById("validation").textContent=
 lines.join("\n");
 
 console.log(
-"KundaliVeda V1.11 Validation"
+"KundaliVeda V1.12 Validation"
 );
 
 console.log(lines.join("\n"));
@@ -4363,6 +4231,5 @@ String(error));
 }
 
 </script>
-
-</body>
-  </html>
+ </body>
+ </html>
